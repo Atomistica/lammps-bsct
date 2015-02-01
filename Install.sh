@@ -3,7 +3,7 @@
 if (test $1 = 2) then
 
     for i in fix_bsct.h fix_bsct.cpp fix_bsct_parameters_t.h pair_coul_cut_bsct.h pair_coul_cut_bsct.cpp pair_coul_long_bsct.h pair_coul_long_bsct.cpp pppm_bsct.h pppm_bsct.cpp ; do
-        diff ../$i $i
+        diff -q ../$i $i
     done
 
 elif (test $1 = 1) then
