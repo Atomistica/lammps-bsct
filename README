@@ -1,0 +1,25 @@
+
+
+*** fix bsct
+
+This package implements the band structure based charge transfer model
+described in Pastewka et al., Phys. Rev. B 83, 165418 (2011), although
+it can also be used for simpler charge transfer schemes.
+
+Note that the kspace package needs to be included and that the GNU
+Scientific Library (GSL) is needed to compile this package.
+
+Further documentation is contained in the doc page for "fix
+bsct" and examples are available under examples/USER/bsct/.
+
+This package was created by Tommi Järvi and Lars Pastewka
+(lars.pastewka@kit.edu).
+
+
+*** Version notes
+
+  * 2011-12-19
+    Initial release of package.
+
+  * 2015-02-01
+    Ported to recent version of LAMMPS.

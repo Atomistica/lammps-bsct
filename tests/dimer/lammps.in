@@ -1,0 +1,48 @@
+# dimer test, C in charge transfer, Li not
+
+# For two atoms with charges +- 0.5 and 3 A distance,
+# energy = -1.2000 eV
+# phi_{+-} = -+ 2.4
+
+# 1 - init general
+
+#processors 1 1 2
+
+units		metal
+atom_style	charge
+
+# 2 - init system
+
+boundary	p p p
+read_data	data
+
+# 3 - init potential
+
+pair_style	coul/cut 10.0
+
+pair_coeff      * *
+
+# 4 - settings
+
+neighbor	1.0 bin
+neigh_modify	delay 0 every 1 check yes
+
+fix		1 all nve
+
+group           g_ct type 1
+
+# BSCT
+fix             ct g_ct bsct  nevery 1  qtot -0.5  log 3  mode 2  history 10 beta 0.1  prec 0.01  max_iter 100  type 1 0.0 8.0 10.0 2.0  coulcut 10.0
+fix_modify	ct energy yes
+
+thermo		1
+thermo_style    custom step temp epair etotal f_ct elong ecoul
+thermo_modify	format float %15.14g
+
+timestep	0.000001
+
+dump            1 all custom 1 custom.dump id q x y z f_ct
+
+# 5 - run
+
+run		15
