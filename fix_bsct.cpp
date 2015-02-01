@@ -648,7 +648,7 @@ void FixBSCT::FixBSCT_fdf(const gsl_vector *x, double *f, gsl_vector *g) {
       pppm->setup();
     }
     else {
-      pppm->recompute_qsums();
+      pppm->qsum_update_flag = 1;
     }
     pcl->set_g_ewald(pppm->g_ewald); 
     pppm->compute(2,0);                    // energy to pppm->energy, including slab correction part

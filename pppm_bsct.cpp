@@ -65,35 +65,6 @@ PPPMBSCT::~PPPMBSCT()
 }
 
 /* ----------------------------------------------------------------------
-    Added to recompute qsum and qsqsum when charges change
-------------------------------------------------------------------------- */
-
-void PPPMBSCT::recompute_qsums()
-{
-  // compute qsum & qsqsum and warn if not charge-neutral
-
-  qsum = qsqsum = 0.0;
-  for (int i = 0; i < atom->nlocal; i++) {
-    qsum += atom->q[i];
-    qsqsum += atom->q[i]*atom->q[i];
-  }
-
-  double tmp;
-  MPI_Allreduce(&qsum,&tmp,1,MPI_DOUBLE,MPI_SUM,world);
-  qsum = tmp;
-  MPI_Allreduce(&qsqsum,&tmp,1,MPI_DOUBLE,MPI_SUM,world);
-  qsqsum = tmp;
-
-  if (qsqsum == 0.0)
-    error->all(FLERR, "Cannot use kspace solver on system with no charge");
-  if (fabs(qsum) > SMALL && me == 0) {
-    char str[128];
-    sprintf(str,"System is not charge neutral, net charge = %g",qsum);
-    error->warning(FLERR, str);
-  }
-}
-
-/* ----------------------------------------------------------------------
    FFT-based Poisson solver
 ------------------------------------------------------------------------- */
 

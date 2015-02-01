@@ -37,7 +37,6 @@ class PPPMBSCT : public PPPM {
   virtual ~PPPMBSCT();
 
   virtual void phi(double *phi);           // Get electrostatic potential (phi)
-  virtual void recompute_qsums();          // Recompute charge sums
 
  protected:
   double ***phi_brick;
