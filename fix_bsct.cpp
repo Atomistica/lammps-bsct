@@ -238,89 +238,24 @@ FixBSCT::FixBSCT(LAMMPS *lmp, int narg, char **arg) : Fix(lmp, narg, arg)
     if(beta_max < beta) beta_max = beta;
   }
 
+  // get Coulomb classes from forces object
 
-  // --- initialize internal Coulomb classes
-
-  if(force->kspace != NULL) {
-    if(comm->me==0) {
-      fprintf(logfile, "Initializing internal pair_style coul/long/bsct and pppm/bsct.\n");
+  if (force->kspace != NULL) {
+    pppm = dynamic_cast<PPPMBSCT*>(force->kspace);
+    if (!pppm) {
+      error->all(FLERR,"Please use kspace_style pppm/bsct.");
     }
-
-    // create pair/coul/long/bsct
-    pcl = new PairCoulLongBSCT(lmp);
-    pcc = NULL;
-
-    // settings for pair/coul/long/bsct
-    {
-      char **temp; // temp input for initializing Coulomb
-      temp = new char * [1];
-      temp[0] = new char [coulcut.size()];
-      strcpy(temp[0], coulcut.c_str());
-      pcl->settings(1, temp);
-      delete [] temp[0];
-      delete [] temp;
-
-      temp = new char * [2];
-      temp[0] = new char [10];
-      temp[1] = new char [10];
-      sprintf(temp[0], "*");
-      sprintf(temp[1], "*");
-      pcl->coeff(2, temp);
-      delete [] temp[0];
-      delete [] temp[1];
-      delete [] temp;
-    }
-
-    // create pppm/bsct and settings
-    {
-      char **temp; // temp input for initializing Coulomb
-      temp = new char * [1];
-      temp[0] = new char [pppmprec.size()];
-      strcpy(temp[0], pppmprec.c_str());
-      pppm = new PPPMBSCT(lmp, 1, temp);
-      delete [] temp[0];
-      delete [] temp;
-
-      if(slab) {
-        temp = new char * [2];
-        temp[0] = new char [10];
-        temp[1] = new char [slab_volfactor.size()];
-        sprintf(temp[0], "slab");
-        strcpy(temp[1], slab_volfactor.c_str());
-        pppm->modify_params(2, temp);
-        delete [] temp[0];
-        delete [] temp[1];
-        delete [] temp;
-      }
+    pcl = dynamic_cast<PairCoulLongBSCT*>(force->pair);
+    if (!pcl) {
+      error->all(FLERR,"Please use pair_style coul/long/bsct.");
     }
   }
   else {
-    if(comm->me==0) {
-      fprintf(logfile, "Initializing internal pair_style coul/cut/bsct.\n");
-    }
-
-    pcc = new PairCoulCutBSCT(lmp);
-    pcl = NULL;
-    pppm = NULL;
-
-    {
-      char **temp; // temp input for initializing Coulomb
-      temp = new char * [1];
-      temp[0] = new char [coulcut.size()];
-      strcpy(temp[0], coulcut.c_str());
-      pcc->settings(1, temp);
-      delete [] temp[0];
-      delete [] temp;
-
-      temp = new char * [2];
-      temp[0] = new char [10];
-      temp[1] = new char [10];
-      sprintf(temp[0], "*");
-      sprintf(temp[1], "*");
-      pcc->coeff(2, temp);
-      delete [] temp[0];
-      delete [] temp[1];
-      delete [] temp;
+    pcc = dynamic_cast<PairCoulCutBSCT*>(force->pair);
+    if (!pcl && !pcc) {
+      error->all(FLERR,"Unsupported pair style. Please use pair_style "
+                 "coul/cut/bsct or kspace_style pppm/bsct and pair_style "
+                 "coul/long/bsct.");
     }
   }
 
@@ -370,10 +305,6 @@ FixBSCT::~FixBSCT()
   }
   nparams = 0;
 
-  if(pcl != NULL) delete pcl;
-  if(pcc != NULL) delete pcc;
-  if(pppm != NULL) delete pppm;
-
   if(phi != NULL) memory->destroy(phi);
 
   atom->delete_callback(id, 0);
@@ -399,10 +330,6 @@ int FixBSCT::setmask()
 
 void FixBSCT::init()
 {
-  // init for internal Coulomb classes
-  if(pcl != NULL) pcl->init();
-  if(pcc != NULL) pcc->init();
-  if(pppm != NULL) pppm->init();
 }
 
 
@@ -413,7 +340,6 @@ void FixBSCT::init()
 void FixBSCT::setup(int vflag)
 {
   // setup for internal Coulomb classes
-  if(pppm != NULL) pppm->setup();
 
   // make sure arrays are resized if necessary
   grow_arrays(atom->nmax);
