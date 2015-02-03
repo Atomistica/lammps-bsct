@@ -65,23 +65,23 @@ namespace LAMMPS_NS {
 class FixBSCT : public Fix {
  public:
     FixBSCT(class LAMMPS *, int, char **);
-    ~FixBSCT();
-    int setmask();
-    void setup_pre_force(int);
-    void pre_force(int);
-    double memory_usage();
-    void setup(int);
-    void init();
-    void grow_arrays(int);
-    void copy_arrays(int, int);
-    void set_arrays(int);
-    int pack_exchange(int, double *);
-    int unpack_exchange(int, double *);
-    int pack_forward_comm(int, int *, double *, int, int *);
-    void unpack_forward_comm(int, int, double *);
-    int pack_reverse_comm(int, int, double *);
-    void unpack_reverse_comm(int, int *, double *);
-    double compute_scalar();
+    virtual ~FixBSCT();
+    virtual int setmask();
+    virtual void setup_pre_force(int);
+    virtual void pre_force(int);
+    virtual double memory_usage();
+    virtual void setup(int);
+    virtual void init();
+    virtual void grow_arrays(int);
+    virtual void copy_arrays(int, int, int);
+    virtual void set_arrays(int);
+    virtual int pack_exchange(int, double *);
+    virtual int unpack_exchange(int, double *);
+    virtual int pack_forward_comm(int, int *, double *, int, int *);
+    virtual void unpack_forward_comm(int, int, double *);
+    virtual int pack_reverse_comm(int, int, double *);
+    virtual void unpack_reverse_comm(int, int *, double *);
+    virtual double compute_scalar();
 
   private:
     // per-atom arrays
