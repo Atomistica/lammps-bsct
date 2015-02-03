@@ -652,14 +652,21 @@ void FixBSCT::FixBSCT_fdf(const gsl_vector *x, double *f, gsl_vector *g) {
       error->all(FLERR, "fix bsct: Bug: Internal coul/long/bsct not setup correctly.");
     }
 
-    pppm->init();
-    pppm->setup();
-
-    pcl->reset_g_ewald();
-    pcl->compute(1,0);                     // 3 = global and local energies
+    // Need to update g_ewald and PPPM settings when charges change.
+    // The frequency here is pretty arbitrary, but needs to happen every once in
+    // a while to avoid PPPM from accumulating large errors.
+    if(iter == -1 || iter%initfrec == 0) {
+      pppm->init();
+      pppm->setup();
+      pcl->reset_g_ewald();
+    }
+    else {
+      pppm->qsum_qsq();
+    }
+   
+    //pcl->compute(3,0);                   // not needed here because phi computes energy
     pcl->phi(ecoul, phi);                  // short range Coulombics
-    //pppm->qsum_update_flag = 1;
-    //pppm->compute(3,0);                    // energy to pppm->energy, including slab correction part
+    pppm->compute(3,0);                    // energy to pppm->energy, including slab correction part
     pppm->phi(phi);                        // potential contribution to phi (including slab correction)
   }
   else {
@@ -667,7 +674,7 @@ void FixBSCT::FixBSCT_fdf(const gsl_vector *x, double *f, gsl_vector *g) {
       error->all(FLERR, "fix bsct: Bug: Internal coul/cut/bsct not setup correctly.");
     }
 
-    //pcc->compute(3,0);
+    //pcc->compute(3,0);             // not needed here because phi computes energy
     pcc->phi(ecoul, phi);            // short range Coulombics
   }
 
