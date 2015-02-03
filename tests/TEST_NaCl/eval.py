@@ -4,8 +4,6 @@ from StringIO import StringIO
 
 import numpy as np
 
-import ase.io as io
-
 ###
 
 def loadstate(logfn, dumpfn):
