@@ -42,7 +42,7 @@ fix             1 all deform 1 x final 0 10 y final 0 10 z final 0 10 units box
 # BSCT
 #fix             ct all addforce 0 0 0
 #fix_modify      ct energy yes
-fix             ct all bsct  log 3  mode 2  history 10  beta 0.1  prec 0.0000001  coulcut 5.0  pppmprec 1.0e-8  max_iter 100  type 1 -1.084 5.0 5.0 2.0  type 2 1.084 5.0 5.0 2.0
+fix             ct all bsct  log 3  mode 2  history 10  beta 0.1  prec 0.0000001  max_iter 100  type 1 -1.084 5.0 5.0 2.0  type 2 1.084 5.0 5.0 2.0
 fix_modify      ct energy yes
 
 thermo          1

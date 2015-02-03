@@ -76,11 +76,6 @@ FixBSCT::FixBSCT(LAMMPS *lmp, int narg, char **arg) : Fix(lmp, narg, arg)
   beta_max = 0.1;             // And: max for beta
   beta_mul = 1.0;             // And: increase factor
 
-  bool slab = false;          // slab calculation requested?
-  std::string slab_volfactor;      // slab_volfactor for pppm
-  std::string pppmprec = "1.0e-4"; // Internal PPPM precision
-  std::string coulcut = "10.0";    // Internal Coulomb cutoff
-
   // --- allocate and reset parameter array
 
   // allocate
@@ -205,25 +200,6 @@ FixBSCT::FixBSCT(LAMMPS *lmp, int narg, char **arg) : Fix(lmp, narg, arg)
         iarg++;
       }
 
-      else if(strcmp(arg[iarg],"slab")==0) {
-        if(narg < iarg + 2) error->all(FLERR, "Illegal fix bsct command");
-        slab_volfactor = arg[iarg + 1];
-        slab = true;
-        iarg += 2;
-      }
-
-      else if(strcmp(arg[iarg],"pppmprec")==0) {
-        if(narg < iarg + 2) error->all(FLERR, "Illegal fix bsct command");
-        pppmprec = arg[iarg + 1];
-        iarg += 2;
-      }
-
-      else if(strcmp(arg[iarg],"coulcut")==0) {
-        if(narg < iarg + 2) error->all(FLERR, "Illegal fix bsct command");
-        coulcut = arg[iarg + 1];
-        iarg += 2;
-      }
-
       else {
         error->all(FLERR, "Illegal fix bsct command");
       }
@@ -268,9 +244,6 @@ FixBSCT::FixBSCT(LAMMPS *lmp, int narg, char **arg) : Fix(lmp, narg, arg)
     fprintf(logfile, "  Logging level (0-3)  = %d\n", log);
     fprintf(logfile, "  Total charge = %f\n", qtot);
     fprintf(logfile, "  Convergence criterion for |dG/dq_i| = %f\n", dGimax);
-    if(pppm != NULL) fprintf(logfile, "  PPPM accurafy = %s\n", pppmprec.c_str());
-    if(slab) fprintf(logfile, "  PPPM slab correction width = %s\n", slab_volfactor.c_str());
-    fprintf(logfile, "  Short-range Coulomb cutoff = %s\n", coulcut.c_str());
     fprintf(logfile, "  Convergence criterion for |dG/dq_i| = %f\n", dGimax);
     fprintf(logfile, "  Anderson mixing options:\n");
     fprintf(logfile, "    Mode = %d\n", anderson_mode);
