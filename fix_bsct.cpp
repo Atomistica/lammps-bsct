@@ -354,6 +354,20 @@ void FixBSCT::setup(int vflag)
 
 
 /* ----------------------------------------------------------------------
+   Setup pre-force
+------------------------------------------------------------------------- */
+
+void FixBSCT::setup_pre_force(int vflag)
+{
+  // update charges
+  update_charges_anderson();
+
+  // update kspace if needed
+  update_kspace();
+}
+
+
+/* ----------------------------------------------------------------------
    Pre-force
 ------------------------------------------------------------------------- */
 
@@ -507,10 +521,10 @@ void FixBSCT::get_lambda() {
           double p = params[itype].p;
 
           // f(lambda)
-          flam += nextq(atom->q[i], this->phi[i], lambda, X, U, V, p);
+          flam += nextq(atom->q[i], phi[i], lambda, X, U, V, p);
 
           // f'(lambda)
-          temp = this->phi[i] + U*atom->q[i] + X + lambda;
+          temp = phi[i] + U*atom->q[i] + X + lambda;
           if(temp > 0.0) s = 1.0;
           else s = -1.0;
           temp = fabs(temp);
@@ -566,7 +580,7 @@ void FixBSCT::get_lambda() {
 
         // sum sum1, sum2 for lambda
         sum1 += 1/U;  // lambda
-        sum2 += (s*(p*V/2.0)*pow(fabs(atom->q[i]),p-1.0) + this->phi[i] + X)/U;  // lambda
+        sum2 += (s*(p*V/2.0)*pow(fabs(atom->q[i]),p-1.0) + phi[i] + X)/U;  // lambda
       }
     }
 
@@ -630,9 +644,7 @@ void FixBSCT::FixBSCT_fdf(const gsl_vector *x, double *f, gsl_vector *g) {
 
   // reset energy, phi
   ecoul = 0.0;
-  for(i=0;i<atom->nlocal + atom->nghost;i++) {
-    this->phi[i] = 0.0;
-  }
+  std::fill(phi, phi+atom->nlocal+atom->nghost, 0.0);
 
   // calculate new potential
   if(pppm != NULL) {
@@ -640,46 +652,39 @@ void FixBSCT::FixBSCT_fdf(const gsl_vector *x, double *f, gsl_vector *g) {
       error->all(FLERR, "fix bsct: Bug: Internal coul/long/bsct not setup correctly.");
     }
 
-    // The frequency here is pretty arbitrary and the whole thing
-    // could be cleanup up: Anyway, need to update g_ewald and PPPM
-    // settings when charges change.
-    if(iter == -1 || iter%initfrec==0) {
-      pppm->init();
-      pppm->setup();
-    }
-    else {
-      pppm->qsum_update_flag = 1;
-    }
-    pcl->set_g_ewald(pppm->g_ewald); 
-    pppm->compute(2,0);                    // energy to pppm->energy, including slab correction part
-    pppm->phi(this->phi);                  // potential contribution to phi (including slab correction)
-    pcl->phi(ecoul, this->phi);            // short range Coulombics
+    pppm->init();
+    pppm->setup();
+
+    pcl->reset_g_ewald();
+    pcl->compute(1,0);                     // 3 = global and local energies
+    pcl->phi(ecoul, phi);                  // short range Coulombics
+    //pppm->qsum_update_flag = 1;
+    //pppm->compute(3,0);                    // energy to pppm->energy, including slab correction part
+    pppm->phi(phi);                        // potential contribution to phi (including slab correction)
   }
   else {
     if(pcc==NULL) {
       error->all(FLERR, "fix bsct: Bug: Internal coul/cut/bsct not setup correctly.");
     }
 
-    pcc->phi(ecoul, this->phi);            // short range Coulombics
+    //pcc->compute(3,0);
+    pcc->phi(ecoul, phi);            // short range Coulombics
   }
 
-  // Get potential (phi) from all nodes, sum short range Coulomb part
-  // and get total Coulomb energy.
+  // Get potential (phi) from all nodes
   comm->reverse_comm_fix(this);
-  {
-    double temp;
-    MPI_Allreduce(&ecoul, &temp, 1, MPI_DOUBLE, MPI_SUM, world);
-    ecoul = temp;
-  }
-  if(pppm != NULL) {
-    ecoul += pppm->energy;
-  }
+
+  // sum short range Coulomb part and get total Coulomb energy.
+  double temp;
+  MPI_Allreduce(&ecoul, &temp, 1, MPI_DOUBLE, MPI_SUM, world);
+  ecoul = temp;
+  if(pppm != NULL) ecoul += pppm->energy;
 
   // debug: Output Coulomb energy
   if(plog >= 3) {
     if(log >= 3) {
       if(pppm != NULL) {
-        fprintf(logfile, "FixBSCT_fdf: short- and long-range Coulomb energies: %f %f\n", ecoul - pppm->energy, pppm->energy);
+        fprintf(logfile, "FixBSCT_fdf: short-, long-range and total Coulomb energies: %f %f\n", ecoul - pppm->energy, pppm->energy, ecoul);
       }
       else {
         fprintf(logfile, "FixBSCT_fdf: Coulomb energy: %f\n", ecoul);
@@ -690,7 +695,7 @@ void FixBSCT::FixBSCT_fdf(const gsl_vector *x, double *f, gsl_vector *g) {
     double sum = 0.0;
     double gsum;
     for(i=0; i<atom->nlocal; i++) {
-      sum += atom->q[i]*this->phi[i];
+      sum += atom->q[i]*phi[i];
     }
     MPI_Allreduce(&sum, &gsum, 1, MPI_DOUBLE, MPI_SUM, world);
     if(log >=3) fprintf(logfile, "FixBSCT_fdf: Coulomb energy from sum of q*phi: %f\n", 0.5*gsum);
@@ -722,7 +727,7 @@ void FixBSCT::FixBSCT_fdf(const gsl_vector *x, double *f, gsl_vector *g) {
       // gradient
       if(atom->q[i] < 0.0) s = -1.0;
       else s = 1.0;
-      gsl_vector_set(g, nand, s*(p*V/2)*pow(fabs(atom->q[i]),p-1) + this->phi[i] + U*atom->q[i] + X);  // dG/dq_i without lambda
+      gsl_vector_set(g, nand, s*(p*V/2)*pow(fabs(atom->q[i]),p-1) + phi[i] + U*atom->q[i] + X);  // dG/dq_i without lambda
 
       // sum energy and sum1, sum2 for lambda
       esum += (V/2)*pow(fabs(atom->q[i]),p) + (U/2)*atom->q[i]*atom->q[i] + atom->q[i]*X;  // energy
@@ -908,7 +913,7 @@ void FixBSCT::update_charges_anderson()
     for(i=0; i<atom->nlocal; i++) {
       if(atom->mask[i] & groupbit) {
         if(fabs(atom->q[i]) > qmax) qmax = fabs(atom->q[i]);
-        if(fabs(this->phi[i]) > phimax) phimax = fabs(this->phi[i]);
+        if(fabs(phi[i]) > phimax) phimax = fabs(phi[i]);
       }
     }
     MPI_Allreduce(&qmax, &temp, 1, MPI_DOUBLE, MPI_MAX, world);
@@ -933,7 +938,7 @@ void FixBSCT::update_charges_anderson()
         double V = params[atom->type[i]].V;
         double p = params[atom->type[i]].p;
 
-        gsl_vector_set(gsl_g, nand, nextq(atom->q[i], this->phi[i], lambda, X, U, V, p));
+        gsl_vector_set(gsl_g, nand, nextq(atom->q[i], phi[i], lambda, X, U, V, p));
         nand++;
       }
     }
@@ -1144,17 +1149,13 @@ int FixBSCT::unpack_exchange(int nlocal, double *buf)
    Forward communication: Charges (from Atom)
    ---------------------------------------------------------------------- */
 
-int FixBSCT::pack_comm(int n, int *list, double *buf,
-                       int pbc_flag, int *pbc)
+int FixBSCT::pack_forward_comm(int n, int *list, double *buf, int pbc_flag,
+                               int *pbc)
 {
-  int i,j,m;
-
-  m = 0;
-  for (i = 0; i < n; i++) {
-    j = list[i];
-    buf[m++] = atom->q[j];
+  for (int i = 0; i < n; i++) {
+    buf[i] = atom->q[list[i]];
   }
-  return 1;
+  return n;
 }
 
 
@@ -1162,7 +1163,7 @@ int FixBSCT::pack_comm(int n, int *list, double *buf,
    Forward communication: unpack
    ---------------------------------------------------------------------- */
 
-void FixBSCT::unpack_comm(int n, int first, double *buf)
+void FixBSCT::unpack_forward_comm(int n, int first, double *buf)
 {
   int i,m,last;
 
@@ -1185,9 +1186,9 @@ int FixBSCT::pack_reverse_comm(int n, int first, double *buf)
   m = 0;
   last = first + n;
   for (i = first; i < last; i++) {
-    buf[m++] = this->phi[i];
+    buf[m++] = phi[i];
   }
-  return 1;
+  return m;
 }
 
 
@@ -1197,11 +1198,7 @@ int FixBSCT::pack_reverse_comm(int n, int first, double *buf)
 
 void FixBSCT::unpack_reverse_comm(int n, int *list, double *buf)
 {
-  int i,j,m;
-
-  m = 0;
-  for (i = 0; i < n; i++) {
-    j = list[i];
-    this->phi[j] += buf[m++];
+  for (int i = 0; i < n; i++) {
+    phi[list[i]] += buf[i];
   }
 }
