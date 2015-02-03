@@ -54,6 +54,8 @@ FixBSCT::FixBSCT(LAMMPS *lmp, int narg, char **arg) : Fix(lmp, narg, arg)
   scalar_flag = 1;                    // compute_scalar() exists and calculates BSCT energy
   extscalar = 1;                      // scalar is extensive (not intensive)
   global_freq = 1;                    // scalar available every timestep
+  comm_forward = 1;                   // we communicate the charge
+  comm_reverse = 1;                   // we communicate the potential
 
   // allocate internal per-atom arrays
   // (also setup() allocates these, but needed here too)
