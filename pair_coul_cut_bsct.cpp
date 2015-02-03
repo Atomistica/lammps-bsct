@@ -70,13 +70,15 @@ void PairCoulCutBSCT::phi(double &ecoultot, double *phi)
 
     for (jj = 0; jj < jnum; jj++) {
       j = jlist[jj];
-
+      factor_coul = special_coul[sbmask(j)];
+      j &= NEIGHMASK;
+/*
       if (j < nall) factor_coul = 1.0;
       else {
-	factor_coul = special_coul[j/nall];
-	j %= nall;
+        factor_coul = special_coul[j/nall];
+        j %= nall;
       }
-
+*/
       delx = xtmp - x[j][0];
       dely = ytmp - x[j][1];
       delz = ztmp - x[j][2];
@@ -84,35 +86,35 @@ void PairCoulCutBSCT::phi(double &ecoultot, double *phi)
       jtype = type[j];
 
       if (rsq < cutsq[itype][jtype]) {
-	r2inv = 1.0/rsq;
-	rinv = sqrt(r2inv);
-	forcecoul = qqrd2e * scale[itype][jtype] * qtmp*q[j]*rinv;
-	fpair = factor_coul*forcecoul * r2inv;
+        r2inv = 1.0/rsq;
+        rinv = sqrt(r2inv);
+        forcecoul = qqrd2e * scale[itype][jtype] * qtmp*q[j]*rinv;
+        fpair = factor_coul*forcecoul * r2inv;
 
-	// Tommi
-	phiprefactor = qqrd2e*rinv;
-	phii = factor_coul*phiprefactor*q[j];
-	phij = factor_coul*phiprefactor*qtmp;
+        // Tommi
+        phiprefactor = factor_coul * qqrd2e * scale[itype][jtype] * rinv;
+        phii = phiprefactor*q[j];
+        phij = phiprefactor*qtmp;
 
-	ecoul = factor_coul * qqrd2e * scale[itype][jtype] * qtmp*q[j]*rinv;
+        ecoul = phiprefactor * qtmp*q[j];
 
-	// accumulate phi
-	phi[i] += phii;
-	if (newton_pair || j < nlocal) phi[j] += phij;
+        // accumulate phi
+        phi[i] += phii;
+        if (newton_pair || j < nlocal) phi[j] += phij;
 
-	// accumulate total electrostatic energy
-	//   - adapted from Pair::ev_tally()
-	if (newton_pair) {
-	  ecoultot += ecoul;
-	}
-	else {
-	  if (i < nlocal) {
-	    ecoultot += ecoul*0.5;
-	  }
-	  if (j < nlocal) {
-	    ecoultot += ecoul*0.5;
-	  }
-	}
+        // accumulate total electrostatic energy
+        //   - adapted from Pair::ev_tally()
+        if (newton_pair) {
+          ecoultot += ecoul;
+        }
+        else {
+          if (i < nlocal) {
+            ecoultot += ecoul*0.5;
+          }
+          if (j < nlocal) {
+            ecoultot += ecoul*0.5;
+          }
+        }
       }
 
     }
