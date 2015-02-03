@@ -4,7 +4,19 @@ from StringIO import StringIO
 
 import numpy as np
 
-import ase.io as io
+###
+
+def loaddump(fn, col):
+	data = []
+	f = open(fn)
+	l = f.readline()
+	while l:
+		for i in range(9):
+			l = f.readline()
+		for i in range(2):
+			data += [float(l.split()[col])]
+			l = f.readline()
+	return np.array(data)
 
 ###
 
@@ -19,9 +31,12 @@ while l.split()[0] != 'Loop':
     l = f.readline()
 step, ect, ecoul, etot = np.loadtxt(StringIO(s.getvalue()), usecols=[0, 4, 6, 3], unpack=True)
 step = np.array(step, dtype=int)
-dist = np.array([io.read('dump.custom', index=i).get_distance(0, 1) for i in step])
-charges1 = np.array([io.read('dump.custom', index=i).get_array('charges')[0] for i in step])
-charges2 = np.array([io.read('dump.custom', index=i).get_array('charges')[1] for i in step])
+types = np.array(loaddump('dump.custom', 1), dtype=int)
+z = loaddump('dump.custom', 4)
+dist = z[types==2]-z[types==1]
+charges = loaddump('dump.custom', 5)
+charges1 = charges[types==1]
+charges2 = charges[types==2]
 
 ###
 
@@ -57,4 +72,4 @@ assert np.all(np.abs(ect-ect_check) < 1e-3)
 
 charges_check = X/(1.0/dist-U-V)
 
-assert np.all(np.abs(charges1-charges_check))
+assert np.all(np.abs(charges1-charges_check) < 1e-3)
