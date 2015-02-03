@@ -663,7 +663,7 @@ void FixBSCT::FixBSCT_fdf(const gsl_vector *x, double *f, gsl_vector *g) {
     else {
       pppm->qsum_qsq();
     }
-   
+
     //pcl->compute(3,0);                   // not needed here because phi computes energy
     pcl->phi(ecoul, phi);                  // short range Coulombics
     pppm->compute(3,0);                    // energy to pppm->energy, including slab correction part
@@ -691,7 +691,7 @@ void FixBSCT::FixBSCT_fdf(const gsl_vector *x, double *f, gsl_vector *g) {
   if(plog >= 3) {
     if(log >= 3) {
       if(pppm != NULL) {
-        fprintf(logfile, "FixBSCT_fdf: short-, long-range and total Coulomb energies: %f %f\n", ecoul - pppm->energy, pppm->energy, ecoul);
+        fprintf(logfile, "FixBSCT_fdf: short-, long-range and total Coulomb energies: %f %f %f\n", ecoul - pppm->energy, pppm->energy, ecoul);
       }
       else {
         fprintf(logfile, "FixBSCT_fdf: Coulomb energy: %f\n", ecoul);
