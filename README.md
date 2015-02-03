@@ -1,15 +1,15 @@
-USER-BSCT
-=========
+LAMMPS-BSCT
+===========
 
 The files in this directory are a user-contributed package for LAMMPS.
 
 This package was created by Tommi Järvi and Lars Pastewka. Please contact Lars
 Pastewka (lars.pastewka@kit.edu) for questions and suggestions.
 
-Lars Pastewka
-Institute for Applied Materials (IAM)
-Karlsruhe Institute of Technology (KIT)
-Kaiserstraße 12, 76131 Karlsruhe
+Lars Pastewka 
+Karlsruhe Institute of Technology (KIT) 
+Institute for Applied Materials (IAM) 
+Kaiserstraße 12, 76131 Karlsruhe 
 e-mail: lars.pastewka@kit.edu
 
 PACKAGE DESCRIPTION
@@ -17,12 +17,14 @@ PACKAGE DESCRIPTION
 
 This is a LAMMPS (http://lammps.sandia.gov/) fix style implementing the band
 structure based charge transfer model described in Pastewka et al., Phys. Rev. B
-83, 165418 (2011) (http://dx.doi.org/). It can also be used for simpler charge
+83, 165418 (2011) (http://dx.doi.org/10.1103/PhysRevB.83.165418). It can also be used for simpler charge
 transfer schemes.
 
 It is necessary to use the provided Coulomb styles. Syntax:
 
-> pair_style cout/cut/bsct cutoff  
+> pair_style cout/cut/bsct cutoff
+
+Or:
 
 > pair_style coul/long/bsct cutoff  
 > pair_coeff * *  
@@ -42,6 +44,10 @@ E = E_coul + sum_i ( X*q_i + 0.5*U*q_i**2 + V*q_i**p ),
 
 where E_coul is the Coulomb interaction energy of the full system. The parametrs
 X, V, U and p must be given for each atom type.
+
+Example:
+
+> fix 1 all bsct type 1 1.0 2.0 2.0 2.0 type 2 -1.0 2.0 2.0 2.0
 
 In addition, the fix takes optional keywords.
 
@@ -64,6 +70,11 @@ keyword = nevery or prec or max_iter or qtot or history or beta or beta_mul or b
 INSTALLATION
 ------------
 
+In your LAMMPS src directory type:
+
+> git clone https://github.com/Atomistica/lammps-bsct.git USER-BSCT  
+> make yes-user-bsct
+
 Note that the kspace package needs to be included and that the GNU
 Scientific Library (GSL) is needed to compile this package.
 
@@ -74,8 +85,8 @@ parameter.
 OTHER NOTES
 -----------
 
-* 2011-12-19 
+* 2011-12-19  
   Initial release of package.
 
-* 2015-02-03 
+* 2015-02-03  
   Ported to recent (30 Jan 2015) version of LAMMPS.
