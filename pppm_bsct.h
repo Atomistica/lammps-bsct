@@ -39,13 +39,6 @@ class PPPMBSCT : public PPPM {
   virtual void phi(FFT_SCALAR *phi);           // Get electrostatic potential (phi)
 
  protected:
-  FFT_SCALAR ***phi_brick;
-
-  virtual void allocate_peratom();
-  virtual void deallocate_peratom();
-
-  virtual void poisson_peratom();
-
   virtual void phi_slabcorr(FFT_SCALAR *phi);  // Get slab correction to phi
 };
 

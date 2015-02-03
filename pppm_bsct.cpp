@@ -48,8 +48,6 @@ using namespace LAMMPS_NS;
 using namespace MathConst;
 using namespace MathSpecial;
 
-#define SMALL 0.00001
-
 /* ---------------------------------------------------------------------- */
 
 PPPMBSCT::PPPMBSCT(LAMMPS *lmp, int narg, char **arg) : PPPM(lmp, narg, arg)
@@ -62,23 +60,6 @@ PPPMBSCT::PPPMBSCT(LAMMPS *lmp, int narg, char **arg) : PPPM(lmp, narg, arg)
 
 PPPMBSCT::~PPPMBSCT()
 {
-}
-
-/* ----------------------------------------------------------------------
-   FFT-based Poisson solver
-------------------------------------------------------------------------- */
-
-void PPPMBSCT::poisson_peratom()
-{
-  PPPM::poisson_peratom();
-
-  int i,j,k;
-
-  for (k = nzlo_in; k <= nzhi_in; k++)
-    for (j = nylo_in; j <= nyhi_in; j++)
-      for (i = nxlo_in; i <= nxhi_in; i++) {
-        phi_brick[k][j][i] = u_brick[k][j][i];
-      }
 }
 
 /* ----------------------------------------------------------------------
@@ -165,27 +146,4 @@ void PPPMBSCT::phi_slabcorr(double *phi)
   for (int i = 0; i < nlocal; i++) {
     phi[i] += qqrd2e*(-ffact)*atom->x[i][2];
   }
-}
-
-/* ----------------------------------------------------------------------
-   allocate per-atom memory that depends on # of K-vectors and order
-------------------------------------------------------------------------- */
-
-void PPPMBSCT::allocate_peratom()
-{
-  PPPM::allocate_peratom();
-
-  memory->create3d_offset(phi_brick,nzlo_out,nzhi_out,nylo_out,nyhi_out,
-                          nxlo_out,nxhi_out,"pppm:phi_brick");
-}
-
-/* ----------------------------------------------------------------------
-   deallocate per-atom memory that depends on # of K-vectors and order
-------------------------------------------------------------------------- */
-
-void PPPMBSCT::deallocate_peratom()
-{
-  PPPM::deallocate_peratom();
-
-  memory->destroy3d_offset(phi_brick,nzlo_out,nylo_out,nxlo_out);
 }
