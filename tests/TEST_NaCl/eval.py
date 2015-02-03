@@ -4,8 +4,6 @@ from StringIO import StringIO
 
 import numpy as np
 
-import ase.io as io
-
 ###
 
 def loadstate(logfn, dumpfn):
@@ -45,7 +43,7 @@ for a0 in [3.0, 4.0, 5.0, 7.0, 10.0]:
 
     # Charges should have equal magnitude but opposite sign
 
-    assert np.all(np.abs(charges1+charges2) < 1e-3)
+    assert np.all(np.abs(charges1+charges2) < 1e-6)
 
     # Check Coulomb energy
 
@@ -56,7 +54,7 @@ for a0 in [3.0, 4.0, 5.0, 7.0, 10.0]:
     if verbose:
         print 'Coulomb energy error:', (ecoul+elong-ecoul_check)/ecoul_check
 
-    assert abs(ecoul+elong-ecoul_check) < 1e-3
+    assert abs(ecoul+elong-ecoul_check) < 1e-5
 
     # Check energy from charge-transfer model
 
@@ -68,7 +66,7 @@ for a0 in [3.0, 4.0, 5.0, 7.0, 10.0]:
     if verbose:
         print 'CT energy error:', (ect-ect_check)/ect_check
 
-    assert abs(ect-ect_check) < 1e-4
+    assert abs(ect-ect_check) < 1e-6
 
     # Check charges
     # Total energy:    -q**2*M/r0 - X*q + 0.5*(U+V)*q**2
@@ -79,4 +77,4 @@ for a0 in [3.0, 4.0, 5.0, 7.0, 10.0]:
 
     if verbose:
         print 'Charge error:', abs(charge-charge_check)/charge_check
-    assert abs(charge-charge_check) < 0.01
+    assert abs(charge-charge_check) < 1e-6

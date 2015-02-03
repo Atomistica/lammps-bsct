@@ -1085,7 +1085,7 @@ void FixBSCT::grow_arrays(int nmax)
    Copy values within local atom-based arrays
    ---------------------------------------------------------------------- */
 
-void FixBSCT::copy_arrays(int i, int j)
+void FixBSCT::copy_arrays(int i, int j, int delflag)
 {
   phi[j] = phi[i];
 }

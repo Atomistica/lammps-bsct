@@ -48,8 +48,6 @@ using namespace LAMMPS_NS;
 using namespace MathConst;
 using namespace MathSpecial;
 
-#define SMALL 0.00001
-
 /* ---------------------------------------------------------------------- */
 
 PPPMBSCT::PPPMBSCT(LAMMPS *lmp, int narg, char **arg) : PPPM(lmp, narg, arg)
@@ -65,32 +63,15 @@ PPPMBSCT::~PPPMBSCT()
 }
 
 /* ----------------------------------------------------------------------
-   FFT-based Poisson solver
-------------------------------------------------------------------------- */
-
-void PPPMBSCT::poisson_peratom()
-{
-  PPPM::poisson_peratom();
-
-  int i,j,k;
-
-  for (k = nzlo_in; k <= nzhi_in; k++)
-    for (j = nylo_in; j <= nyhi_in; j++)
-      for (i = nxlo_in; i <= nxhi_in; i++) {
-        phi_brick[k][j][i] = u_brick[k][j][i];
-      }
-}
-
-/* ----------------------------------------------------------------------
    Return electrostatic potential (Compute has to have been run
    prior to this as the actual computation is done there. This only
    extracts the potential from the internal arrays.)
 ------------------------------------------------------------------------- */
 
-void PPPMBSCT::phi(double *phi)
+void PPPMBSCT::phi(FFT_SCALAR *phi)
 {
   int i,l,m,n,nx,ny,nz,mx,my,mz;
-  double dx,dy,dz,x0,y0,z0;
+  FFT_SCALAR dx,dy,dz,x0,y0,z0;
 
   // loop over my charges, interpolate electric field from nearby grid points
   // (nx,ny,nz) = global coords of grid pt to "lower left" of charge
@@ -102,6 +83,8 @@ void PPPMBSCT::phi(double *phi)
   double **f = atom->f;
 
   int nlocal = atom->nlocal;
+
+  const double qscale = qqrd2e * scale;
 
   for (i = 0; i < nlocal; i++) {
     nx = part2grid[i][0];
@@ -122,10 +105,14 @@ void PPPMBSCT::phi(double *phi)
         for (l = nlower; l <= nupper; l++) {
           mx = l+nx;
           x0 = y0*rho1d[0][l];
-          phi[i] += qqrd2e*x0*phi_brick[mz][my][mx];  // BSCT: +? qqrd2e?
+          phi[i] += qscale*x0*u_brick[mz][my][mx];
         }
       }
     }
+  }
+
+  for (i = 0; i < nlocal; i++) {
+    phi[i] -= 2*qscale*(g_ewald*q[i]/MY_PIS + MY_PI2*qsum / (g_ewald*g_ewald*volume));
   }
 
   // slab correction
@@ -159,27 +146,4 @@ void PPPMBSCT::phi_slabcorr(double *phi)
   for (int i = 0; i < nlocal; i++) {
     phi[i] += qqrd2e*(-ffact)*atom->x[i][2];
   }
-}
-
-/* ----------------------------------------------------------------------
-   allocate per-atom memory that depends on # of K-vectors and order
-------------------------------------------------------------------------- */
-
-void PPPMBSCT::allocate_peratom()
-{
-  PPPM::allocate_peratom();
-
-  memory->create3d_offset(phi_brick,nzlo_out,nzhi_out,nylo_out,nyhi_out,
-                          nxlo_out,nxhi_out,"pppm:phi_brick");
-}
-
-/* ----------------------------------------------------------------------
-   deallocate per-atom memory that depends on # of K-vectors and order
-------------------------------------------------------------------------- */
-
-void PPPMBSCT::deallocate_peratom()
-{
-  PPPM::deallocate_peratom();
-
-  memory->destroy3d_offset(phi_brick,nzlo_out,nylo_out,nxlo_out);
 }

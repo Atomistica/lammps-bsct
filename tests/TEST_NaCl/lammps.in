@@ -29,7 +29,7 @@ set             group g_Cl charge 0.5
 pair_style      coul/long/bsct 7.0
 #pair_style      coul/cut/bsct 5.0
 pair_coeff      * *
-#pair_modify     table 0
+pair_modify     table 0
 kspace_style    pppm/bsct 1.0e-4
 
 # 4 - settings
