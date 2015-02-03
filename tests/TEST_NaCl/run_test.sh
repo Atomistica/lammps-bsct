@@ -1,6 +1,6 @@
 #! /bin/sh
 
-if [ -z "$@" ]; then
+if [ -z "$1" ]; then
 	echo "Syntax: run_test.sh <LAMMPS-executable>"
 	exit 999
 fi
