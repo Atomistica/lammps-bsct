@@ -31,10 +31,13 @@ U = 5.0
 V = 5.0
 p = 2
 
+verbose = False
+
 ###
 
 for a0 in [3.0, 4.0, 5.0, 7.0, 10.0]:
-    print '=== log.lammps.{}, dump.custom.{} ==='.format(a0, a0)
+    if verbose:
+        print '=== log.lammps.{}, dump.custom.{} ==='.format(a0, a0)
 
     lx, ect, ecoul, elong, types, charges = loadstate('log.lammps.{}'.format(a0), 'dump.custom.{}'.format(a0))
     charges1 = charges[types==1]
@@ -50,7 +53,8 @@ for a0 in [3.0, 4.0, 5.0, 7.0, 10.0]:
     charge = np.mean(charges1-charges2)/2
     ecoul_check = -charge**2/r0 * M * nat
 
-    print 'Coulomb energy error:', (ecoul+elong-ecoul_check)/ecoul_check
+    if verbose:
+        print 'Coulomb energy error:', (ecoul+elong-ecoul_check)/ecoul_check
 
     assert abs(ecoul+elong-ecoul_check) < 1e-3
 
@@ -61,7 +65,8 @@ for a0 in [3.0, 4.0, 5.0, 7.0, 10.0]:
     ect_check += 0.5*V*charge**p
     ect_check *= nat
 
-    print 'CT energy error:', (ect-ect_check)/ect_check
+    if verbose:
+        print 'CT energy error:', (ect-ect_check)/ect_check
 
     assert abs(ect-ect_check) < 1e-4
 
@@ -72,5 +77,6 @@ for a0 in [3.0, 4.0, 5.0, 7.0, 10.0]:
     # Equilibrium at
     charge_check = X/(U+V-2*M/r0)
 
-    print 'Charge error:', abs(charge-charge_check)/charge_check
+    if verbose:
+        print 'Charge error:', abs(charge-charge_check)/charge_check
     assert abs(charge-charge_check) < 0.01
