@@ -23,8 +23,8 @@ def loadstate(logfn, dumpfn):
 
 ###
 
-M = 1.747558 # Madelung constant of Na-Cl
-nat = 64     # Number of atoms
+M = 1.74756459463318219 # Madelung constant of Na-Cl
+nat = 64                # Number of atoms
 
 X = 1.084
 U = 5.0
