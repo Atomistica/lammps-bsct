@@ -4,7 +4,7 @@ LAMMPS-BSCT
 The files in this directory are a user-contributed package for LAMMPS.
 
 This package was created by Tommi Järvi and Lars Pastewka. Please contact Lars
-Pastewka (lars.pastewka@kit.edu) for questions and suggestions.
+Pastewka for questions and suggestions.
 
 Lars Pastewka  
 Karlsruhe Institute of Technology (KIT)  
