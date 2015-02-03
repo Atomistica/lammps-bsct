@@ -6,10 +6,10 @@ The files in this directory are a user-contributed package for LAMMPS.
 This package was created by Tommi Järvi and Lars Pastewka. Please contact Lars
 Pastewka (lars.pastewka@kit.edu) for questions and suggestions.
 
-Lars Pastewka 
-Karlsruhe Institute of Technology (KIT) 
-Institute for Applied Materials (IAM) 
-Kaiserstraße 12, 76131 Karlsruhe 
+Lars Pastewka  
+Karlsruhe Institute of Technology (KIT)  
+Institute for Applied Materials (IAM)  
+Kaiserstraße 12, 76131 Karlsruhe  
 e-mail: lars.pastewka@kit.edu
 
 PACKAGE DESCRIPTION
@@ -43,9 +43,9 @@ group-ID. The charge equilibration finds the charges q_i for each atom-type spec
 E = E_coul + sum_i ( X*q_i + 0.5*U*q_i**2 + V*q_i**p ),
 
 where E_coul is the Coulomb interaction energy of the full system. The parametrs
-X, V, U and p must be given for each atom type.
+X, V, U and p must be given for each atom type. Note that U cannot be zero.
 
-Example:
+Example involving two atom types:
 
 > fix 1 all bsct type 1 1.0 2.0 2.0 2.0 type 2 -1.0 2.0 2.0 2.0
 
