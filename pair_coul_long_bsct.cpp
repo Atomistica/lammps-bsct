@@ -49,6 +49,16 @@ PairCoulLongBSCT::PairCoulLongBSCT(LAMMPS *lmp) : PairCoulLong(lmp) {}
 
 /* ---------------------------------------------------------------------- */
 
+void PairCoulLongBSCT::reset_g_ewald()
+{
+ if (force->kspace == NULL)
+    error->all(FLERR,"Pair style requires a KSpace style");
+  g_ewald = force->kspace->g_ewald;
+  if (ncoultablebits) init_tables(cut_coul,NULL);
+}
+
+/* ---------------------------------------------------------------------- */
+
 void PairCoulLongBSCT::phi(double &ecoultot, double *phi)
 {
   int i,j,ii,jj,inum,jnum,itable,itype,jtype;
@@ -104,89 +114,89 @@ void PairCoulLongBSCT::phi(double &ecoultot, double *phi)
       jtype = type[j];
 
       if (rsq < cut_coulsq) {
-	r2inv = 1.0/rsq;
-	if (!ncoultablebits || rsq <= tabinnersq) {
-	  r = sqrt(rsq);
-	  grij = g_ewald * r;
-	  expm2 = exp(-grij*grij);
-	  t = 1.0 / (1.0 + EWALD_P*grij);
-	  erfc = t * (A1+t*(A2+t*(A3+t*(A4+t*A5)))) * expm2;
-	  prefactor = qqrd2e * scale[itype][jtype] * qtmp*q[j]/r;
-	  //forcecoul = prefactor * (erfc + EWALD_F*grij*expm2);
-	  //if (factor_coul < 1.0) forcecoul -= (1.0-factor_coul)*prefactor;
+        r2inv = 1.0/rsq;
+        if (!ncoultablebits || rsq <= tabinnersq) {
+          r = sqrt(rsq);
+          grij = g_ewald * r;
+          expm2 = exp(-grij*grij);
+          t = 1.0 / (1.0 + EWALD_P*grij);
+          erfc = t * (A1+t*(A2+t*(A3+t*(A4+t*A5)))) * expm2;
+          prefactor = qqrd2e * scale[itype][jtype] * qtmp*q[j]/r;
+          //forcecoul = prefactor * (erfc + EWALD_F*grij*expm2);
+          //if (factor_coul < 1.0) forcecoul -= (1.0-factor_coul)*prefactor;
 
-	  // Tommi
-	  {
-	    double phiprefactor;
-	    phiprefactor = qqrd2e/r;
-	    phii = phiprefactor*q[j]*erfc;
-	    phij = phiprefactor*qtmp*erfc;
-	    if (factor_coul < 1.0) {
-	      // Tommi: erfc not included here in pair_coul_long either
-	      phii -= (1.0-factor_coul)*phiprefactor*q[j];
-	      phij -= (1.0-factor_coul)*phiprefactor*qtmp;
-	    }
-	  }
-	} else {
-	  union_int_float_t rsq_lookup;
-	  rsq_lookup.f = rsq;
-	  itable = rsq_lookup.i & ncoulmask;
-	  itable >>= ncoulshiftbits;
-	  fraction = (rsq_lookup.f - rtable[itable]) * drtable[itable];
-	  table = ftable[itable] + fraction*dftable[itable];
-	  /*
-	  forcecoul = scale[itype][jtype] * qtmp*q[j] * table;
-	  if (factor_coul < 1.0) {
-	    table = ctable[itable] + fraction*dctable[itable];
-	    prefactor = scale[itype][jtype] * qtmp*q[j] * table;
-	    forcecoul -= (1.0-factor_coul)*prefactor;
-	  }
-	  */
+          // Tommi
+          {
+            double phiprefactor;
+            phiprefactor = qqrd2e/r;
+            phii = phiprefactor*q[j]*erfc;
+            phij = phiprefactor*qtmp*erfc;
+            if (factor_coul < 1.0) {
+              // Tommi: erfc not included here in pair_coul_long either
+              phii -= (1.0-factor_coul)*phiprefactor*q[j];
+              phij -= (1.0-factor_coul)*phiprefactor*qtmp;
+            }
+          }
+        } else {
+          union_int_float_t rsq_lookup;
+          rsq_lookup.f = rsq;
+          itable = rsq_lookup.i & ncoulmask;
+          itable >>= ncoulshiftbits;
+          fraction = (rsq_lookup.f - rtable[itable]) * drtable[itable];
+          table = ftable[itable] + fraction*dftable[itable];
+          /*
+          forcecoul = scale[itype][jtype] * qtmp*q[j] * table;
+          if (factor_coul < 1.0) {
+            table = ctable[itable] + fraction*dctable[itable];
+            prefactor = scale[itype][jtype] * qtmp*q[j] * table;
+            forcecoul -= (1.0-factor_coul)*prefactor;
+          }
+          */
 
-	  // Tommi
-	  {
-	    double phiprefactor;
-	    phiprefactor = table;
-	    phii = phiprefactor*q[j];
-	    phij = phiprefactor*qtmp;
-	    if (factor_coul < 1.0) {
-	      table = ctable[itable] + fraction*dctable[itable];
-	      prefactor = scale[itype][jtype] * qtmp*q[j] * table;
-	      phiprefactor = table;
-	      phii -= (1.0-factor_coul)*phiprefactor*q[j];
-	      phij -= (1.0-factor_coul)*phiprefactor*qtmp;
-	    }
-	  }
-	}
+          // Tommi
+          {
+            double phiprefactor;
+            phiprefactor = table;
+            phii = phiprefactor*q[j];
+            phij = phiprefactor*qtmp;
+            if (factor_coul < 1.0) {
+              table = ctable[itable] + fraction*dctable[itable];
+              prefactor = scale[itype][jtype] * qtmp*q[j] * table;
+              phiprefactor = table;
+              phii -= (1.0-factor_coul)*phiprefactor*q[j];
+              phij -= (1.0-factor_coul)*phiprefactor*qtmp;
+            }
+          }
+        }
 
-	// Tommi
+        // Tommi
 
-	// accumulate phi
-	phi[i] += phii;
-	if (newton_pair || j < nlocal) phi[j] += phij;
+        // accumulate phi
+        phi[i] += phii;
+        if (newton_pair || j < nlocal) phi[j] += phij;
 
-	// calculate electrostatic energy
-	if (!ncoultablebits || rsq <= tabinnersq)
-	  ecoul = prefactor*erfc;
-	else {
-	  table = etable[itable] + fraction*detable[itable];
-	  ecoul = scale[itype][jtype] * qtmp*q[j] * table;
-	}
-	if (factor_coul < 1.0) ecoul -= (1.0-factor_coul)*prefactor;
+        // calculate electrostatic energy
+        if (!ncoultablebits || rsq <= tabinnersq)
+          ecoul = prefactor*erfc;
+        else {
+          table = etable[itable] + fraction*detable[itable];
+          ecoul = scale[itype][jtype] * qtmp*q[j] * table;
+        }
+        if (factor_coul < 1.0) ecoul -= (1.0-factor_coul)*prefactor;
 
-	// accumulate total electrostatic energy
-	//   - adapted from Pair::ev_tally()
-	if (newton_pair) {
-	  ecoultot += ecoul;
-	}
-	else {
-	  if (i < nlocal) {
-	    ecoultot += ecoul*0.5;
-	  }
-	  if (j < nlocal) {
-	    ecoultot += ecoul*0.5;
-	  }
-	}
+        // accumulate total electrostatic energy
+        //   - adapted from Pair::ev_tally()
+        if (newton_pair) {
+          ecoultot += ecoul;
+        }
+        else {
+          if (i < nlocal) {
+            ecoultot += ecoul*0.5;
+          }
+          if (j < nlocal) {
+            ecoultot += ecoul*0.5;
+          }
+        }
 
       }
     }

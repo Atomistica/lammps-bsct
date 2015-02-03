@@ -29,14 +29,8 @@ class PairCoulLongBSCT : virtual public PairCoulLong {
   PairCoulLongBSCT(class LAMMPS *);
   virtual ~PairCoulLongBSCT() {}
 
-  void phi(double &ecoultot, double *phi);
-  void set_g_ewald(double g) {
-    g_ewald = g;
-
-    // setup force tables
-
-    if (ncoultablebits) init_tables(cut_coul,NULL);
-  }
+  void reset_g_ewald();
+  void phi(double &, double *);
 };
 
 }
