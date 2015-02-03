@@ -36,17 +36,17 @@ class PPPMBSCT : public PPPM {
   PPPMBSCT(class LAMMPS *, int, char **);
   virtual ~PPPMBSCT();
 
-  virtual void phi(double *phi);           // Get electrostatic potential (phi)
+  virtual void phi(FFT_SCALAR *phi);           // Get electrostatic potential (phi)
 
  protected:
-  double ***phi_brick;
+  FFT_SCALAR ***phi_brick;
 
   virtual void allocate_peratom();
   virtual void deallocate_peratom();
 
   virtual void poisson_peratom();
 
-  virtual void phi_slabcorr(double *phi);  // Get slab correction to phi
+  virtual void phi_slabcorr(FFT_SCALAR *phi);  // Get slab correction to phi
 };
 
 }

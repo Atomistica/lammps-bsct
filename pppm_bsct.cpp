@@ -87,10 +87,10 @@ void PPPMBSCT::poisson_peratom()
    extracts the potential from the internal arrays.)
 ------------------------------------------------------------------------- */
 
-void PPPMBSCT::phi(double *phi)
+void PPPMBSCT::phi(FFT_SCALAR *phi)
 {
   int i,l,m,n,nx,ny,nz,mx,my,mz;
-  double dx,dy,dz,x0,y0,z0;
+  FFT_SCALAR dx,dy,dz,x0,y0,z0;
 
   // loop over my charges, interpolate electric field from nearby grid points
   // (nx,ny,nz) = global coords of grid pt to "lower left" of charge
@@ -102,6 +102,8 @@ void PPPMBSCT::phi(double *phi)
   double **f = atom->f;
 
   int nlocal = atom->nlocal;
+
+  const double qscale = qqrd2e * scale;
 
   for (i = 0; i < nlocal; i++) {
     nx = part2grid[i][0];
@@ -122,10 +124,14 @@ void PPPMBSCT::phi(double *phi)
         for (l = nlower; l <= nupper; l++) {
           mx = l+nx;
           x0 = y0*rho1d[0][l];
-          phi[i] += qqrd2e*x0*phi_brick[mz][my][mx];  // BSCT: +? qqrd2e?
+          phi[i] += qscale*x0*u_brick[mz][my][mx];
         }
       }
     }
+  }
+
+  for (i = 0; i < nlocal; i++) {
+    phi[i] -= 2*qscale*(g_ewald*q[i]/MY_PIS + MY_PI2*qsum / (g_ewald*g_ewald*volume));
   }
 
   // slab correction
