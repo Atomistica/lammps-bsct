@@ -8,7 +8,7 @@
 
 #processors 1 1 2
 
-units		lj # Use lj units because all physical constants=1
+units		cgs # Use lj units because all physical constants=1
 atom_style	charge
 
 # 2 - init system
@@ -38,7 +38,7 @@ thermo_modify	format float %15.14g norm no
 
 timestep	0.1
 
-dump            1 all custom 1 dump.custom id type x y z q
+dump            1 all custom 1 dump.custom id type x y z q f_ct
 
 # 5 - run
 
