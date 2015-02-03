@@ -40,7 +40,7 @@ The bsct fix takes care of actually equilibrating the charges. Syntax:
 There needs to be a "type" specification for every atomic type that is part of
 group-ID. The charge equilibration finds the charges q_i for each atom-type specified in the fix that minimizes the total energy functional
 
-E = E_coul + sum_i ( X*q_i + 0.5*U*q_i**2 + V*q_i**p ),
+E = E_coul + sum_i ( X*q_i + 0.5*U*q_i**2 + V*|q_i|**p ),
 
 where E_coul is the Coulomb interaction energy of the full system. The parametrs
 X, V, U and p must be given for each atom type. Note that U cannot be zero.
