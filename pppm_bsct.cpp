@@ -50,7 +50,7 @@ using namespace MathSpecial;
 
 /* ---------------------------------------------------------------------- */
 
-PPPMBSCT::PPPMBSCT(LAMMPS *lmp, int narg, char **arg) : PPPM(lmp, narg, arg)
+PPPMBSCT::PPPMBSCT(LAMMPS *lmp) : PPPM(lmp)
 {
 }
 
@@ -124,7 +124,7 @@ void PPPMBSCT::phi(FFT_SCALAR *phi)
     Slab correction for phi. Not tested too well.
  ------------------------------------------------------------------------- */
 
-void PPPMBSCT::phi_slabcorr(double *phi)
+void PPPMBSCT::phi_slabcorr(FFT_SCALAR *phi)
 {
   // compute local contribution to global dipole moment
 

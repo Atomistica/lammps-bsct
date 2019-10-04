@@ -50,7 +50,7 @@ thermo_style    custom step temp epair etotal f_ct elong ecoul epair lx ly lz
 thermo_modify   format float %15.14g norm no
 
 dump            1 all custom 1 dump.custom id type x y z q
-dump_modify     1 format "%d %d %f %f %f %15.14e %15.14e"
+dump_modify     1 format line "%d %d %f %f %f %15.14e %15.14e"
 
 # 5 - run
 

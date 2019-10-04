@@ -26,14 +26,13 @@ KSpaceStyle(pppm/bsct,PPPMBSCT)
 
 #include "lmptype.h"
 #include "mpi.h"
-
 #include "pppm.h"
 
 namespace LAMMPS_NS {
 
 class PPPMBSCT : public PPPM {
  public:
-  PPPMBSCT(class LAMMPS *, int, char **);
+  PPPMBSCT(class LAMMPS *);
   virtual ~PPPMBSCT();
 
   virtual void phi(FFT_SCALAR *phi);           // Get electrostatic potential (phi)
