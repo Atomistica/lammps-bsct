@@ -22,7 +22,7 @@ transfer schemes.
 
 It is necessary to use the provided Coulomb styles. Syntax:
 
-> pair_style cout/cut/bsct cutoff
+> pair_style coul/cut/bsct cutoff
 
 Or:
 
