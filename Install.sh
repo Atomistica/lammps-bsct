@@ -1,14 +1,14 @@
-# Install/unInstall package files in LAMMPS
+## Install/unInstall package files in LAMMPS
 
 if (test $1 = 2) then
 
-    for i in anderson_mixer.h anderson_mixer.cpp fix_bsct.h fix_bsct.cpp fix_bsct_parameters_t.h pair_coul_cut_bsct.h pair_coul_cut_bsct.cpp pair_coul_long_bsct.h pair_coul_long_bsct.cpp pppm_bsct.h pppm_bsct.cpp ; do
+    for i in anderson_mixer.h anderson_mixer.cpp fix_bsct.h fix_bsct.cpp fix_bsct_parameters_t.h pair_coul_cut_bsct.h pair_coul_cut_bsct.cpp pair_coul_long_bsct.h pair_coul_long_bsct.cpp pppm_bsct.h pppm_bsct.cpp pair_lj_charmmfsw.h pair_lj_charmmfsw.cpp; do
         diff -q ../$i $i
     done
 
 elif (test $1 = 1) then
 
-    for i in anderson_mixer.h anderson_mixer.cpp fix_bsct.h fix_bsct.cpp fix_bsct_parameters_t.h pair_coul_cut_bsct.h pair_coul_cut_bsct.cpp pair_coul_long_bsct.h pair_coul_long_bsct.cpp pppm_bsct.h pppm_bsct.cpp ; do
+    for i in anderson_mixer.h anderson_mixer.cpp fix_bsct.h fix_bsct.cpp fix_bsct_parameters_t.h pair_coul_cut_bsct.h pair_coul_cut_bsct.cpp pair_coul_long_bsct.h pair_coul_long_bsct.cpp pppm_bsct.h pppm_bsct.cpp pair_lj_charmmfsw.h pair_lj_charmmfsw.cpp; do
 	cp -p $i ..
     done
 
@@ -20,7 +20,7 @@ elif (test $1 = 1) then
 
 elif (test $1 = 0) then
 
-    for i in anderson_mixer.h anderson_mixer.cpp fix_bsct.h fix_bsct.cpp fix_bsct_parameters_t.h pair_coul_cut_bsct.h pair_coul_cut_bsct.cpp pair_coul_long_bsct.h pair_coul_long_bsct.cpp pppm_bsct.h pppm_bsct.cpp ; do
+    for i in anderson_mixer.h anderson_mixer.cpp fix_bsct.h fix_bsct.cpp fix_bsct_parameters_t.h pair_coul_cut_bsct.h pair_coul_cut_bsct.cpp pair_coul_long_bsct.h pair_coul_long_bsct.cpp pppm_bsct.h pppm_bsct.cpp pair_lj_charmmfsw.h pair_lj_charmmfsw.cpp; do
 	rm -f ../$i
     done
 
