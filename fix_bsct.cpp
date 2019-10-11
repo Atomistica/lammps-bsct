@@ -243,13 +243,14 @@ FixBSCT::FixBSCT(LAMMPS *lmp, int narg, char **arg) : Fix(lmp, narg, arg)
     if (!pair_coul_cut_bsct) { // Why check for pcl here (removed) ???
       pair_lj_charmmfsw_coul_charmmfsh_bsct = dynamic_cast<PairLJCharmmfswCoulCharmmfshBSCT*>(force->pair);
       if (!pair_lj_charmmfsw_coul_charmmfsh_bsct) {
-      error->all(FLERR,"Unsupported pair style. Please use a "
+        error->all(FLERR,"Unsupported pair style. Please use a "
                  "coul/cut/bsct-like pair style (i.e. "
                  "'pair_style coul/cut/bsct' or "
                  "any other '*/coul/[cut,charmmfsw]/bsct'-suffixed style) or "
                  "kspace_style pppm/bsct and a coul/long/bsct-like "
                  "pair style (i.e. 'pair_style coul/long/bsct' or any "
                  "other '*/coul/long/bsct'-suffixed style).");
+      }
     }
   }
 
@@ -764,6 +765,7 @@ void FixBSCT::compute_potential(const gsl_vector *x, double *f, gsl_vector *g) {
       pppm->setup();
       if(pair_coul_long_bsct != NULL) {
         pair_coul_long_bsct->reset_g_ewald();
+      }
       else { // pair_lj_charmmfsw_coul_long_bsct
         pair_lj_charmmfsw_coul_long_bsct->reset_g_ewald();
       }
@@ -774,6 +776,7 @@ void FixBSCT::compute_potential(const gsl_vector *x, double *f, gsl_vector *g) {
 
     if(pair_coul_long_bsct != NULL) {
       pair_coul_long_bsct->compute_potential(ecoul, phi);    // short range Coulombics
+    }
     else { // pair_lj_charmmfsw_coul_long_bsct
       pair_lj_charmmfsw_coul_long_bsct->compute_potential(ecoul, phi);    // short range Coulombics
     }
@@ -787,6 +790,7 @@ void FixBSCT::compute_potential(const gsl_vector *x, double *f, gsl_vector *g) {
 
     if(pair_coul_cut_bsct != NULL) {
       pair_coul_cut_bsct->compute_potential(ecoul, phi);            // short range Coulombics
+    }
     else { // pair_lj_charmmfsw_coul_charmmfsh_bsct
       pair_lj_charmmfsw_coul_charmmfsh_bsct->compute_potential(ecoul, phi); // short range Coulombics
     }

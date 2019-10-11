@@ -72,13 +72,7 @@ void PairLJCharmmfswCoulCharmmfshBSCT::compute_potential(double &ecoultot, doubl
       j = jlist[jj];
       factor_coul = special_coul[sbmask(j)];
       j &= NEIGHMASK;
-/*
-      if (j < nall) factor_coul = 1.0;
-      else {
-        factor_coul = special_coul[j/nall];
-        j %= nall;
-      }
-*/
+
       delx = xtmp - x[j][0];
       dely = ytmp - x[j][1];
       delz = ztmp - x[j][2];
