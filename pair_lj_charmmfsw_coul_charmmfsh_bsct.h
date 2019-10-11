@@ -24,12 +24,12 @@ PairStyle(lj/charmmfsw/coul/charmmfsh/bsct,PairLJCharmmfswCoulCharmmfshBSCT)
 
 namespace LAMMPS_NS {
 
-class PairLJCharmmfswCoulCharmfshBSCT : virtual public PairCoulCut {
+class PairLJCharmmfswCoulCharmmfshBSCT : virtual public PairCoulCut {
  public:
-  PairLJCharmmfswCoulCharmfshBSCT(class LAMMPS *);
-  virtual ~PairLJCharmmfswCoulCharmfshBSCT() {};
+  PairLJCharmmfswCoulCharmmfshBSCT(class LAMMPS *);
+  virtual ~PairLJCharmmfswCoulCharmmfshBSCT() {};
 
-  void phi(double &ecoultot, double *phi);
+  void compute_potential(double &ecoultot, double *phi);
 };
 
 }

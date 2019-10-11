@@ -32,7 +32,7 @@ class PairLJCharmmfswCoulLongBSCT : virtual public PairLJCharmmfswCoulLong { //1
   virtual ~PairLJCharmmfswCoulLongBSCT() {}
 
   void reset_g_ewald();
-  void phi(double &, double *);
+  void compute_potential(double &, double *);
 protected: //1
 double **scale; //1
 };
