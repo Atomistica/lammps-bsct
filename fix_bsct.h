@@ -33,8 +33,8 @@ FixStyle(bsct,FixBSCT)
 #include "gsl/gsl_linalg.h"
 #include "gsl/gsl_blas.h"
 #include "fix_bsct_parameters_t.h"
-#include "pair_coul_long_bsct.h"
-#include "pair_coul_cut_bsct.h"
+#include "pair_lj_charmmfsw_coul_long_bsct.h"
+#include "pair_lj_charmmfsw_coul_charmmfsh_bsct.h"
 #include "pppm_bsct.h"
 
 
