@@ -606,7 +606,6 @@ void FixBSCT::FixBSCT_fdf(const gsl_vector *x, double *f, gsl_vector *g) {
   size_t nand;                 // index for running over x and g
   double ecoul;                // Coulomb energy
 
-  int initfrec = 10;           // frequency of calling PPPM::init()
   double qconv = 1e-6;         // warning threshold for non-zero charge (charge per atom)
 
   // ---
@@ -639,7 +638,7 @@ void FixBSCT::FixBSCT_fdf(const gsl_vector *x, double *f, gsl_vector *g) {
   std::fill(phi, phi+atom->nlocal+atom->nghost, 0.0);
 
   // calculate new potential
-  compute_potential();
+  compute_potential(ecoul);
 
   // Get potential (phi) from all nodes
   comm->reverse_comm_fix(this);
@@ -751,7 +750,9 @@ void FixBSCT::FixBSCT_fdf(const gsl_vector *x, double *f, gsl_vector *g) {
    Compute electrostatic potential
 ------------------------------------------------------------------------- */
 
-void FixBSCT::compute_potential(const gsl_vector *x, double *f, gsl_vector *g) {
+void FixBSCT::compute_potential(double &ecoul) {
+  int initfrec = 10;           // frequency of calling PPPM::init()
+
   if(pppm != NULL) {
     if(pair_coul_long_bsct == NULL && pair_lj_charmmfsw_coul_long_bsct == NULL) {
       error->all(FLERR, "fix bsct: Bug: Internal 'coul/long/bsct'-like style not setup correctly.");

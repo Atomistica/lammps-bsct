@@ -136,7 +136,7 @@ class FixBSCT : public Fix {
     void gsl_absmax_sqnorm(gsl_vector*, double*, double *);
     double nextq(double q, double phi, double lambda, double X, double U, double V, double p);
     void FixBSCT_fdf(const gsl_vector *x, double *f, gsl_vector *g);
-    void compute_potential();
+    void compute_potential(double &ecoul);
     void get_lambda();
     void update_kspace();
 };
