@@ -29,7 +29,7 @@ class PairCoulCutBSCT : virtual public PairCoulCut {
   PairCoulCutBSCT(class LAMMPS *);
   virtual ~PairCoulCutBSCT() {};
 
-  void phi(double &ecoultot, double *phi);
+  void compute_potential(double &ecoultot, double *phi);
 };
 
 }

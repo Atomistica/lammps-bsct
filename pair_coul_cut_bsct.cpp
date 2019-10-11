@@ -33,7 +33,7 @@ PairCoulCutBSCT::PairCoulCutBSCT(LAMMPS *lmp) : PairCoulCut(lmp) {}
 
 /* ---------------------------------------------------------------------- */
 
-void PairCoulCutBSCT::phi(double &ecoultot, double *phi)
+void PairCoulCutBSCT::compute_potential(double &ecoultot, double *phi)
 {
   int i,j,ii,jj,inum,jnum,itype,jtype;
   double qtmp,xtmp,ytmp,ztmp,delx,dely,delz,ecoul,fpair;
