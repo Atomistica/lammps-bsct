@@ -35,6 +35,8 @@ FixStyle(bsct,FixBSCT)
 #include "fix_bsct_parameters_t.h"
 #include "pair_coul_long_bsct.h"
 #include "pair_coul_cut_bsct.h"
+#include "pair_lj_charmmfsw_coul_long_bsct.h"
+#include "pair_lj_charmmfsw_coul_charmmfsh_bsct.h"
 #include "pppm_bsct.h"
 
 
@@ -46,7 +48,7 @@ namespace LAMMPS_NS {
   */
   class Anderson_Mixer {
 
-  public:  
+  public:
     Anderson_Mixer();
     Anderson_Mixer(int nhist);
     ~Anderson_Mixer();
@@ -89,8 +91,10 @@ class FixBSCT : public Fix {
 
     // Internal Coulomb classes
     PPPMBSCT *pppm;
-    PairLJCharmmfswCoulLongBSCT *pcl;
-    PairCoulCutBSCT *pcc;
+    PairCoulLongBSCT *pair_coul_longl_bsct;
+    PairCoulCutBSCT *pair_coul_cut_bsct;
+    PairLJCharmmfswCoulLongBSCT *pair_lj_charmmfsw_coul_longl_bsct;
+    PairLJCharmmfswCoulCharmmfshBSCT *pair_lj_charmmfsw_coul_cut_bsct;
 
     // General settings
     int log;                    // 0 -> no logging

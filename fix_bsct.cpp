@@ -223,17 +223,28 @@ FixBSCT::FixBSCT(LAMMPS *lmp, int narg, char **arg) : Fix(lmp, narg, arg)
     if (!pppm) {
       error->all(FLERR,"Please use kspace_style pppm/bsct.");
     }
-    pcl = dynamic_cast<PairLJCharmmfswCoulLongBSCT*>(force->pair);
-    if (!pcl) {
-      error->all(FLERR,"Please use pair_style coul/long/bsct.");
+    pair_coul_long_bsct = dynamic_cast<PairCoulLongBSCT*>(force->pair);
+    if (!pair_coul_long_bsct) {
+      pair_lj_charmmfsw_coul_long_bsct = dynamic_cast<PairLJCharmmfswCoulLongBSCT*>(force->pair);
+      if (!pair_lj_charmmfsw_coul_long_bsct) {
+        error->all(FLERR,"Please use 'pair_style coul/long/bsct' or "
+                   "any other '*/coul/long/bsct'-suffixed pair style "
+                   "together with 'kspace_style pppm/bsct'.");
+      }
     }
   }
   else {
-    pcc = dynamic_cast<PairCoulCutBSCT*>(force->pair);
-    if (!pcl && !pcc) {
-      error->all(FLERR,"Unsupported pair style. Please use pair_style "
-                 "coul/cut/bsct or kspace_style pppm/bsct and pair_style "
-                 "coul/long/bsct.");
+    pair_coul_cut = dynamic_cast<PairCoulCutBSCT*>(force->pair);
+    if (!pair_coul_cut) { // Why check for pcl here (removed) ???
+      pair_lj_charmmfsw_coul_charmmfsh = dynamic_cast<PairLJCharmmFswCoulCharmmfshBSCT*>(force->pair);
+      if (!pair_lj_charmmfsw_coul_charmmfsh) {
+      error->all(FLERR,"Unsupported pair style. Please use a "
+                 "coul/cut/bsct-like pair style (i.e. "
+                 "'pair_style coul/cut/bsct' or "
+                 "any other '*/coul/[cut,charmmfsw]/bsct'-suffixed style) or "
+                 "kspace_style pppm/bsct and a coul/long/bsct-like "
+                 "pair style (i.e. 'pair_style coul/long/bsct' or any "
+                 "other '*/coul/long/bsct'-suffixed style).");
     }
   }
 
@@ -623,7 +634,7 @@ void FixBSCT::FixBSCT_fdf(const gsl_vector *x, double *f, gsl_vector *g) {
 
   // calculate new potential
   if(pppm != NULL) {
-    if(pcl==NULL) {
+    if(pair_coul_long_bsct==NULL) {
       error->all(FLERR, "fix bsct: Bug: Internal coul/long/bsct not setup correctly.");
     }
 
@@ -633,24 +644,24 @@ void FixBSCT::FixBSCT_fdf(const gsl_vector *x, double *f, gsl_vector *g) {
     if(iter == -1 || iter%initfrec == 0) {
       pppm->init();
       pppm->setup();
-      pcl->reset_g_ewald();
+      pair_coul_long_bsct->reset_g_ewald();
     }
     else {
       pppm->qsum_qsq();
     }
 
-    //pcl->compute(3,0);                   // not needed here because phi computes energy
-    pcl->phi(ecoul, phi);                  // short range Coulombics
+    //pair_coul_long_bsct->compute(3,0);                   // not needed here because phi computes energy
+    pair_coul_long_bsct->phi(ecoul, phi);                  // short range Coulombics
     pppm->compute(3,0);                    // energy to pppm->energy, including slab correction part
     pppm->phi(phi);                        // potential contribution to phi (including slab correction)
   }
   else {
-    if(pcc==NULL) {
+    if(pair_coul_cut==NULL) {
       error->all(FLERR, "fix bsct: Bug: Internal coul/cut/bsct not setup correctly.");
     }
 
-    //pcc->compute(3,0);             // not needed here because phi computes energy
-    pcc->phi(ecoul, phi);            // short range Coulombics
+    //pair_coul_cut->compute(3,0);             // not needed here because phi computes energy
+    pair_coul_cut->phi(ecoul, phi);            // short range Coulombics
   }
 
   // Get potential (phi) from all nodes
