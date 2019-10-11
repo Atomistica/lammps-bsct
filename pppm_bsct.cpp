@@ -68,7 +68,7 @@ PPPMBSCT::~PPPMBSCT()
    extracts the potential from the internal arrays.)
 ------------------------------------------------------------------------- */
 
-void PPPMBSCT::phi(FFT_SCALAR *phi)
+void PPPMBSCT::compute_potential(FFT_SCALAR *phi)
 {
   int i,l,m,n,nx,ny,nz,mx,my,mz;
   FFT_SCALAR dx,dy,dz,x0,y0,z0;

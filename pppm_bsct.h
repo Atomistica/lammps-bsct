@@ -35,7 +35,7 @@ class PPPMBSCT : public PPPM {
   PPPMBSCT(class LAMMPS *);
   virtual ~PPPMBSCT();
 
-  virtual void phi(FFT_SCALAR *phi);           // Get electrostatic potential (phi)
+  virtual void compute_potential(FFT_SCALAR *phi);           // Get electrostatic potential (phi)
 
  protected:
   virtual void phi_slabcorr(FFT_SCALAR *phi);  // Get slab correction to phi
