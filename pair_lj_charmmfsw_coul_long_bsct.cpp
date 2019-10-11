@@ -61,7 +61,7 @@ void PairLJCharmmfswCoulLongBSCT::reset_g_ewald()
 
 /* ---------------------------------------------------------------------- */
 
-void PairLJCharmmfswCoulLongBSCT::phi(double &ecoultot, double *phi)
+void PairLJCharmmfswCoulLongBSCT::compute_potential(double &ecoultot, double *phi)
 {
   int i,j,ii,jj,inum,jnum,itable,itype,jtype;
   double qtmp,xtmp,ytmp,ztmp,delx,dely,delz,ecoul,fpair;
