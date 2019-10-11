@@ -188,7 +188,7 @@ void PairLJCharmmfswCoulLongBSCT::compute_potential(double &ecoultot, double *ph
           table = etable[itable] + fraction*detable[itable];
           //set scale[itype][jtype] = 1
           //ecoul = scale[itype][jtype] * qtmp*q[j] * table;
-          ecoul = qtmp * q[j] * table
+          ecoul = qtmp * q[j] * table;
         }
         if (factor_coul < 1.0) ecoul -= (1.0-factor_coul)*prefactor;
 
