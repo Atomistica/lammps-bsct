@@ -13,24 +13,28 @@
 
 #ifdef PAIR_CLASS
 
-PairStyle(coul/long/bsct,PairCoulLongBSCT)
+PairStyle(lj/charmmfsw/coul/long/bsct,PairLJCharmmfswCoulLongBSCT)
 
 #else
 
 #ifndef LMP_PAIR_COUL_LONG_BSCT_H
 #define LMP_PAIR_COUL_LONG_BSCT_H
 
-#include "pair_coul_long.h"
+//0#include "pair_coul_long.h"
+#include "pair_lj_charmmfsw_coul_long.h" //1
 
 namespace LAMMPS_NS {
 
-class PairCoulLongBSCT : virtual public PairCoulLong {
+//0class PairLJCharmmfswCoulLongBSCT : virtual public PairCoulLong {
+class PairLJCharmmfswCoulLongBSCT : virtual public PairLJCharmmfswCoulLong { //1
  public:
-  PairCoulLongBSCT(class LAMMPS *);
-  virtual ~PairCoulLongBSCT() {}
+  PairLJCharmmfswCoulLongBSCT(class LAMMPS *);
+  virtual ~PairLJCharmmfswCoulLongBSCT() {}
 
   void reset_g_ewald();
   void phi(double &, double *);
+protected: //1
+double **scale; //1
 };
 
 }

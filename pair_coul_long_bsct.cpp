@@ -20,7 +20,8 @@
 #include "stdlib.h"
 #include "string.h"
 #include "pair_coul_long_bsct.h"
-#include "pair_coul_long.h"
+//0#include "pair_coul_long.h"
+#include "pair_lj_charmmfsw_coul_long.h" //1
 #include "atom.h"
 #include "comm.h"
 #include "force.h"
@@ -45,11 +46,12 @@ using namespace LAMMPS_NS;
 
 /* ---------------------------------------------------------------------- */
 
-PairCoulLongBSCT::PairCoulLongBSCT(LAMMPS *lmp) : PairCoulLong(lmp) {}
+//0PairLJCharmmfswCoulLongBSCT::PairLJCharmmfswCoulLongBSCT(LAMMPS *lmp) : PairCoulLong(lmp) {}
+PairLJCharmmfswCoulLongBSCT::PairLJCharmmfswCoulLongBSCT(LAMMPS *lmp) : PairLJCharmmfswCoulLong(lmp) {} //1
 
 /* ---------------------------------------------------------------------- */
 
-void PairCoulLongBSCT::reset_g_ewald()
+void PairLJCharmmfswCoulLongBSCT::reset_g_ewald()
 {
  if (force->kspace == NULL)
     error->all(FLERR,"Pair style requires a KSpace style");
@@ -59,7 +61,7 @@ void PairCoulLongBSCT::reset_g_ewald()
 
 /* ---------------------------------------------------------------------- */
 
-void PairCoulLongBSCT::phi(double &ecoultot, double *phi)
+void PairLJCharmmfswCoulLongBSCT::phi(double &ecoultot, double *phi)
 {
   int i,j,ii,jj,inum,jnum,itable,itype,jtype;
   double qtmp,xtmp,ytmp,ztmp,delx,dely,delz,ecoul,fpair;

@@ -223,7 +223,7 @@ FixBSCT::FixBSCT(LAMMPS *lmp, int narg, char **arg) : Fix(lmp, narg, arg)
     if (!pppm) {
       error->all(FLERR,"Please use kspace_style pppm/bsct.");
     }
-    pcl = dynamic_cast<PairCoulLongBSCT*>(force->pair);
+    pcl = dynamic_cast<PairLJCharmmfswCoulLongBSCT*>(force->pair);
     if (!pcl) {
       error->all(FLERR,"Please use pair_style coul/long/bsct.");
     }

@@ -9,6 +9,7 @@ atom_style      charge
 
 boundary        p p p
 variable        a0 equal %%a0
+
 # This is a simple cubic lattice...
 lattice         custom ${a0} a1 1 0 0 a2 0 1 0 a3 0 0 1 basis 0 0 0 basis 0.5 0 0 basis 0 0.5 0 basis 0 0 0.5 basis 0.5 0.5 0 basis 0.5 0 0.5 basis 0 0.5 0.5 basis 0.5 0.5 0.5
 region          box block 0 2 0 2 0 2 
@@ -26,7 +27,7 @@ set             group g_Cl charge 0.5
 
 # 3 - init potential
 
-pair_style      coul/long/bsct 7.0
+pair_style      lj/charmmfsw/coul/long/bsct 7.0
 #pair_style      coul/cut/bsct 5.0
 pair_coeff      * *
 pair_modify     table 0

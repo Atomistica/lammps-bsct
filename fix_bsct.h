@@ -89,7 +89,7 @@ class FixBSCT : public Fix {
 
     // Internal Coulomb classes
     PPPMBSCT *pppm;
-    PairCoulLongBSCT *pcl;
+    PairLJCharmmfswCoulLongBSCT *pcl;
     PairCoulCutBSCT *pcc;
 
     // General settings
