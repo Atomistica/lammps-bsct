@@ -95,7 +95,7 @@ class FixBSCT : public Fix {
     PairCoulLongBSCT *pair_coul_long_bsct;
     PairCoulCutBSCT *pair_coul_cut_bsct;
     PairLJCharmmfswCoulLongBSCT *pair_lj_charmmfsw_coul_long_bsct;
-    PairLJCharmmfswCoulCharmmfshBSCT *pair_lj_charmmfsw_coul_cut_bsct;
+    PairLJCharmmfswCoulCharmmfshBSCT *pair_lj_charmmfsw_coul_charmmfsh_bsct;
 
     // General settings
     int log;                    // 0 -> no logging

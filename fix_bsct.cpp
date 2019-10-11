@@ -241,7 +241,7 @@ FixBSCT::FixBSCT(LAMMPS *lmp, int narg, char **arg) : Fix(lmp, narg, arg)
   else {
     pair_coul_cut_bsct = dynamic_cast<PairCoulCutBSCT*>(force->pair);
     if (!pair_coul_cut_bsct) { // Why check for pcl here (removed) ???
-      pair_lj_charmmfsw_coul_charmmfsh_bsct = dynamic_cast<PairLJCharmmFswCoulCharmmfshBSCT*>(force->pair);
+      pair_lj_charmmfsw_coul_charmmfsh_bsct = dynamic_cast<PairLJCharmmfswCoulCharmmfshBSCT*>(force->pair);
       if (!pair_lj_charmmfsw_coul_charmmfsh_bsct) {
       error->all(FLERR,"Unsupported pair style. Please use a "
                  "coul/cut/bsct-like pair style (i.e. "
