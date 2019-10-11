@@ -217,6 +217,11 @@ FixBSCT::FixBSCT(LAMMPS *lmp, int narg, char **arg) : Fix(lmp, narg, arg)
   }
 
   // get Coulomb classes from forces object
+  // with more than one pointer, make sure all are initialized
+  pair_coul_long_bsct = NULL;
+  pair_coul_cut_bsct = NULL;
+  pair_lj_charmmfsw_coul_long_bsct = NULL;
+  pair_lj_charmmfsw_coul_charmmfsh_bsct = NULL;
 
   if (force->kspace != NULL) {
     pppm = dynamic_cast<PPPMBSCT*>(force->kspace);
@@ -234,10 +239,10 @@ FixBSCT::FixBSCT(LAMMPS *lmp, int narg, char **arg) : Fix(lmp, narg, arg)
     }
   }
   else {
-    pair_coul_cut = dynamic_cast<PairCoulCutBSCT*>(force->pair);
-    if (!pair_coul_cut) { // Why check for pcl here (removed) ???
-      pair_lj_charmmfsw_coul_charmmfsh = dynamic_cast<PairLJCharmmFswCoulCharmmfshBSCT*>(force->pair);
-      if (!pair_lj_charmmfsw_coul_charmmfsh) {
+    pair_coul_cut_bsct = dynamic_cast<PairCoulCutBSCT*>(force->pair);
+    if (!pair_coul_cut_bsct) { // Why check for pcl here (removed) ???
+      pair_lj_charmmfsw_coul_charmmfsh_bsct = dynamic_cast<PairLJCharmmFswCoulCharmmfshBSCT*>(force->pair);
+      if (!pair_lj_charmmfsw_coul_charmmfsh_bsct) {
       error->all(FLERR,"Unsupported pair style. Please use a "
                  "coul/cut/bsct-like pair style (i.e. "
                  "'pair_style coul/cut/bsct' or "
@@ -633,36 +638,7 @@ void FixBSCT::FixBSCT_fdf(const gsl_vector *x, double *f, gsl_vector *g) {
   std::fill(phi, phi+atom->nlocal+atom->nghost, 0.0);
 
   // calculate new potential
-  if(pppm != NULL) {
-    if(pair_coul_long_bsct==NULL) {
-      error->all(FLERR, "fix bsct: Bug: Internal coul/long/bsct not setup correctly.");
-    }
-
-    // Need to update g_ewald and PPPM settings when charges change.
-    // The frequency here is pretty arbitrary, but needs to happen every once in
-    // a while to avoid PPPM from accumulating large errors.
-    if(iter == -1 || iter%initfrec == 0) {
-      pppm->init();
-      pppm->setup();
-      pair_coul_long_bsct->reset_g_ewald();
-    }
-    else {
-      pppm->qsum_qsq();
-    }
-
-    //pair_coul_long_bsct->compute(3,0);                   // not needed here because phi computes energy
-    pair_coul_long_bsct->phi(ecoul, phi);                  // short range Coulombics
-    pppm->compute(3,0);                    // energy to pppm->energy, including slab correction part
-    pppm->phi(phi);                        // potential contribution to phi (including slab correction)
-  }
-  else {
-    if(pair_coul_cut==NULL) {
-      error->all(FLERR, "fix bsct: Bug: Internal coul/cut/bsct not setup correctly.");
-    }
-
-    //pair_coul_cut->compute(3,0);             // not needed here because phi computes energy
-    pair_coul_cut->phi(ecoul, phi);            // short range Coulombics
-  }
+  compute_potential();
 
   // Get potential (phi) from all nodes
   comm->reverse_comm_fix(this);
@@ -770,6 +746,52 @@ void FixBSCT::FixBSCT_fdf(const gsl_vector *x, double *f, gsl_vector *g) {
   *f = esum + ecoul + lambda*(qsum - qtot);
 }
 
+/* ----------------------------------------------------------------------
+   Compute electrostatic potential
+------------------------------------------------------------------------- */
+
+void FixBSCT::compute_potential(const gsl_vector *x, double *f, gsl_vector *g) {
+  if(pppm != NULL) {
+    if(pair_coul_long_bsct == NULL && pair_lj_charmmfsw_coul_long_bsct == NULL) {
+      error->all(FLERR, "fix bsct: Bug: Internal 'coul/long/bsct'-like style not setup correctly.");
+    }
+
+    // Need to update g_ewald and PPPM settings when charges change.
+    // The frequency here is pretty arbitrary, but needs to happen every once in
+    // a while to avoid PPPM from accumulating large errors.
+    if(iter == -1 || iter%initfrec == 0) {
+      pppm->init();
+      pppm->setup();
+      if(pair_coul_long_bsct != NULL) {
+        pair_coul_long_bsct->reset_g_ewald();
+      else { // pair_lj_charmmfsw_coul_long_bsct
+        pair_lj_charmmfsw_coul_long_bsct->reset_g_ewald();
+      }
+    }
+    else {
+      pppm->qsum_qsq();
+    }
+
+    if(pair_coul_long_bsct != NULL) {
+      pair_coul_long_bsct->compute_potential(ecoul, phi);    // short range Coulombics
+    else { // pair_lj_charmmfsw_coul_long_bsct
+      pair_lj_charmmfsw_coul_long_bsct->compute_potential(ecoul, phi);    // short range Coulombics
+    }
+    pppm->compute(3,0);                    // energy to pppm->energy, including slab correction part
+    pppm->compute_potential(phi);          // potential contribution to phi (including slab correction)
+  }
+  else {
+    if(pair_coul_cut_bsct == NULL && pair_lj_charmmfsw_coul_charmmfsh_bsct == NULL) {
+      error->all(FLERR, "fix bsct: Bug: Internal 'coul/cut/bsct'-like style not setup correctly.");
+    }
+
+    if(pair_coul_cut_bsct != NULL) {
+      pair_coul_cut_bsct->compute_potential(ecoul, phi);            // short range Coulombics
+    else { // pair_lj_charmmfsw_coul_charmmfsh_bsct
+      pair_lj_charmmfsw_coul_charmmfsh_bsct->compute_potential(ecoul, phi); // short range Coulombics
+    }
+  }
+}
 
 /* ----------------------------------------------------------------------
    Update charges using Anderson mixing

@@ -91,6 +91,7 @@ class FixBSCT : public Fix {
 
     // Internal Coulomb classes
     PPPMBSCT *pppm;
+    // Ugly distinction between different BSCT styles
     PairCoulLongBSCT *pair_coul_longl_bsct;
     PairCoulCutBSCT *pair_coul_cut_bsct;
     PairLJCharmmfswCoulLongBSCT *pair_lj_charmmfsw_coul_longl_bsct;
@@ -135,6 +136,7 @@ class FixBSCT : public Fix {
     void gsl_absmax_sqnorm(gsl_vector*, double*, double *);
     double nextq(double q, double phi, double lambda, double X, double U, double V, double p);
     void FixBSCT_fdf(const gsl_vector *x, double *f, gsl_vector *g);
+    void compute_potential();
     void get_lambda();
     void update_kspace();
 };
