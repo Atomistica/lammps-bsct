@@ -29,7 +29,7 @@ using namespace LAMMPS_NS;
 
 /* ---------------------------------------------------------------------- */
 
-PairLJCharmmfswCoulCharmmfshBSCT::PairLJCharmmfswCoulCharmmfshBSCT(LAMMPS *lmp) : PairCoulCut(lmp) {}
+PairLJCharmmfswCoulCharmmfshBSCT::PairLJCharmmfswCoulCharmmfshBSCT(LAMMPS *lmp) : PairLJCharmmfswCoulCharmmfsh(lmp) {}
 
 /* ---------------------------------------------------------------------- */
 

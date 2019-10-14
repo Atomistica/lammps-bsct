@@ -20,11 +20,12 @@ PairStyle(lj/charmmfsw/coul/charmmfsh/bsct,PairLJCharmmfswCoulCharmmfshBSCT)
 #ifndef LMP_PAIR_LJ_CHARMMFSW_COUL_CHARMMFSH_BSCT_H
 #define LMP_PAIR_LJ_CHARMMFSW_COUL_CHARMMFSH_BSCT_H
 
-#include "pair_coul_cut.h"
+//#include "pair_coul_cut.h"
+#include "pair_lj_charmmfsw_coul_charmmfsh.h"
 
 namespace LAMMPS_NS {
 
-class PairLJCharmmfswCoulCharmmfshBSCT : virtual public PairCoulCut {
+class PairLJCharmmfswCoulCharmmfshBSCT : virtual public PairLJCharmmfswCoulCharmmfsh {
  public:
   PairLJCharmmfswCoulCharmmfshBSCT(class LAMMPS *);
   virtual ~PairLJCharmmfswCoulCharmmfshBSCT() {};
