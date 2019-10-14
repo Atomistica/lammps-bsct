@@ -218,6 +218,7 @@ FixBSCT::FixBSCT(LAMMPS *lmp, int narg, char **arg) : Fix(lmp, narg, arg)
 
   // get Coulomb classes from forces object
   // with more than one pointer, make sure all are initialized
+  pppm = NULL;
   pair_coul_long_bsct = NULL;
   pair_coul_cut_bsct = NULL;
   pair_lj_charmmfsw_coul_long_bsct = NULL;
