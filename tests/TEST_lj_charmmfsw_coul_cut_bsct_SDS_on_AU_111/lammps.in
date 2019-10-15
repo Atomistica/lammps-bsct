@@ -1,0 +1,81 @@
+# Test
+
+units           real
+
+neigh_modify    delay 2 every 1
+
+atom_style      full
+bond_style      harmonic
+angle_style     charmm
+dihedral_style  charmmfsw
+improper_style  harmonic
+
+pair_style      lj/charmmfsw/coul/charmmfsh/bsct 8.0 12.0 9.0
+
+special_bonds   charmm
+
+read_data       minimized_data
+
+include         coeffs_bonded.in
+include         coeffs_NONbonded.in
+
+timestep        2.0 # 0.002 ps = 2 fs
+
+group           water            type  9 10  #  9 - H, 10 - O
+group           surface          type  8     #  8 - Au
+group           ion              type 12     # 12 - Na+
+group           bsct_atoms       union ion surface
+group           non_bsct_atoms   subtract all bsct_atoms
+group           surfactant subtract all water surface ion
+group           nonwater         subtract all water
+
+thermo          1
+thermo_style    custom step temp epair etotal ke pe temp press enthalpy f_ct &
+                ebond eangle edihed eimp epair evdwl ecoul elong etail
+thermo_modify   format float %15.14g norm no
+
+
+# BSCT FIX SYNTAX
+# fix groupID bsct atomType X V U p keyword values
+# X: partial charge; V:     ;U: Hubbard energy; p: exponent
+# Note that U cannot be "0"
+fix         ct bsct_atoms bsct nevery 1 qtot 1.0 log 3 mode 2 history 10 &
+            beta 0.1 prec 0.0001 max_iter 100 type 8 1 0 1 1 1 type 12 -1 0 1 1
+fix_modify  ct energy yes
+
+fix 1 nve
+
+### Constrain all hydrogen bonds as well as the HOH angle!
+# CHARMM requires all bonds involving hydrogen to be rigid ("stick-like").
+# What is more, the TIP3P water additionally requires the water's HOH angle
+# to be fixed. Design a "fix rattle" statement fulfilling these constraints.
+# You can use masses and angle types defined within the data file.
+#fix rigidHbonds all rattle 1e-6 500 0 b 3 5 6
+#fix rigidWaterAngles all rattle 1e-6 500 0 a 11
+
+# Quote from http://lammps.sandia.gov/doc/fix_shake.html:
+# As implemented in LAMMPS, fix rattle uses fix shake for satisfying the
+# coordinate constraints. Therefore the settings and optional keywords are
+# the same for both fixes, and all the information below about SHAKE is also
+# relevant for RATTLE.
+# (...)
+# The m constraint lists atom masses. All bonds connected to atoms of the
+# specified masses will be constrained (within a fudge factor of MASSDELTA=0.1
+# specified in fix_shake.cpp). The a constraint lists angle types. If both
+# bonds in the angle are constrained then the angle will also be constrained
+# (...)
+# The fix rattle command modifies forces and velocities and thus should be
+# defined after all other integration fixes in your input script. If you
+# define other fixes that modify velocities or forces after fix rattle operates,
+# then fix rattle will not take them into account and the overall time
+# integration will typically not satisfy the RATTLE constraints. You can
+# check whether the constraints work correctly by setting the value of
+# RATTLE_DEBUG in src/fix_rattle.cpp to 1 and recompiling LAMMPS.
+# The degrees-of-freedom removed by SHAKE bonds and angles are accounted for in
+# temperature and pressure computations. Similarly, the SHAKE contribution to
+# the pressure of the system (virial) is also accounted for.
+
+dump            1 all custom 1 dump.custom id mol type x y z q
+dump_modify     1 format line "%d %d %d %f %f %f %15.14e %15.14e"
+
+run             1000

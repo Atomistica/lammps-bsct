@@ -1,0 +1,50 @@
+
+# LAMMPS coeff file via write_coeff, version 7 Aug 2019
+
+# bond_style harmonic
+bond_coeff 1 222.5 1.53
+bond_coeff 2 222.5 1.528
+bond_coeff 3 309 1.111
+bond_coeff 4 340 1.43
+bond_coeff 5 322 1.111
+bond_coeff 6 450 0.9572
+bond_coeff 7 540 1.448
+bond_coeff 8 250 1.575
+
+# angle_style charmm
+angle_coeff 1 58.35 113.6 11.16 2.561
+angle_coeff 2 58 115 8 2.561
+angle_coeff 3 26.5 110.1 22.53 2.179
+angle_coeff 4 75.7 110.1 0 0
+angle_coeff 5 34.6 110.1 22.53 2.179
+angle_coeff 6 15 109 27 1.9
+angle_coeff 7 34.6 110.1 22.53 2.179
+angle_coeff 8 35.5 109 5.4 1.802
+angle_coeff 9 60 109.5 0 0
+angle_coeff 10 35.5 108.4 5.4 1.802
+angle_coeff 11 55 104.52 0 0
+angle_coeff 12 130 109.47 35 2.45
+angle_coeff 13 85 98 0 0
+
+# dihedral_style charmmfsw
+dihedral_coeff 1 0.101 2 0 1
+dihedral_coeff 2 0.142 3 180 0
+dihedral_coeff 3 0.074 4 0 0
+dihedral_coeff 4 0.097 5 0 0
+dihedral_coeff 5 0.162 2 0 1
+dihedral_coeff 6 0.047 3 180 0
+dihedral_coeff 7 0.105 4 0 0
+dihedral_coeff 8 0.177 5 0 0
+dihedral_coeff 9 0.19 3 0 1
+dihedral_coeff 10 0 3 0 1
+dihedral_coeff 11 0.16 3 0 1
+dihedral_coeff 12 0 3 0 1
+dihedral_coeff 13 0 3 0 1
+dihedral_coeff 14 0.19 3 0 1
+dihedral_coeff 15 0.19 3 0 1
+dihedral_coeff 16 0.19 3 0 1
+dihedral_coeff 17 0.16 3 0 1
+dihedral_coeff 18 0 3 0 1
+
+# improper_style harmonic
+

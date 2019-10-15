@@ -1,0 +1,64 @@
+# Test
+
+units           real
+
+neigh_modify    delay 2 every 1
+
+atom_style      full
+bond_style      harmonic
+angle_style     charmm
+dihedral_style  charmmfsw
+improper_style  harmonic
+
+pair_style      lj/charmmfsw/coul/charmmfsh/bsct 8.0 12.0 9.0
+
+special_bonds   charmm
+
+read_data       data
+
+include         coeffs_bonded.in
+include         coeffs_NONbonded.in
+
+timestep        2.0 # 0.002 ps = 2 fs
+
+group           water            type  9 10  #  9 - H, 10 - O
+group           surface          type  8     #  8 - Au
+group           ion              type 12     # 12 - Na+
+group           bsct_atoms       union ion surface
+group           non_bsct_atoms   subtract all bsct_atoms
+group           surfactant subtract all water surface ion
+group           nonwater         subtract all water
+
+thermo          1
+thermo_style    custom step temp epair etotal ke pe temp press enthalpy f_ct &
+                ebond eangle edihed eimp epair evdwl ecoul elong etail
+thermo_modify   format float %15.14g norm no
+
+
+##############
+# minimization
+##############
+
+### Minimze the potential energy here.
+### minimize energy_tol force_tol maxiter maxeval
+minimize 10e-6 10e-6 1000 1000
+# Require a force tolerance of ~ 10 Kcal/mole-Angstrom
+# That should correspond to about 400 kJ / (mol*nm)
+
+# Quote from http://lammps.sandia.gov/doc/minimize.html
+# Perform an energy minimization of the system, by iteratively adjusting atom
+# coordinates. Iterations are terminated when one of the stopping criteria is
+# satisfied. At that point the configuration will hopefully be in local
+# potential energy minimum. More precisely, the configuration should
+# approximate a critical point for the objective function (see below), which
+# may or may not be a local minimum.
+#
+#    etol = stopping tolerance for energy (unitless)
+#    ftol = stopping tolerance for force (force units)
+#    maxiter = max iterations of minimizer
+#    maxeval = max number of force/energy evaluations
+#
+# Either or both of the etol and ftol values can be set to 0.0, in which case
+# some other criterion will terminate the minimization.
+
+write_data     minimized_data
