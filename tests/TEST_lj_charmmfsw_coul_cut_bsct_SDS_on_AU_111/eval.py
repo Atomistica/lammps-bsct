@@ -7,18 +7,18 @@ import numpy as np
 ###
 
 def loaddump(fn, col):
-	  data = []
-	  f = open(fn)
-	  l = f.readline()
-	  while l:
+    data = []
+    f = open(fn)
+    l = f.readline()
+    while l:
         while ( len( l.split() ) < 2 ) or ( ( l.split()[0] != 'ITEM:' ) and ( l.split()[1] != 'ATOMS' ) ):
             l = f.readline()
-        
-        #l = f.readline()
+
+        l = f.readline()
         while l and (len( l.split() ) > 0) and (l.split()[0] != 'ITEM:'):
-			      data += [float(l.split()[col])]
+            data += [float(l.split()[col])]
             l = f.readline()
-	  return np.array(data)
+    return np.array(data)
 
 ###
 
@@ -32,7 +32,7 @@ while l.split()[0] != 'Loop':
     s.write(l)
     l = f.readline()
 # thermo style:
-# Step Temp Press TotEng KinEng PotEng f_ct E_bond E_angle E_dihed E_impro E_pair E_vdwl E_coul E_long E_tail 
+# Step Temp Press TotEng KinEng PotEng f_ct E_bond E_angle E_dihed E_impro E_pair E_vdwl E_coul E_long E_tail
 step, temp, press, etot, ekin, epot, ect, ebond, eangle, edihed, eimpro, epair, evdwl, ecoul, elong, etail = np.loadtxt(
   StringIO(s.getvalue()), usecols=np.arange(0,16,1,dtype=int), unpack=True)
 step = np.array(step, dtype=int)
