@@ -1,0 +1,48 @@
+# dimer test, C in charge transfer, Li not
+
+# For two atoms with charges +- 0.5 and 3 A distance,
+# energy = -1.2000 eV
+# phi_{+-} = -+ 2.4
+
+# 1 - init general
+
+#processors 1 1 2
+
+units		cgs # Use lj units because all physical constants=1
+#units real
+#units si
+atom_style	charge
+
+# 2 - init system
+
+boundary	f f f
+read_data	data
+
+# 3 - init potential
+
+# args: inner LJ cutoff, outer LJ cutoff, Coulomb cutoff
+pair_style	lj/charmmfsw/coul/charmmfsh/bsct 8 12.0 10.0
+pair_coeff      * * 0 0
+
+# 4 - settings
+
+neighbor	1.0 bin
+neigh_modify	delay 0 every 1 check yes
+
+fix		1 all nve
+
+# BSCT
+fix             ct all bsct  nevery 1  qtot 0.0  log 3  mode 2  history 10 beta 0.1  prec 0.0001  max_iter 100  type 1 1.0 0.1 0.1 2.0  type 2 -1.0 0.1 0.1 2.0
+fix_modify	ct energy yes
+
+thermo		1
+thermo_style    custom step temp epair etotal f_ct elong ecoul
+thermo_modify	format float %15.14g norm no
+
+timestep	0.1
+
+dump            1 all custom 1 dump.custom id type x y z q f_ct
+
+# 5 - run
+
+run		15
