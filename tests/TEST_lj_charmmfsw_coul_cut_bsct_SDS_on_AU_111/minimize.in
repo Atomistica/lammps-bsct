@@ -30,7 +30,7 @@ group           surfactant subtract all water surface ion
 group           nonwater         subtract all water
 
 thermo          1
-thermo_style    custom step temp epair etotal ke pe temp press enthalpy f_ct &
+thermo_style    custom step temp epair etotal ke pe temp press enthalpy &
                 ebond eangle edihed eimp epair evdwl ecoul elong etail
 thermo_modify   format float %15.14g norm no
 
