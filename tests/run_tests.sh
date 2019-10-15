@@ -12,6 +12,14 @@ fi
 
 CMD=$(readlink -f $1)
 
+# specivy env var MPICMD to use other mpi command than default "mpirun"
+if [ -z "${MPICMD}" ]; then
+  MPICMD="mpirun"
+fi
+if [ -z "${MPINPOPT}" ]; then
+  MPICMD="-np"
+fi
+
 np=""
 OPTIND=2
 while getopts ":n:" opt; do
@@ -34,9 +42,9 @@ nok=0
 nfailed=0
 
 if [ -n "$np" ]; then
-  CMD="mpirun -np $np $CMD"
+  CMD="${MPICMD} ${MPINPOPT} $np $CMD"
 fi
-
+echo "${CMD}"
 for i in TEST_*; do
 
   echo $i
@@ -44,7 +52,7 @@ for i in TEST_*; do
   cd $i
 
   if [ -e run_test.sh ]; then
-    sh run_test.sh $CMD > OUT    
+    sh run_test.sh $CMD > OUT
   else
   if [ -e lammps.in ]; then
     $CMD -in lammps.in > OUT
