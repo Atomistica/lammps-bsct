@@ -16,27 +16,22 @@ special_bonds   charmm
 
 read_data       minimized_data
 
-include         coeffs_bonded.in
-include         coeffs_NONbonded.in
+include         coeffs.in
 
 timestep        2.0 # 0.002 ps = 2 fs
 
-group           water            type  9 10  #  9 - H, 10 - O
-group           surface          type  8     #  8 - Au
-group           ion              type 12     # 12 - Na+
+group           surface          type  1     #  1 - Au
+group           ion              type  2     #  2 - Na+
 group           bsct_atoms       union ion surface
-group           non_bsct_atoms   subtract all bsct_atoms
-group           surfactant subtract all water surface ion
-group           nonwater         subtract all water
-
 
 # BSCT FIX SYNTAX
 # fix groupID bsct atomType X V U p keyword values
-# X: partial charge; V:     ;U: Hubbard energy; p: exponent
+# X: chemical potential; V:     ;U: Hubbard energy; p: exponent
 # Note that U cannot be "0"
 fix         ct bsct_atoms bsct nevery 1 qtot 1.0 log 3 mode 2 history 10 &
             beta 0.1 prec 0.0001 max_iter 100 &
-            type 8 1.0 0.0 1.0 1.0 type 12 -1.0 0.0 1.0 1.0
+            type 1 -1.0 0.0 1.0 1.0 &
+            type 2  1.0 0.0 1.0 1.0
 fix_modify  ct energy yes
 
 fix         1 all nve

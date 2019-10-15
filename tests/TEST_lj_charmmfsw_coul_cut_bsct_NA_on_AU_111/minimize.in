@@ -1,8 +1,12 @@
-# Test
+# Modify and minimize
+
+variable hvac     index 30.0 # desired height of vacuum
+variable dz       index 15.0 # desired distance between ion and substrate
+variable ion_type index 2    # type of ion (Na)
 
 units           real
 
-neigh_modify    delay 2 every 1
+neigh_modify    delay 0 every 1 check yes
 
 atom_style      full
 bond_style      harmonic
@@ -14,26 +18,36 @@ pair_style      lj/charmmfsw/coul/charmmfsh/bsct 8.0 12.0 9.0
 
 special_bonds   charmm
 
-read_data       data
+read_data       relaxed.lammps
 
-include         coeffs_bonded.in
-include         coeffs_NONbonded.in
+print           "Initial xlo xhi ylo yhi zlo zhi:"
+print           "  $((xlo)) $((xhi))"
+print           "  $((ylo)) $((yhi))"
+print           "  $((zlo)) $((zhi))" 
 
-timestep        2.0 # 0.002 ps = 2 fs
+# surface z coordinate
+variable        z0 equal zhi
 
-group           water            type  9 10  #  9 - H, 10 - O
-group           surface          type  8     #  8 - Au
-group           ion              type 12     # 12 - Na+
+# intended position of ion:
+variable        x1 equal $((xhi-xlo)/2.0)
+variable        y1 equal $((yhi-ylo)/2.0)
+variable        z1 equal $(v_z0 + v_dz)
+
+change_box      all z final $((zlo)) $((zhi+v_hvac))
+
+print           "Resized xlo xhi ylo yhi zlo zhi:"
+print           "  $((xlo)) $((xhi))"
+print           "  $((ylo)) $((yhi))"
+print           "  $((zlo)) $((zhi))" 
+
+group           surface          type  1     #  1 - Au
+group           ion              type  2     #  2 - Na+
 group           bsct_atoms       union ion surface
-group           non_bsct_atoms   subtract all bsct_atoms
-group           surfactant subtract all water surface ion
-group           nonwater         subtract all water
 
 thermo          1
-thermo_style    custom step temp epair etotal ke pe temp press enthalpy &
+thermo_style    custom step temp press etotal ke pe &
                 ebond eangle edihed eimp epair evdwl ecoul elong etail
 thermo_modify   format float %15.14g norm no
-
 
 ##############
 # minimization
@@ -41,7 +55,7 @@ thermo_modify   format float %15.14g norm no
 
 ### Minimze the potential energy here.
 ### minimize energy_tol force_tol maxiter maxeval
-minimize 10e-6 10e-6 1000 1000
+minimize        0.0 1.0e-6 1000 1000
 # Require a force tolerance of ~ 10 Kcal/mole-Angstrom
 # That should correspond to about 400 kJ / (mol*nm)
 
@@ -61,4 +75,8 @@ minimize 10e-6 10e-6 1000 1000
 # Either or both of the etol and ftol values can be set to 0.0, in which case
 # some other criterion will terminate the minimization.
 
-write_data     minimized_data
+print           "Insert ion at (x,y,z) = ( $((v_x1)), $((v_y1)), $((v_z1)) )"
+create_atoms    ${ion_type} single $((v_x1)) $((v_y1)) $((v_z1))
+
+write_data      minimized.lammps
+write_dump      all image minimized.png type type modify backcolor white
