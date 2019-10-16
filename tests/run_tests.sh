@@ -1,4 +1,11 @@
 #! /bin/bash
+TESTS=(
+  TEST_dimer_coul_cut_bsct
+  TEST_dimer_coul_long_bsct
+  TEST_dimer_lj_charmmfsw_coul_charmmfsh_bsct
+  TEST_dimer_lj_charmmfsw_coul_long_bsct
+  TEST_dimer_p1
+  TEST_NaCl_coul_long_bsct )
 
 if [ -z "$1" ]; then
   echo "Syntax: run_tests.sh <executable> [-n<number-of-processes>]"
@@ -45,7 +52,7 @@ if [ -n "$np" ]; then
   CMD="${MPICMD} ${MPINPOPT} $np $CMD"
 fi
 echo "${CMD}"
-for i in TEST_*; do
+for i in "${TESTS[@]}"; do
 
   echo $i
 

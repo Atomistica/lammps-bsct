@@ -1,0 +1,77 @@
+# Point charge approaches subbstrate (Na+ above Au(111))
+
+variable dz                   index 15.0  # initial distance between ion and substrate (ang)
+variable lower_electrode_type index 1     # type of substrate (Au)
+variable upper_electrode_type index 2     # type of substrate (Au)
+variable ion_type             index 3     # type of ion (Na)
+variable ion_charge           index 1.0   # charge of Na+ in "real units": elementary charge
+variable vel                  index -0.01 # approach velocity (ang/fs)
+variable timestep             index 2.0   # fs
+variable nsteps               equal "round( abs( v_dz / v_vel / v_timestep ) )"
+
+variable joule_to_kcal        index 0.239e-3 # conversion from J to kcal (kcal / J)
+variable delta_phi            index 0.1   # potential difference between electrodes (V)
+
+units           real
+
+boundary        p p f
+neigh_modify    delay 2 every 1
+
+atom_style      full
+
+read_data       minimized.lammps
+
+pair_style      coul/cut/bsct 10.0
+pair_coeff      * *
+
+timestep        ${timestep}
+
+print           """
+    Ion at initial distance dz = ${dz} ang approaches substrate
+    at velocity v = ${vel} ang / fs over ${nsteps} time steps
+    of ${timestep} fs each.
+                """
+
+group           lower_electrode  type  ${lower_electrode_type} # Au
+group           upper_electrode  type  ${upper_electrode_type} # Au
+group           ion              type  ${ion_type}       # Na+
+group           substrate        union lower_electrode upper_electrode
+group           bsct_atoms       union lower_electrode upper_electrode
+
+variable        nsubst  equal "count(substrate)"
+variable        pcharge equal "-v_ion_charge / v_nsubst"
+
+print           """
+    Uniformly distribute counter charge Q = -${ion_charge} onto
+    ${nsubst} substrate atoms at partial charge q = $(v_pcharge:%.4e) each
+                """
+
+set             group substrate charge ${pcharge}
+set             group ion charge ${ion_charge}
+
+# BSCT FIX SYNTAX
+# fix groupID bsct atomType X U V p keyword values
+# X: chemical potential; U: Hubbard energy; V: band structure contributuon; p: exponent
+# Note that U cannot be "0"
+fix             ct bsct_atoms bsct nevery 1 qtot -${ion_charge} log 3 mode 2 history 3 &
+                beta 0.01 prec 1.0e-4 max_iter 100 &
+                type ${lower_electrode_type} $(-v_joule_to_kcal*v_delta_phi/2.0) 0.01 0.0 2.0 &
+                type ${upper_electrode_type} $(v_joule_to_kcal*v_delta_phi/2.0)  0.01 0.0 2.0
+fix_modify      ct energy yes
+
+fix             go     ion move linear 0.0 0.0 ${vel} units box
+# fix           stay   substrate nve
+# fix           freeze substrate setforce 0.0 0.0 0.0
+
+thermo          1
+thermo_style    custom step temp press etotal ke pe f_ct &
+                ebond eangle edihed eimp epair evdwl ecoul elong etail
+thermo_modify   format float %15.14g norm no
+
+dump            1 all custom 1 dump.custom id mol type x y z q f_ct
+dump_modify     1 format line "%d %d %d %f %f %f %15.14e %15.14e"
+
+run             ${nsteps}
+
+write_data      final.lammps
+write_dump      all image final.png type type modify backcolor white
