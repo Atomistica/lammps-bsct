@@ -8,11 +8,14 @@ import numpy as np
 verbose = True
 debug = False
 
-substrate_type  = 8
-ion_type        = 12
+substrate_type  = 1
+ion_type        = 2
+
+dump_file = 'dump.custom'
+log_file  = 'lammps.out'
 
 # BSCT style:
-# type 8 1.0 0.0 1.0 1.0 type 12 -1.0 0.0 1.0 1.0
+# type 1 1.0 0.0 1.0 1.0 type 2 -1.0 0.0 1.0 1.0
 
 X = 1.0
 V = 0.0
@@ -51,6 +54,7 @@ def loaddump(fn, col):
 
 ###
 
+# read log fil (thermo output)
 f = open('OUT')
 l = f.readline()
 while l.split()[0] != 'Step':
@@ -65,8 +69,9 @@ while l.split()[0] != 'Loop':
 step, temp, press, etot, ekin, epot, ect, ebond, eangle, edihed, eimpro, epair, evdwl, ecoul, elong, etail = np.loadtxt(
   StringIO(s.getvalue()), usecols=np.arange(0,16,1,dtype=int), unpack=True)
 step = np.array(step, dtype=int)
-# dump style:
-# id mol type x y z q
+
+# read dump file
+# dump style: id mol type x y z q
 mol   = np.array(loaddump('dump.custom', 3), dtype=int)
 if verbose: sys.stderr.write( "mol.shape{}".format(mol.shape))
 types = np.array(loaddump('dump.custom', 2), dtype=int)
