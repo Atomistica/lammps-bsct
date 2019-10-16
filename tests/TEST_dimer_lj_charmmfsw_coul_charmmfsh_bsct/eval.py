@@ -54,7 +54,8 @@ p = 2
 # Check Coulomb energy
 
 ecoul_check = charges1*charges2/dist
-print("ecoul_check = "+str(ecoul_check)+"; ecoul = "+str(ecoul))
+print("ecoul_check = "+str(ecoul_check))
+print("ecoul       = "+str(ecoul))
 assert np.all(np.abs(ecoul-ecoul_check) < 1e-3)
 
 # Check energy from charge-transfer model

@@ -27,8 +27,14 @@ while l.split()[0] != 'Step':
 s = StringIO()
 l = f.readline()
 while l.split()[0] != 'Loop':
-    s.write(l)
-    l = f.readline()
+    # skip PPPM output
+    if l.split()[0] == 'PPPM':
+        for i in range(9):
+            l = f.readline()
+    else:
+        s.write(l)
+        l = f.readline()
+
 step, ect, ecoul, etot = np.loadtxt(StringIO(s.getvalue()), usecols=[0, 4, 6, 3], unpack=True)
 step = np.array(step, dtype=int)
 types = np.array(loaddump('dump.custom', 1), dtype=int)
@@ -54,7 +60,8 @@ p = 2
 # Check Coulomb energy
 
 ecoul_check = charges1*charges2/dist
-print("ecoul_check= "+str(ecoul_check)+ " ecoul = "+str(ecoul))
+print("ecoul_check = "+str(ecoul_check))
+print("ecoul       = "+str(ecoul))
 assert np.all(np.abs(ecoul-ecoul_check) < 1e-3)
 
 # Check energy from charge-transfer model

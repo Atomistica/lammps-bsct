@@ -9,20 +9,20 @@
 #processors 1 1 2
 
 units		cgs # Use lj units because all physical constants=1
-#units real
-#units si
 atom_style	charge
 
 # 2 - init system
 
-boundary	f f f
+boundary	p p p
 read_data	data
 
 # 3 - init potential
 
 # args: inner LJ cutoff, outer LJ cutoff, Coulomb cutoff
-pair_style	lj/charmmfsw/coul/long/bsct 8 12.0 1000.0
+pair_style	lj/charmmfsw/coul/long/bsct 8 12.0 10.0
 pair_coeff      * * 0 0
+pair_modify table 0
+kspace_style pppm/bsct 1.0e-4
 
 # 4 - settings
 
