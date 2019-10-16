@@ -15,7 +15,6 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include "string.h"
-#include "pair_coul_cut.h"
 #include "pair_lj_charmmfsw_coul_charmmfsh_bsct.h"
 #include "atom.h"
 #include "comm.h"
