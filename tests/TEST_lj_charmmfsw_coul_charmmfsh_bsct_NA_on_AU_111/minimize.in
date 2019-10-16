@@ -2,9 +2,11 @@
 
 variable hvac     index 30.0 # desired height of vacuum
 variable dz       index 15.0 # desired distance between ion and substrate
-variable ion_type index 2    # type of ion (Na)
+variable ion_type index 3    # type of ion (Na)
 
 units           real
+
+boundary        p p s
 
 neigh_modify    delay 0 every 1 check yes
 
@@ -18,31 +20,55 @@ pair_style      lj/charmmfsw/coul/charmmfsh/bsct 8.0 12.0 9.0
 
 special_bonds   charmm
 
-read_data       relaxed.lammps
+read_data       relaxed.lammps extra/atom/types 1 group lower_electrode
 
-print           "Initial xlo xhi ylo yhi zlo zhi:"
+print           "Lower electrode xlo xhi ylo yhi zlo zhi:"
 print           "  $((xlo)) $((xhi))"
 print           "  $((ylo)) $((yhi))"
 print           "  $((zlo)) $((zhi))" 
 
 # surface z coordinate
 variable        z0 equal zhi
+variable        zoffset equal "v_z0 + v_hvac" 
 
 # intended position of ion:
 variable        x1 equal $((xhi-xlo)/2.0)
 variable        y1 equal $((yhi-ylo)/2.0)
 variable        z1 equal $(v_z0 + v_dz)
 
-change_box      all z final $((zlo)) $((zhi+v_hvac))
+read_data       relaxed.lammps add append offset 1 0 0 0 0 shift 0 0 ${zoffset} group upper_electrode
 
-print           "Resized xlo xhi ylo yhi zlo zhi:"
+print           "Full system xlo xhi ylo yhi zlo zhi:"
 print           "  $((xlo)) $((xhi))"
 print           "  $((ylo)) $((yhi))"
 print           "  $((zlo)) $((zhi))" 
 
-group           surface          type  1     #  1 - Au
-group           ion              type  2     #  2 - Na+
-group           bsct_atoms       union ion surface
+# add arg = append or IDoffset or IDoffset MOLoffset or merge
+#   append = add new atoms with atom IDs appended to current IDs
+#   IDoffset = add new atoms with atom IDs having IDoffset added
+#   MOLoffset = add new atoms with molecule IDs having MOLoffset added (only 
+#               when molecule IDs are enabled)
+#   merge = add new atoms with their atom IDs (and molecule IDs) unchanged
+# offset args = toff boff aoff doff ioff
+#   toff = offset to add to atom types
+#   boff = offset to add to bond types
+#   aoff = offset to add to angle types
+#   doff = offset to add to dihedral types
+#   ioff = offset to add to improper types
+# shift args = Sx Sy Sz
+#   Sx,Sy,Sz = distance to shift atoms when adding to system (distance units)
+# group args = groupID
+#   groupID = add atoms in data file to this group
+# nocoeff = ignore force field parameters
+# fix args = fix-ID header-string section-string
+#   fix-ID = ID of fix to process header lines and sections of data file
+#   header-string = header lines containing this string will be passed to fix
+#   section-string = section names with this string will be passed to fix
+
+# change_box      all z final $((zlo)) $((zhi+v_hvac))
+
+group           ion              type  ${ion_type}     # Na+
+group           bsct_atoms       union lower_electrode upper_electrode
 
 thermo          1
 thermo_style    custom step temp press etotal ke pe &
