@@ -64,20 +64,20 @@ void PairLJCharmmfswCoulLongBSCT::reset_g_ewald()
 void PairLJCharmmfswCoulLongBSCT::compute_potential(double &ecoultot, double *phi)
 {
   // Parts removed from original PairLJCharmmfswCoulLong::compute
-  // commented by //**, modified parts suffixed with //**,
-  // inserted parts marked by // bsct { .. }
+  // commented by //--, modified parts suffixed with //**,
+  // inserted parts marked by //++ or // bsct { ... // } bsct
   int i,j,ii,jj,inum,jnum,itype,jtype,itable;
-  double qtmp,xtmp,ytmp,ztmp,delx,dely,delz,ecoul,fpair; //** evdwl,evdwl12,evdwl6
+  double qtmp,xtmp,ytmp,ztmp,delx,dely,delz,ecoul; //** evdwl,evdwl12,evdwl6,fpair
   double fraction,table;
-  double r,rinv,r2inv,forcecoul,factor_coul; //** r3inv,r6inv,rsq,forcelj,factor_lj
+  double r,rinv,r2inv,rsq,factor_coul; //** r3inv,r6inv,forcelj,forcecoul,factor_lj
   double grij,expm2,prefactor,t,erfc;
-  double switch1;
+  //-- double switch1;
   int *ilist,*jlist,*numneigh,**firstneigh;
-  double rsq;
-  double phii, phij;  // Tommi
+  double phii, phij;  //++
+  double phiprefactor;
 
   ecoul = 0.0; //** evdwl = ecoul = 0.0;
-  //**ev_init(eflag,vflag);
+  //-- ev_init(eflag,vflag);
 
   double **x = atom->x;
   double **f = atom->f;
@@ -85,7 +85,7 @@ void PairLJCharmmfswCoulLongBSCT::compute_potential(double &ecoultot, double *ph
   int *type = atom->type;
   int nlocal = atom->nlocal;
   double *special_coul = force->special_coul;
-  //** double *special_lj = force->special_lj;
+  //-- double *special_lj = force->special_lj;
 
   int newton_pair = force->newton_pair;
   double qqrd2e = force->qqrd2e;
@@ -109,7 +109,7 @@ void PairLJCharmmfswCoulLongBSCT::compute_potential(double &ecoultot, double *ph
 
     for (jj = 0; jj < jnum; jj++) {
       j = jlist[jj];
-      //** factor_lj = special_lj[sbmask(j)];
+      //-- factor_lj = special_lj[sbmask(j)];
       factor_coul = special_coul[sbmask(j)];
       j &= NEIGHMASK;
 
@@ -120,7 +120,7 @@ void PairLJCharmmfswCoulLongBSCT::compute_potential(double &ecoultot, double *ph
 
       if (rsq < cut_coulsq) { //** if (rsq < cut_bothsq)
         r2inv = 1.0/rsq;
-        //** if (rsq < cut_coulsq)
+        //-- if (rsq < cut_coulsq)
         if (!ncoultablebits || rsq <= tabinnersq) {
           r = sqrt(rsq);
           grij = g_ewald * r;
@@ -128,22 +128,20 @@ void PairLJCharmmfswCoulLongBSCT::compute_potential(double &ecoultot, double *ph
           t = 1.0 / (1.0 + EWALD_P*grij);
           erfc = t * (A1+t*(A2+t*(A3+t*(A4+t*A5)))) * expm2;
           prefactor = qqrd2e * qtmp*q[j]/r;
-          //** forcecoul = prefactor * (erfc + EWALD_F*grij*expm2);
-          //** if (factor_coul < 1.0) forcecoul -= (1.0-factor_coul)*prefactor;
+          //-- forcecoul = prefactor * (erfc + EWALD_F*grij*expm2);
+          //-- if (factor_coul < 1.0) forcecoul -= (1.0-factor_coul)*prefactor;
 
           // bsct {
-          {
-            double phiprefactor;
-            phiprefactor = qqrd2e/r;
-            phii = phiprefactor*q[j]*erfc;
-            phij = phiprefactor*qtmp*erfc;
-            if (factor_coul < 1.0) {
-              // Tommi: erfc not included here in pair_coul_long either
-              phii -= (1.0-factor_coul)*phiprefactor*q[j];
-              phij -= (1.0-factor_coul)*phiprefactor*qtmp;
-            }
+          phiprefactor = qqrd2e/r;
+          phii = phiprefactor*q[j]*erfc;
+          phij = phiprefactor*qtmp*erfc;
+          if (factor_coul < 1.0) {
+            // Tommi: erfc not included here in pair_coul_long either
+            phii -= (1.0-factor_coul)*phiprefactor*q[j];
+            phij -= (1.0-factor_coul)*phiprefactor*qtmp;
           }
           // } bsct
+
         } else {
           union_int_float_t rsq_lookup;
           rsq_lookup.f = rsq;
@@ -151,50 +149,49 @@ void PairLJCharmmfswCoulLongBSCT::compute_potential(double &ecoultot, double *ph
           itable >>= ncoulshiftbits;
           fraction = (rsq_lookup.f - rtable[itable]) * drtable[itable];
           table = ftable[itable] + fraction*dftable[itable];
-          /*
-          forcecoul = scale[itype][jtype] * qtmp*q[j] * table;
+
+          //-- forcecoul = qtmp*q[j] * table;
+          //-- if (factor_coul < 1.0) {
+          //--   table = ctable[itable] + fraction*dctable[itable];
+          //--   prefactor = qtmp*q[j] * table;
+          //--   forcecoul -= (1.0-factor_coul)*prefactor;
+          //-- }
+
+          // bsct {
+          phiprefactor = table;
+          phii = phiprefactor*q[j];
+          phij = phiprefactor*qtmp;
           if (factor_coul < 1.0) {
             table = ctable[itable] + fraction*dctable[itable];
-            prefactor = scale[itype][jtype] * qtmp*q[j] * table;
-            forcecoul -= (1.0-factor_coul)*prefactor;
-          }
-          */
-
-          // Tommi
-          {
-            double phiprefactor;
+            //-- set scale[itype][jtype] = 1
+            //-- prefactor = scale[itype][jtype] * qtmp*q[j] * table;
+            prefactor = qtmp*q[j] * table;
             phiprefactor = table;
-            phii = phiprefactor*q[j];
-            phij = phiprefactor*qtmp;
-            if (factor_coul < 1.0) {
-              table = ctable[itable] + fraction*dctable[itable];
-              //set scale[itype][jtype] = 1
-              //prefactor = scale[itype][jtype] * qtmp*q[j] * table;
-              prefactor = qtmp*q[j] * table;
-              phiprefactor = table;
-              phii -= (1.0-factor_coul)*phiprefactor*q[j];
-              phij -= (1.0-factor_coul)*phiprefactor*qtmp;
-            }
+            phii -= (1.0-factor_coul)*phiprefactor*q[j];
+            phij -= (1.0-factor_coul)*phiprefactor*qtmp;
           }
+          // } bsct
         }
-
-        // Tommi
 
         // accumulate phi
-        phi[i] += phii;
-        if (newton_pair || j < nlocal) phi[j] += phij;
+        phi[i] += phii; //++
+        if (newton_pair || j < nlocal) phi[j] += phij; //++
 
         // calculate electrostatic energy
-        if (!ncoultablebits || rsq <= tabinnersq)
+        if (!ncoultablebits || rsq <= tabinnersq) {
           ecoul = prefactor*erfc;
-        else {
+          if (factor_coul < 1.0) ecoul -= (1.0-factor_coul)*prefactor;
+        } else {
           table = etable[itable] + fraction*detable[itable];
-          //set scale[itype][jtype] = 1
-          //ecoul = scale[itype][jtype] * qtmp*q[j] * table;
-          ecoul = qtmp * q[j] * table;
+          ecoul = qtmp*q[j] * table;
+          if (factor_coul < 1.0) {
+            table = ptable[itable] + fraction*dptable[itable];
+            prefactor = qtmp*q[j] * table;
+            ecoul -= (1.0-factor_coul)*prefactor;
+          }
         }
-        if (factor_coul < 1.0) ecoul -= (1.0-factor_coul)*prefactor;
 
+        // bsct {
         // accumulate total electrostatic energy
         //   - adapted from Pair::ev_tally()
         if (newton_pair) {
@@ -208,10 +205,8 @@ void PairLJCharmmfswCoulLongBSCT::compute_potential(double &ecoultot, double *ph
             ecoultot += ecoul*0.5;
           }
         }
-
+        // } bsct
       }
     }
   }
-
-  //if (vflag_fdotr) virial_fdotr_compute();
 }
