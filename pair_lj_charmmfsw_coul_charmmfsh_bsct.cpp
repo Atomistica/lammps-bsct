@@ -34,19 +34,28 @@ PairLJCharmmfswCoulCharmmfshBSCT::PairLJCharmmfswCoulCharmmfshBSCT(LAMMPS *lmp) 
 
 void PairLJCharmmfswCoulCharmmfshBSCT::compute_potential(double &ecoultot, double *phi)
 {
+  // Parts removed from original PairLJCharmmfswCoulCharmmfsh::compute commented
+  // by //**, parts removed from PairCoulCut::compute commented with //--
+  // modified or inserted parts suffixed with //**,
+  // inserted multi-line parts marked by // bsct { .. }
   int i,j,ii,jj,inum,jnum,itype,jtype;
-  double qtmp,xtmp,ytmp,ztmp,delx,dely,delz,ecoul,fpair;
-  double rsq,r2inv,rinv,forcecoul,factor_coul;
+  double qtmp,xtmp,ytmp,ztmp,delx,dely,delz,ecoul; //** evdwl,evdwl12,evdwl6,fpair
+  double r,rinv,rsq,r2inv,factor_coul; //** r3invr6inv,forcelj,forcecoul,factor_lj
+  //** double switch1;
   int *ilist,*jlist,*numneigh,**firstneigh;
-  double phiprefactor, phii, phij;
+  double phiprefactor, phii, phij; //**
+
+  ecoul = 0.0 //** evdwl = ecoul = 0.0;
+  //** ev_init(eflag,vflag);
 
   double **x = atom->x;
   double **f = atom->f;
   double *q = atom->q;
   int *type = atom->type;
   int nlocal = atom->nlocal;
-  int nall = nlocal + atom->nghost;
+  // int nall = nlocal + atom->nghost; // where from, why necessary?
   double *special_coul = force->special_coul;
+  //** double *special_lj = force->special_lj;
   int newton_pair = force->newton_pair;
   double qqrd2e = force->qqrd2e;
 
@@ -69,6 +78,7 @@ void PairLJCharmmfswCoulCharmmfshBSCT::compute_potential(double &ecoultot, doubl
 
     for (jj = 0; jj < jnum; jj++) {
       j = jlist[jj];
+      //** factor_lj = special_lj[sbmask(j)];
       factor_coul = special_coul[sbmask(j)];
       j &= NEIGHMASK;
 
@@ -76,24 +86,31 @@ void PairLJCharmmfswCoulCharmmfshBSCT::compute_potential(double &ecoultot, doubl
       dely = ytmp - x[j][1];
       delz = ztmp - x[j][2];
       rsq = delx*delx + dely*dely + delz*delz;
-      jtype = type[j];
+      //-- jtype = type[j];
 
-      if (rsq < cutsq[itype][jtype]) {
+      //-- if (rsq < cutsq[itype][jtype]) {
+      if (rsq < cut_coulsq) {
         r2inv = 1.0/rsq;
-        rinv = sqrt(r2inv);
+        r = sqrt(rsq);
+        //rinv = sqrt(r2inv);
         //set scale[itype][jtype] to "1"
-        //forcecoul = qqrd2e * scale[itype][jtype] * qtmp*q[j]*rinv;
-        forcecoul = qqrd2e * qtmp*q[j]*rinv;
-        fpair = factor_coul*forcecoul * r2inv;
+        //-- forcecoul = qqrd2e * scale[itype][jtype] * qtmp*q[j]*rinv;
+        //-- forcecoul = qqrd2e * qtmp*q[j]*rinv;
+        //** forcecoul = qqrd2e * qtmp*q[j]*
+        //**  (sqrt(r2inv) - r*cut_coulinv*cut_coulinv); // force shifting
+        //** fpair = factor_coul*forcecoul * r2inv;
 
         // Tommi
         //set scale[itype][jtype] to "1"
         //phiprefactor = factor_coul * qqrd2e * scale[itype][jtype] * rinv;
         phiprefactor = factor_coul * qqrd2e * rinv;
         phii = phiprefactor*q[j];
-        phij = phiprefactor*qtmp;
+        phij = phiprefactor*qtmp; // qtmp is q[i]
 
-        ecoul = phiprefactor * qtmp*q[j];
+        //-- ecoul = phiprefactor * qtmp*q[j];
+        ecoul = qqrd2e * qtmp*q[j]*
+          (sqrt(r2inv) + cut_coulinv*cut_coulinv*r - 2.0*cut_coulinv);
+        ecoul *= factor_coul; // (1/r + 1/r_c^2 - 2/r_c) = (r-r_c)^2/(r r_c^2)
 
         // accumulate phi
         phi[i] += phii;
