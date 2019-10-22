@@ -1,0 +1,18 @@
+# parameters from CHARMM 36 & INTERFACE FF
+#
+# R. B. Best et al., "Optimization of the Additive CHARMM All-Atom Protein Force
+# Field Targeting Improved Sampling of the Backbone phi, psi and Side-Chain chi1 and
+# chi2 Dihedral Angles", J. Chem. Theory Comput., vol. 8, no. 9, pp. 3257-3273,
+# Sep. 2012.
+#
+# H. Heinz, T. J. Lin, R. Kishore Mishra, and F. S. Emami, "Thermodynamically
+# consistent force fields for the assembly of inorganic, organic, and biological
+# nanostructures: The INTERFACE force field", Langmuir, vol. 29, no. 6, pp.
+# 1754-1765, Feb. 2013.
+#
+#
+# pair_style lj/charmmfsw/coul/long/bsct
+#
+pair_coeff 1 1 5.29 2.62904 5.29 2.62904          # Au - Au LJ
+pair_coeff 1 2 0.498097 2.52948 0.498097 2.52948  # Au - Na LJ
+pair_coeff 2 2 0.0469 2.42993 0.0469 2.42993      # Au - Au LJ

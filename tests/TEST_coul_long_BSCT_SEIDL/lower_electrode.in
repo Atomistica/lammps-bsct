@@ -1,0 +1,18 @@
+units real
+atom_style full
+
+lattice fcc 4
+region box block 0 1 0 1 0 1 units lattice
+create_box 3 box
+
+lattice fcc 4 orient x 1 0 0 orient y 0 1 0 orient z 0 0 1
+create_atoms 1 box
+set type 1 charge 0.0
+
+replicate 5 5 2
+
+mass 1 196.0
+mass 2 22.0
+mass 3 35.0
+
+write_data lower.electrode
