@@ -51,12 +51,17 @@ U = 0.1
 V = 0.1
 p = 2
 
+r_coul_cut = 10.0
+
 # Check Coulomb energy
 
+
 ecoul_check = charges1*charges2/dist
-print("ecoul_check = "+str(ecoul_check))
-print("ecoul       = "+str(ecoul))
-assert np.all(np.abs(ecoul-ecoul_check) < 1e-3)
+ecoul_shifted_check = charges1*charges2*(dist-r_coul_cut)**2/(dist*r_coul_cut**2)
+print("ecoul_check         = "+str(ecoul_check))
+print("ecoul_shifted_check = "+str(ecoul_shifted_check))
+print("ecoul               = "+str(ecoul))
+assert np.all(np.abs(ecoul-ecoul_shifted_check) < 1e-3)
 
 # Check energy from charge-transfer model
 
