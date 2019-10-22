@@ -42,8 +42,8 @@ fix main ions nve
 # X: chemical potential; U: Hubbard energy; V: band structure contribution; p: exponent; Note that U cannot be "0"
 fix             ct capacitor bsct nevery 1 qtot 0.0 log 3 mode 2 history 3 &
                 beta 0.1 prec 0.05 max_iter 1000 &
-                type 1 -.5 1 0.0 1.0 &
-                type 2 .5 1 0.0 1.0 
+                type 1 -.1 1 0.0 1.0 &
+                type 2 .1 1 0.0 1.0 
 
 fix_modify      ct energy yes
 
