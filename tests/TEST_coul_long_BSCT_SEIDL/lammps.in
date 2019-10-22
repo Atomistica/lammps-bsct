@@ -23,8 +23,8 @@ include coeffs.setup
 
 create_atoms 3 single $(xlo + (xhi-xlo)/3) $(ylo + (yhi-ylo)/3) $(zlo + (zhi-zlo)/2)
 create_atoms 4 single $(xlo + (xhi-xlo)*2/3) $(ylo + (yhi-ylo)*2/3) $(zlo + (zhi-zlo)/2)
-set type 3 charge 1e-6
-set type 4 charge -1e-6
+set type 3 charge 1
+set type 4 charge -1
 change_box all z final $(zlo) $(2*zhi)
 #^add vacuum above top electrode
 
@@ -42,8 +42,8 @@ fix main ions nve
 # X: chemical potential; U: Hubbard energy; V: band structure contribution; p: exponent; Note that U cannot be "0"
 fix             ct capacitor bsct nevery 1 qtot 0.0 log 3 mode 2 history 3 &
                 beta 0.1 prec 0.05 max_iter 1000 &
-                type 1 -.1 1 0.0 1.0 &
-                type 2 .1 1 0.0 1.0 
+                type 1 -.1 100 0.0 1.0 &
+                type 2 .1 100 0.0 1.0 
 
 fix_modify      ct energy yes
 
@@ -54,11 +54,11 @@ thermo_style    custom step temp press etotal ke pe f_ct &
 thermo_modify   format float %15.14g norm no
 
 
-dump            1 all custom 100 dump.custom id mol type x y z q
+dump            1 all custom 10 dump.custom id mol type x y z q
 dump_modify     1 format line "%d %d %d %f %f %f %15.14e %15.14e"
 
 timestep        0.1
-run 2000
+run 20
 
 log log.lammps append
 
