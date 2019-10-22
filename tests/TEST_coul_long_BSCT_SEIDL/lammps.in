@@ -36,15 +36,17 @@ group anions      type  4
 group cations     type  3
 group ions        union anions         cations
 
-
 fix main ions nve
 # BSCT FIX SYNTAX:
 # fix groupID bsct atomType X U V p keyword values
 # X: chemical potential; U: Hubbard energy; V: band structure contribution; p: exponent; Note that U cannot be "0"
 fix             ct capacitor bsct nevery 1 qtot 0.0 log 3 mode 2 history 3 &
                 beta 0.1 prec 0.05 max_iter 1000 &
-                type 1 -0.1 1 0.0 1.0 &
-                type 2 0.1 1 0.0 1.0 
+                type 1 -.1 1 0.0 1.0 &
+                type 2 .1 1 0.0 1.0 
+#&
+#                type 3 0 1 0.0 1.0 &
+#                type 4 0 1 0.0 1.0
 fix_modify      ct energy yes
 
 
@@ -57,7 +59,7 @@ thermo_modify   format float %15.14g norm no
 dump            1 all custom 100 dump.custom id mol type x y z q
 dump_modify     1 format line "%d %d %d %f %f %f %15.14e %15.14e"
 
-timestep        1
+timestep        0.1
 run 2000
 
 log log.lammps append
