@@ -8,8 +8,8 @@ import numpy as np
 verbose = True
 debug = False
 
-lower_electrode_type  = 1
-upper_electrode_type  = 2
+cathode_type  = 1
+anode_type  = 2
 cation_type           = 3
 anion_type            = 4
 
@@ -97,21 +97,21 @@ if verbose: sys.stderr.write( "z.shape{}\n".format(z.shape))
 charges = loaddump(dump_file, 6)
 if verbose: sys.stderr.write( "charges.shape{}\n".format(charges.shape))
 
-charges_lower_electrode = np.array(
-  [ charges[i,types[i,:]==lower_electrode_type] for i in range(charges.shape[0]) ] )  # AU
-if verbose: sys.stderr.write( "charges_lower_electrode.shape({})\n".format(charges_lower_electrode.shape))
+charges_cathode = np.array(
+  [ charges[i,types[i,:]==cathode_type] for i in range(charges.shape[0]) ] )  # AU
+if verbose: sys.stderr.write( "charges_cathode.shape({})\n".format(charges_cathode.shape))
 
-z_lower_electrode = np.array(
-  [ z[i,types[i,:]==lower_electrode_type] for i in range(z.shape[0]) ] )  # SOD
-if verbose: sys.stderr.write( "z_lower_electrode.shape({})\n".format(z_lower_electrode.shape))
+z_cathode = np.array(
+  [ z[i,types[i,:]==cathode_type] for i in range(z.shape[0]) ] )  # SOD
+if verbose: sys.stderr.write( "z_cathode.shape({})\n".format(z_cathode.shape))
 
-charges_upper_electrode = np.array(
-  [ charges[i,types[i,:]==upper_electrode_type] for i in range(charges.shape[0]) ] )  # AU
-if verbose: sys.stderr.write( "charges_upper_electrode.shape({})".format(charges_upper_electrode.shape))
+charges_anode = np.array(
+  [ charges[i,types[i,:]==anode_type] for i in range(charges.shape[0]) ] )  # AU
+if verbose: sys.stderr.write( "charges_anode.shape({})".format(charges_anode.shape))
 
-z_upper_electrode = np.array(
-  [ z[i,types[i,:]==upper_electrode_type] for i in range(z.shape[0]) ] )  # SOD
-if verbose: sys.stderr.write( "z_upper_electrode.shape({})\n".format(z_upper_electrode.shape))
+z_anode = np.array(
+  [ z[i,types[i,:]==anode_type] for i in range(z.shape[0]) ] )  # SOD
+if verbose: sys.stderr.write( "z_anode.shape({})\n".format(z_anode.shape))
 
 charges_cation = np.array(
   [ charges[i,types[i,:]==cation_type] for i in range(charges.shape[0]) ] )  # SOD
@@ -130,17 +130,17 @@ z_anion = np.array(
 if verbose: sys.stderr.write( "z_anion.shape({})\n".format(z_anion.shape))
 
 # charges upper and lower electrode
-charge_lower_electrode = np.sum(charges_lower_electrode, axis=1)
-if verbose: sys.stderr.write( "charge_lower_electrode.shape({})\n".format(charge_lower_electrode.shape))
+charge_cathode = np.sum(charges_cathode, axis=1)
+if verbose: sys.stderr.write( "charge_cathode.shape({})\n".format(charge_cathode.shape))
 
-charge_upper_electrode = np.sum(charges_upper_electrode, axis=1)
-if verbose: sys.stderr.write( "charge_upper_electrode.shape({})\n".format(charge_upper_electrode.shape))
+charge_anode = np.sum(charges_anode, axis=1)
+if verbose: sys.stderr.write( "charge_anode.shape({})\n".format(charge_anode.shape))
 
 # position lower and upper interface
-z_lower_interface = np.max(z_lower_electrode, axis=1)
+z_lower_interface = np.max(z_cathode, axis=1)
 if verbose: sys.stderr.write( "z_lower_interface.shape({})\n".format(z_lower_interface.shape))
 
-z_upper_interface = np.min(z_upper_electrode, axis=1)
+z_upper_interface = np.min(z_anode, axis=1)
 if verbose: sys.stderr.write( "z_upper_interface.shape({})\n".format(z_upper_interface.shape))
 
 # in case of more than > 1 ion
@@ -162,9 +162,9 @@ dcom_anion  = np.abs(zcom_anion - z_upper_interface)
 output = np.vstack((
   dcom_cation, dcom_anion,
   charge_cation, charge_anion,
-  charge_lower_electrode,charge_upper_electrode )).T
+  charge_cathode,charge_anode )).T
 if verbose: sys.stderr.write( "output.shape({})\n".format(output.shape))
-print "zcom_cation zcom_anion charge_cation charge_anion charge_lower_electrode charge_upper_electrode"
+print "zcom_cation zcom_anion charge_cation charge_anion charge_cathode charge_anode"
 
 for i in range(output.shape[0]):
     print ("{:15.14e} "*output.shape[1]).format(*output[i,:])
