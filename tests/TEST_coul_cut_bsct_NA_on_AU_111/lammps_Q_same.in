@@ -93,8 +93,8 @@ print           """
     $(v_n_anode) anode atoms at partial charge q_a = $(v_anode_pcharge:%.4e) each
                 """
 
-set             group cathode charge $(v_electrode_charge_scale_factor*v_cathode_pcharge)
-set             group anode charge $(v_electrode_charge_scale_factor*v_anode_pcharge)
+set             group cathode charge $(-v_electrode_charge_scale_factor*v_cathode_pcharge)
+set             group anode charge $(-v_electrode_charge_scale_factor*v_anode_pcharge)
 
 
 variable delta_mubar equal "v_joule_to_kcal * v_faraday_constant * v_delta_phi"
@@ -109,24 +109,22 @@ print           """
 # fix groupID bsct atomType X U V p keyword values
 # X: chemical potential; U: Hubbard energy; V: band structure contributuon; p: exponent
 # Note that U cannot be "0"
-fix             ct capacitor bsct nevery 1 qtot 0.0 log 3 mode 2 history 10 &
-                beta 0.1 prec 10.0 max_iter 100 &
+fix             ct capacitor bsct nevery 1 qtot 0.0 log 3 mode 2 history 100 &
+                beta 0.1 prec 2.0 max_iter 1000 &
                 type ${cathode_type} $(-v_delta_mubar/2.0) $(v_hubbard_u) 0.0 1.0 &
                 type ${anode_type} $(v_delta_mubar/2.0)  $(v_hubbard_u) 0.0 1.0
 
 fix_modify      ct energy yes
 
-# fix             integrate ions nve
-
 fix             move_cations  cations move linear 0.0 0.0 -${vel} units box
-fix             move_anions   anions  move linear 0.0 0.0 ${vel} units box
+fix             move_anions   anions move linear 0.0 0.0 ${vel} units box
 
 thermo          1
 thermo_style    custom step temp press etotal ke pe f_ct &
                 ebond eangle edihed eimp epair evdwl ecoul elong etail
 thermo_modify   format float %15.14g norm no
 
-dump            1 all custom 1 dump.custom id mol type x y z q f_ct
+dump            1 all custom 1 dump.Q_same.custom id mol type x y z q f_ct
 dump_modify     1 format line "%d %d %d %f %f %f %15.14e %15.14e"
 
 run             ${nsteps}
