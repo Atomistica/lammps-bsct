@@ -5,6 +5,7 @@ variable anode_type           index 2     # type of substrate (Au)
 variable cation_type          index 3     # type of cation (Na+)
 variable anion_type           index 4     # type of anion (Cl-)
 variable ion_charge           index 1.0   # charge of Na+ in "real units": elementary charge
+variable electrode_charge_scale_factor index 0.0
 variable vel                  index 0.01 # approach velocity (ang/fs)
 variable timestep             index 2.0   # fs
 
@@ -13,15 +14,15 @@ variable hubbard_u_in_eV      index 6.8 # eV
 variable eV_to_kcal           index 3.82929e-23 
 variable eV_to_kcal_per_mole  index 23.0605 
 
-variable joule_to_kcal        index 0.239e-3      # conversion from J to kcal (kcal / J)
-variable delta_phi            index 0.001         # potential difference between electrodes (V)
+variable joule_to_kcal        index 0.239e-3    # conversion from J to kcal (kcal / J)
+variable delta_phi            index 0.00        # potential difference between electrodes (V)
 variable faraday_constant     index 96485.33212 # C / mol
 
 variable hubbard_u            equal "v_hubbard_u_in_eV * v_eV_to_kcal_per_mole"
 
 units           real
 
-boundary        p p p
+boundary        p p f
 neigh_modify    delay 0 every 1 check yes
 
 atom_style      full
@@ -72,6 +73,10 @@ pair_style      coul/long/bsct 12.0
 pair_coeff      * *
 pair_modify     table 0
 kspace_style    pppm/bsct 1.0e-4
+kspace_modify slab 3.0
+
+change_box all z final $(zlo) $(2*zhi)
+
 
 neighbor        1.0 bin
 neigh_modify    delay 0 every 1 check yes
@@ -91,14 +96,14 @@ variable        n_anode  equal "count(anode)"
 variable        anode_pcharge equal "v_ion_charge / v_n_anode"
  
 print           """
-    Uniformly distribute induced charge Q_c = -${ion_charge} onto
+    Uniformly distribute initial charge Q_c = -${ion_charge} onto
     $(v_n_cathode) cathode atoms at partial charge q_c = $(v_cathode_pcharge:%.4e) each
-    and induced charge Q_a = +${ion_charge} onto
-    $(v_n_anode) cathode atoms at partial charge q_a = $(v_anode_pcharge:%.4e) each
+    and Q_a = +${ion_charge} onto
+    $(v_n_anode) anode atoms at partial charge q_a = $(v_anode_pcharge:%.4e) each
                 """
 
-set             group cathode charge $(-v_cathode_pcharge)
-set             group anode charge $(-v_anode_pcharge)
+set             group cathode charge $(v_electrode_charge_scale_factor*v_cathode_pcharge)
+set             group anode charge $(v_electrode_charge_scale_factor*v_anode_pcharge)
 
 
 variable delta_mubar equal "v_joule_to_kcal * v_faraday_constant * v_delta_phi"
@@ -114,7 +119,7 @@ print           """
 # X: chemical potential; U: Hubbard energy; V: band structure contributuon; p: exponent
 # Note that U cannot be "0"
 fix             ct capacitor bsct nevery 1 qtot 0.0 log 3 mode 2 history 10 &
-                beta 0.1 prec 10.0 max_iter 100 &
+                beta 0.1 prec 0.05 max_iter 1000 &
                 type ${cathode_type} $(-v_delta_mubar/2.0) $(v_hubbard_u) 0.0 1.0 &
                 type ${anode_type} $(v_delta_mubar/2.0)  $(v_hubbard_u) 0.0 1.0
 
@@ -123,7 +128,7 @@ fix_modify      ct energy yes
 # fix             integrate ions nve
 
 fix             move_cations  cations move linear 0.0 0.0 -${vel} units box
-fix             move_anions    anions move linear 0.0 0.0 ${vel} units box
+fix             move_anions   anions  move linear 0.0 0.0 ${vel} units box
 
 thermo          1
 thermo_style    custom step temp press etotal ke pe f_ct &

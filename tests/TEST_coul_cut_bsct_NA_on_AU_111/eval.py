@@ -70,7 +70,7 @@ def loadlog(fn):
         l = f.readline()
     s = StringIO()
     l = f.readline()
-    while len(l.split()) == 0 or l.split()[0] != 'Loop':
+    while l and (len(l.split()) == 0 or l.split()[0] != 'Loop'):
         # ignore empty lines and warnings
         if len(l.split()) > 0 and l.split()[0] != 'WARNING:':
           s.write(l)
