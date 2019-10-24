@@ -1,0 +1,39 @@
+units real
+atom_style full
+
+#lattice		custom 4.348 a1 1.0 0.0 0.0 a2 0.0 1.0 0.0 a3 0.0 0.0 1.0&
+			orient x 1 0 -1 orient y -1 2 -1 orient z 1 1 1&
+			basis 0.0 0.0 0.0 basis 0.25 0.25 0.25 basis 0.0 0.5 0.5 basis 0.5 0.0 0.5&
+			basis 0.5 0.5 0.0 basis 0.75 0.75 0.25 basis 0.75 0.25 0.75 basis 0.25 0.75 0.75
+
+
+
+#create_atoms    	2 box basis 1 1 basis 2 1 basis 3 1 basis 4 1 basis 5 1 basis 6 1 basis 7 1 basis 8 1
+
+
+lattice fcc 2.82843
+
+region			box block 0 5.0 0 5.0 0 5.0
+create_box		3 box
+lattice fcc 4 orient x 1 0 -1 orient y -1 2 -1 orient z 1 1 1
+
+
+#region box block 0 1 0 1 0 1 units lattice
+#create_box 3 box
+
+#lattice fcc 4 orient x 1 0 0 orient y 0 1 0 orient z 0 0 1
+#lattice fcc 4 orient x 1 -1 0 orient y 1 1 -2 orient z 1 1 1
+create_atoms 1 box
+
+set type 1 charge 0.0
+
+#change_box all x scale 1.1
+#change_box all y scale 1.1
+#change_box all z scale 1.1
+replicate 2 2 2
+
+mass 1 196.0
+mass 2 22.0
+mass 3 35.0
+
+write_data lower.electrode

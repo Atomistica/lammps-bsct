@@ -1,22 +1,22 @@
+units real
+atom_style full
+
 ## Prepare Au(111) substrate
 
 variable width            index 50.0
 variable depth            index 50.0
 variable height           index 30.0
 
-variable xFactor          index 0.174   #factors for lattice
+variable xFactor          index 0.174
 variable yFactor          index 0.150
 variable zFactor          index 0.142
 
-variable substrate_type             index 1        # type of electrode material
+variable substrate_type             index 1
 variable substrate_mass             index 196.9665 # mass of Au
 variable substrate_lattice_constant index 4.075    # lattice constant of Au at standard conditions
 
-variable cation_type                   index 2
-variable cation_mass                   index 22.98977 # mass of Na
-
-variable anion_type                    index 3
-variable cation_mass                   index 35.45
+variable ion_type                   index 2
+variable ion_mass                   index 22.98977 # mass of Na
 
 # define crystal plane constants
 #
@@ -102,14 +102,10 @@ region          box block $(v_dx/3.0) $(v_actual_width+(v_dx/3.0)) &
 # doc: http://lammps.sandia.gov/doc/region.html
 
 create_box      3 box
-#               ^
-#               how many atom types
-mass 2 22.0
-mass 3 35.0
-mass 4 15.9994
-mass 5 1.008
-
 # doc: http://lammps.sandia.gov/doc/create_box.html
+
+set type 1 charge 0.0
+
 
 print "Initial box measures: $(xlo) $(xhi), $(ylo) $(yhi), $(zlo) $(zhi)"
 
@@ -118,10 +114,8 @@ create_atoms    ${substrate_type} box
 # doc: http://lammps.sandia.gov/doc/create_atoms.html
 
 mass            ${substrate_type} ${substrate_mass}
-#mass            ${ion_type}       ${ion_mass}
-set type 1 charge 0.0
-set type 4 charge -0.834
-set type 5 charge 0.417
+mass            ${ion_type}       ${ion_mass}
+
 # write data file
 write_data      lower.electrode
-#write_dump      all image substrate.png type type modify backcolor white
+write_dump      all image substrate.png type type modify backcolor white

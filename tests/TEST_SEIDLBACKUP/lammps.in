@@ -1,0 +1,75 @@
+# Point charge approaches subbstrate (Na+ above Au(111))
+
+variable dz             index 15.0  # initial distance between ion and substrate (ang)
+variable lower_plate    index 1     # type of substrate (Au)
+variable upper_plate    index 2     # type of substrate (Au)
+variable cation_type    index 3     # type of ion (Na)
+variable cation_charge  index 1.0   # charge of Na+ in "real units": elementary charge
+variable anion_type     index 4     # type of ion (Cl)
+variable anion_charge   index -1.0   # charge of Cl- in "real units": elementary charge
+variable vel            index -0.01 # approach velocity (ang/fs)
+variable timestep       index 2.0   # fs
+variable nsteps         equal "round( abs( v_dz / v_vel / v_timestep ) )"
+
+units           real
+boundary        p p f
+neigh_modify    delay 2 every 1
+
+atom_style      full
+bond_style      harmonic
+angle_style     charmm
+dihedral_style  charmmfsw
+improper_style  harmonic
+special_bonds   charmm
+
+#pair_style      lj/charmmfsw/coul/long/bsct 8.0 12.0 10.0
+pair_style       lj/charmmfsw/coul/charmmfsh/bsct 8.0 12.0 10.0
+#kspace_style pppm/bsct 10e-6
+#kspace_modify slab 3.0
+
+read_data       minimized.lammps
+
+
+timestep        ${timestep}
+
+group lower_plate type  ${lower_plate}
+group upper_plate type  ${upper_plate}
+group capacitor   union lower_plate    upper_plate
+group anions      type  ${anion_type}
+group cations     type  ${cation_type}
+group ions        union anions         cations
+
+delete_atoms group ions
+
+#fix           freeze capacitor setforce 0.0 0.0 0.0
+
+# BSCT FIX SYNTAX
+# fix groupID bsct atomType X U V p keyword values
+# X: chemical potential; V: band structure contribution; U: Hubbard energy; p: exponent; Note that U cannot be "0"
+fix             ct capacitor bsct nevery 1 qtot 0.0 log 3 mode 2 history 10 &
+                beta 0.1 prec 0.00001 max_iter 10 &
+                type ${lower_plate} -.1 0.1 0.0 1.0 &
+                type ${upper_plate}        .1 0.1 0.0 1.0
+#fix_modify      ct energy yes
+
+#fix             go     ions move linear 0.0 0.0 ${vel} units box
+#fix           stay   substrate nve
+#fix           freeze capacitor setforce 0.0 0.0 0.0
+#fix main all nve
+fix bounce_back_top upper_plate wall/reflect zhi EDGE 
+fix bounce_back_bottom lower_plate wall/reflect zlo EDGE
+
+thermo          1
+#f_ct
+thermo_style    custom step temp press etotal ke pe &  
+                epair evdwl ecoul elong etail
+thermo_modify   format float %15.14g norm no
+
+dump            1 all custom 1 dump.custom id mol type x y z q
+dump_modify     1 format line "%d %d %d %f %f %f %15.14e %15.14e"
+
+#run             ${nsteps}
+run 2
+
+write_data      final.lammps
+write_dump      all image final.png type type modify backcolor white

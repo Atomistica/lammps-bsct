@@ -1,0 +1,13 @@
+# LAMMPS coeff file via write_coeff, version 7 Aug 2019
+# pair_style lj/charmmfsw/coul/charmmfsh
+pair_coeff 1 1 5.29 2.62904 5.29 2.62904
+pair_coeff 1 2 5.29 2.62904 5.29 2.62904
+pair_coeff 1 3 0.498097 2.52753 0.498097 2.52753
+pair_coeff 1 4 0.890786 3.26092 0.890786 3.26092
+pair_coeff 2 2 5.29 2.62904 5.29 2.62904
+pair_coeff 2 3 0.498097 2.52753 0.498097 2.52753
+pair_coeff 2 4 0.890786 3.26092 0.890786 3.26092
+pair_coeff 3 3 0.0469 2.42993 0.0469 2.42993
+pair_coeff 3 4 0.0838749 3.13501 0.0838749 3.13501
+pair_coeff 4 4 0.15 4.04468 0.15 4.04468
+

@@ -1,7 +1,7 @@
 # Modify and minimize
 
-variable hvac     index 30.0 # desired height of vacuum
-variable dz       index 15.0 # desired distance between ions and substrate
+variable hvac     index 25.0 # desired height of vacuum
+variable dz       index 8.0 # desired distance between ions and substrate
 variable cation_type index 3    # type of cation (Na+)
 variable anion_type index 4   # type of anion (Cl-)
 
@@ -17,7 +17,10 @@ angle_style     charmm
 dihedral_style  charmmfsw
 improper_style  harmonic
 
-pair_style      lj/charmmfsw/coul/charmmfsh/bsct 8.0 12.0 9.0
+pair_style      lj/charmmfsw/coul/charmmfsh 8.0 12.0 9.0
+pair_coeff 1 2 
+#kspace_style    pppm 10e-6
+#kspace_modify slab 3.0
 
 special_bonds   charmm
 
@@ -32,10 +35,14 @@ print           "  $((zlo)) $((zhi))"
 variable        z0 equal zhi
 variable        zoffset equal "v_z0 + v_hvac" 
 
-# intended position of ion:
-variable        x1 equal $((xhi-xlo)/2.0)
-variable        y1 equal $((yhi-ylo)/2.0)
-variable        z1 equal $(v_z0 + v_dz)
+# intended position of Na+ cation:
+variable        x1 equal $(xlo + v_dz)
+variable        y1 equal $(ylo + v_dz)
+variable        z1 equal $(zhi + v_dz)
+#inteded position of Cl- anion:
+variable        x2 equal $(xhi - v_dz)
+variable        y2 equal $(yhi - v_dz)
+variable        z2 equal $(zhi + v_z0 - v_dz)
 
 read_data       relaxed.lammps add append offset 1 0 0 0 0 shift 0 0 ${zoffset} group upper_electrode
 
@@ -68,9 +75,17 @@ print           "  $((zlo)) $((zhi))"
 
 # change_box      all z final $((zlo)) $((zhi+v_hvac))
 
-group           cation           type  ${ion_type}     # Na+
+group           cation           type  ${cation_type}     # Na+
 group           anion            type  ${anion_type}   # Cl-
 group           bsct_atoms       union lower_electrode upper_electrode
+
+
+print           "Insert Na+ cation at (x,y,z) = ( $((v_x1)), $((v_y1)), $((v_z1)) )"
+create_atoms    ${cation_type} single $((v_x1)) $((v_y1)) $((v_z1))
+set type ${cation_type} charge 1.
+print           "Insert Cl- anion at (x,y,z) = ( $((v_x2)), $((v_y2)), $((v_z2)) )"
+create_atoms    ${anion_type} single $((v_x2)) $((v_y2)) $((v_z2))
+set type ${anion_type} charge -1.
 
 thermo          1
 thermo_style    custom step temp press etotal ke pe &
@@ -83,7 +98,7 @@ thermo_modify   format float %15.14g norm no
 
 ### Minimze the potential energy here.
 ### minimize energy_tol force_tol maxiter maxeval
-minimize        0.0 1.0e-6 1000 1000
+minimize        0.0 1.0e-8 10000 10000
 # Require a force tolerance of ~ 10 Kcal/mole-Angstrom
 # That should correspond to about 400 kJ / (mol*nm)
 
@@ -103,8 +118,8 @@ minimize        0.0 1.0e-6 1000 1000
 # Either or both of the etol and ftol values can be set to 0.0, in which case
 # some other criterion will terminate the minimization.
 
-print           "Insert ion at (x,y,z) = ( $((v_x1)), $((v_y1)), $((v_z1)) )"
-create_atoms    ${ion_type} single $((v_x1)) $((v_y1)) $((v_z1))
+
+
 
 write_data      minimized.lammps
 write_dump      all image minimized.png type type modify backcolor white

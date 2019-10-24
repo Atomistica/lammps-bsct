@@ -1,0 +1,19 @@
+LAMMPS (7 Aug 2019)
+  using 1 OpenMP thread(s) per MPI task
+Crystal plane spacings: 
+   (1,-1,0): 2.88146013333517
+   (1,1,-2): 1.66361178364024
+   (1,1,1):  2.35270234694772
+Measures of box corrected for whole crystal plane spacing multiples:
+  28.8146013333517 29.9450121055243 28.2324281633726
+Lattice measures of box: 5.01374063200319 4.49175181582864 4.00900479919891
+Lattice spacing in x,y,z = 5.76292 6.65445 7.05811
+Created orthogonal box = (0.960487 0.554537 1.17635) to (29.7751 30.4995 29.0167)
+  1 by 1 by 1 MPI processor grid
+Initial box measures: 0.9604867111117233458 29.775088044463423387, 0.55453726121341329058 30.499549366737710443, 1.17635117347386009 29.016662279021840476
+Created 1440 atoms
+  create_atoms CPU = 0.002856 secs
+System init for write_data ...
+WARNING: Communication cutoff is 0.0. No ghost atoms will be generated. Atoms may get lost. (../comm_brick.cpp:166)
+WARNING: Calling write_dump before a full system init. (../write_dump.cpp:80)
+Total wall time: 0:00:00

@@ -3,8 +3,9 @@ atom_style full
 
 boundary p p p
 
+variable hvac index 15
+
 read_data lower.electrode extra/atom/types 1 group lower_electrode
-variable hvac index $(3*(zhi-zlo))
 read_data lower.electrode add append offset 1 0 0 0 0 shift 0 0 ${hvac} group upper_electrode
 #^ adding a second electrode; atom type == 2
 
