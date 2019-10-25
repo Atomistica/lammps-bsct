@@ -3,26 +3,63 @@ atom_style full
 
 boundary p p p
 
-read_data lower.electrode extra/atom/types 1 group lower_electrode
+read_data lower.electrode extra/atom/types 1 group lower_electrode &
+                extra/bond/per/atom 2 &
+                extra/angle/per/atom 1 &
+                extra/special/per/atom 3
 variable hvac index $(3*(zhi-zlo))
 read_data lower.electrode add append offset 1 0 0 0 0 shift 0 0 ${hvac} group upper_electrode
 #^ adding a second electrode; atom type == 2
 
-region vac block $(xlo+0.1*(xhi-xlo)) $(xhi-0.1*(xhi-xlo)) $(ylo+0.1*(xhi-xlo)) $(yhi-0.1*(yhi-ylo)) $(zlo+0.1*(zhi-zlo)) $(zhi-0.1*(zhi-zlo))
+bond_style      harmonic
+angle_style     charmm
+dihedral_style  charmmfsw
+improper_style  harmonic
+special_bonds   charmm
+
+#region vac block $(xlo+0.1*(xhi-xlo)) $(xhi-0.1*(xhi-xlo)) $(ylo+0.1*(xhi-xlo)) $(yhi-0.1*(yhi-ylo)) $(zlo+0.1*(zhi-zlo)) $(zhi-0.1*(zhi-zlo))
 
 pair_style lj/charmmfsw/coul/charmmfsh 8.0 12.0 7.0
 
-pair_coeff 1 1 5.29 2.62904 5.29 2.62904
-pair_coeff 2 2 5.29 2.62904 5.29 2.62904
-pair_coeff 3 3 0.0469 2.42993 0.0469 2.42993
-pair_coeff 4 4 0.15 4.04468 0.15 4.04468
+pair_coeff 1 1 5.29 2.62904 5.29 2.62904        #Au lower electrode 
+pair_coeff 2 2 5.29 2.62904 5.29 2.62904        #Au upper electrode
+pair_coeff 3 3 0.0469 2.42993 0.0469 2.42993    #Na cation
+pair_coeff 4 4 0.15 4.04468 0.15 4.04468        #Cl anion
+pair_coeff 5 5 0.1521 3.1507                    #oxygen
+pair_coeff 6 6 0.0460 0.4000                    #hydrogen
+pair_coeff 5 6 0.0836 1.7753                    #O-H
+
+bond_coeff 1 450. 0.9572                          #bond_style harmonic:: line syntax:: ID K(spring constant) r_0 (default distance)
+angle_coeff 1 55.0 104.52 0.0 3.0              #angle_style charmm::line syntax :: ID K(harmonic spring constant) Theta0(default angle) K_UB(Urey-Bradley spring constant) r_ub(Urey-Bradley default distance)
+
+molecule water water.xyz
+
+region vac block $(xlo) $(xhi) $(ylo) $(yhi) 30 80
+
+#create_atoms 3 single $(xlo + (xhi-xlo)/3) $(ylo + (yhi-ylo)/3) $(zlo + (zhi-zlo)*0.4)
+#create_atoms 4 single $(xlo + (xhi-xlo)*2/3) $(ylo + (yhi-ylo)*2/3) $(zlo + (zhi-zlo)*0.5)
+create_atoms 3 random 1000 122245 vac
+create_atoms 4 random 1000 5422321 vac
+set type 3 charge 1
+set type 4 charge -1
+#add water:
+#create_atoms 5 single $(xlo + (xhi-xlo)/3) $(ylo + (yhi-ylo)/3) $(zlo + (zhi-zlo)*0.45)
+#create_atoms 6 single $(xlo + (xhi-xlo)/3) $(ylo + (yhi-ylo)/3) $(zlo + (zhi-zlo)*0.46)
+
+create_atoms 0 random 5000 12345 vac mol water 12345 
+#create_atoms 5 random 10 12345 vac
+
+change_box all z final $(zlo) $(2*zhi)
+#^add vacuum above top electrode 
+
 pair_modify mix geometric
 
 thermo 100
 thermo_style custom step temp press etotal ke pe ebond epair evdwl ecoul elong
 thermo_modify   format float %15.14g norm no
 
-minimize 0.0 1.0e-9 10000 10000
+
+minimize 0.0 1.0e-6 10000 10000
 
 write_coeff     coeffs.setup
 write_data      electrodes.setup nocoeff

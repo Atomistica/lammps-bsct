@@ -101,15 +101,22 @@ region          box block $(v_dx/3.0) $(v_actual_width+(v_dx/3.0)) &
 #                                     ^  ^z-direction 
 # doc: http://lammps.sandia.gov/doc/region.html
 
-create_box      3 box
-#               ^
-#               how many atom types
+#CREATE BOX
+# doc: http://lammps.sandia.gov/doc/create_box.html
+create_box      5 box &
+                bond/types 1  &
+                angle/types 1 &
+                extra/bond/per/atom 2 &
+                extra/angle/per/atom 1 &
+                extra/special/per/atom 3
+
+mass            ${substrate_type} ${substrate_mass}
 mass 2 22.0
 mass 3 35.0
 mass 4 15.9994
 mass 5 1.008
 
-# doc: http://lammps.sandia.gov/doc/create_box.html
+
 
 print "Initial box measures: $(xlo) $(xhi), $(ylo) $(yhi), $(zlo) $(zhi)"
 
@@ -117,11 +124,8 @@ print "Initial box measures: $(xlo) $(xhi), $(ylo) $(yhi), $(zlo) $(zhi)"
 create_atoms    ${substrate_type} box
 # doc: http://lammps.sandia.gov/doc/create_atoms.html
 
-mass            ${substrate_type} ${substrate_mass}
-#mass            ${ion_type}       ${ion_mass}
 set type 1 charge 0.0
-set type 4 charge -0.834
-set type 5 charge 0.417
+
 # write data file
 write_data      lower.electrode
 #write_dump      all image substrate.png type type modify backcolor white

@@ -1,7 +1,11 @@
 LAMMPS data file via write_data, version 7 Aug 2019, timestep = 0
 
 4320 atoms
-3 atom types
+5 atom types
+0 bonds
+1 bond types
+0 angles
+1 angle types
 
 9.6048671111172335e-01 5.2826769111144820e+01 xlo xhi
 5.5453726121341329e-01 5.0462890770420614e+01 ylo yhi
@@ -12,6 +16,8 @@ Masses
 1 196.966
 2 22
 3 35
+4 15.9994
+5 1.008
 
 Atoms # full
 
