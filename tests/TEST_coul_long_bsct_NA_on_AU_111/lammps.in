@@ -72,8 +72,28 @@ group ions      union anions cations
 pair_style      coul/long/bsct 12.0
 pair_coeff      * *
 pair_modify     table 0
-kspace_style    pppm/bsct 1.0e-4
-kspace_modify slab 3.0
+kspace_style    pppm/bsct 1.0e-6
+kspace_modify   slab 3.0 mesh 5 5 80 order 7
+# The mesh keyword sets the grid size for kspace style pppm or msm. In the case
+# of PPPM, this is the FFT mesh, and each dimension must be factorizable into
+# powers of 2, 3, and 5. In the case of MSM, this is the finest scale real-space
+# mesh, and each dimension must be factorizable into powers of 2. When this
+# option is not set, the PPPM or MSM solver chooses its own grid size,
+# consistent with the user-specified accuracy and pairwise cutoff. Values for
+# x,y,z of 0,0,0 unset the option.
+#
+# The order keyword determines how many grid spacings an atom's charge extends
+# when it is mapped to the grid in kspace style pppm or msm. The default for
+# this parameter is 5 for PPPM and 8 for MSM, which means each charge spans 5 or
+# 8 grid cells in each dimension, respectively. For the LAMMPS implementation of
+# MSM, the order can range from 4 to 10 and must be even. For PPPM, the minimum
+# allowed setting is 2 and the maximum allowed setting is 7. The larger the
+# value of this parameter, the smaller that LAMMPS will set the grid size, to
+# achieve the requested accuracy. Conversely, the smaller the order value, the
+# larger the grid size will be. Note that there is an inherent trade-off
+# involved: a small grid will lower the cost of FFTs or MSM direct sum, but a
+# larger order parameter will increase the cost of interpolating charge/fields
+# to/from the grid.
 
 change_box all z final $(zlo) $(2*zhi)
 
