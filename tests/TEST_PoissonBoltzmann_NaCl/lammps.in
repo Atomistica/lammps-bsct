@@ -1,0 +1,120 @@
+
+units           real
+boundary        p p f
+
+atom_style      full
+bond_style      harmonic
+angle_style     charmm
+dihedral_style  charmmfsw
+improper_style  harmonic
+special_bonds   charmm
+
+pair_style      lj/charmmfsw/coul/long/bsct 8.0 12.0 7.0
+
+pair_modify table 0
+
+kspace_style pppm/bsct 1.0e-4
+kspace_modify slab 3.0
+#kspace_modify mesh 125 120 864
+kspace_modify mesh 40 36 288
+
+neighbor 5.0 bin
+#^        ^   ^
+#         ^   style of neighbor list build
+#         extra skin distance beyond force cutoff (length units)      
+#neigh_modify delay 0 every 1 check yes
+neigh_modify every 1
+
+read_data       electrodes.setup &
+                extra/bond/per/atom 2 &
+                extra/angle/per/atom 1 &
+                extra/special/per/atom 3
+
+include coeffs.setup
+
+
+
+group lower_plate type  1
+group upper_plate type  2
+group capacitor   union lower_plate    upper_plate
+group anions      type  4
+group cations     type  3
+group ions        union anions         cations
+group hydrogen type 6
+group oxygen type 5
+group water union hydrogen oxygen
+group non_sub union water ions
+
+fix main non_sub nve
+fix rigidHbonds water rattle 1e-6 100 50 b 1 a 1
+
+
+# BSCT FIX SYNTAX:
+# fix groupID bsct atomType X U V p keyword values
+# X: chemical potential; U: Hubbard energy; V: band structure contribution; p: exponent; Note that U cannot be "0"
+fix             ct capacitor bsct nevery 50 qtot 0.0 log 3 mode 2 history 10 &
+                beta 0.1 prec 1.05 max_iter 100 &
+                type 1 50.1 150 0.0 1.0 &
+                type 2 -50.1 150 0.0 1.0 
+
+fix_modify      ct energy yes
+
+
+#fix 5 all ave/time 5 10 100
+#                          Nevery Nrepeat Nfreq
+
+thermo          1
+thermo_style    custom step temp press etotal ke pe f_ct &  
+                epair evdwl ecoul elong etail
+thermo_modify   format float %15.14g norm no
+
+
+
+dump            1 all custom 500 dump.custom id mol type x y z q
+dump_modify     1 format line "%d %d %d %f %f %f %15.14e %15.14e"
+
+timestep        1
+run 100000
+
+log log.lammps append
+
+write_data      final.lammps
+
+
+
+
+####### JunkYard
+
+#fix             go     ions move linear 0.0 0.0 ${vel} units box
+#fix           stay   substrate nve
+#fix           freeze capacitor setforce 0.0 0.0 0.0
+#fix main all nve
+#fix bounce_back_top upper_plate wall/reflect zhi EDGE 
+#fix bounce_back_bottom lower_plate wall/reflect zlo EDGE
+
+#write_dump      all image final.png type type modify backcolor white
+#dump 1 all atom 100 dump.custom
+
+#create_atoms 3 single $(xlo+0.2*(xhi-xlo)) $(ylo+0.2*(xhi-xlo)) $((v_hvac)*0.65)
+#create_atoms 4 single $(xhi-0.2*(xhi-xlo)) $(yhi-0.2*(yhi-ylo)) $((v_hvac)*0.35)
+#create_atoms 3 random 1 122245 vac
+#create_atoms 4 random 1 5422321 vac
+
+#pair_style       lj/charmmfsw/coul/charmmfsh/bsct 8.0 12.0 7.0
+#pair_style coul/long/bsct 12.0
+
+#kspace_modify overlap no
+#kspace_modify order 4
+#kspace_modify disp/auto yes
+#kspace_modify compute no
+
+#region vac block $(xlo+0.1*(xhi-xlo)) $(xhi-0.1*(xhi-xlo)) $(ylo+0.1*(xhi-xlo)) $(yhi-0.1*(yhi-ylo)) $(zlo+0.1*(zhi-zlo)) $(zhi-0.1*(zhi-zlo))
+
+#delete_atoms group ions
+
+#fix           freeze capacitor setforce 0.0 0.0 0.0
+#variable hvac index 15
+
+#&
+#                type 3 0 1 0.0 1.0 &
+#                type 4 0 1 0.0 1.0

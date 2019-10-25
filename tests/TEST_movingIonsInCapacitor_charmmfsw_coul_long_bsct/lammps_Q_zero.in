@@ -1,0 +1,125 @@
+# Point charges approaches subbstrate (Na+ anc Cl- above Au(111))
+
+variable cathode_type         index 1     # type of substrate (Au)
+variable anode_type           index 2     # type of substrate (Au)
+variable cation_type          index 3     # type of cation (Na+)
+variable anion_type           index 4     # type of anion (Cl-)
+variable ion_charge           index 1.0   # charge of Na+ in "real units": elementary charge
+variable electrode_charge_scale_factor index 1.0
+variable final_dz             index 2.0   # Ang
+variable vel                  index 0.01  # approach velocity (ang/fs)
+variable timestep             index 2.0   # fs
+
+variable hubbard_u_in_eV      index 6.8 # eV
+
+variable eV_to_kcal           index 3.82929e-23 
+variable eV_to_kcal_per_mole  index 23.0605 
+
+variable joule_to_kcal        index 0.239e-3    # conversion from J to kcal (kcal / J)
+variable delta_phi            index 0.00        # potential difference between electrodes (V)
+variable faraday_constant     index 96485.33212 # C / mol
+
+variable hubbard_u            equal "v_hubbard_u_in_eV * v_eV_to_kcal_per_mole"
+
+units           real
+
+boundary        p p f
+neigh_modify    delay 0 every 1 check yes
+
+atom_style      full
+
+# include coeffs.setup
+
+read_data       minimized.lammps
+
+group cathode type  ${cathode_type}
+group anode type    ${anode_type}
+group capacitor     union cathode anode
+
+variable lower_interface_z equal "bound(cathode,zmax)"
+variable upper_interface_z equal "bound(anode,zmin)"
+variable hvac              equal "v_upper_interface_z - v_lower_interface_z"
+
+print           """
+  Inter-plate distance d = $(v_hvac:%.2e) ang between lower interface at
+  z_0 = $(v_lower_interface_z:%.2e) and upper interface at z_1 = $(v_upper_interface_z:%.2e).
+              """
+variable cation_x equal "1.0/4.0*(xhi - xlo)"
+variable anion_x  equal "3.0/4.0*(xhi - xlo)"
+variable cation_y equal "1.0/4.0*(yhi - ylo)"
+variable anion_y  equal "3.0/4.0*(yhi - ylo)"
+
+variable cation_z equal "(v_lower_interface_z + v_upper_interface_z)/2.0"
+variable anion_z  equal  "(v_lower_interface_z + v_upper_interface_z)/2.0"
+
+variable dz       equal "v_cation_z - v_lower_interface_z" # initial distance between ion and substrate (ang)
+variable nsteps   equal "round( abs( (v_dz - v_final_dz) / v_vel / v_timestep ) )"
+
+create_atoms ${cation_type} single ${cation_x} ${cation_y} ${cation_z}
+create_atoms ${anion_type} single ${anion_x} ${anion_y} ${anion_z}
+
+set type ${cation_type} charge ${ion_charge}
+set type ${anion_type}  charge -${ion_charge}
+
+print           """
+    Cation placed at (x,y,z) = ( ${cation_x}, ${cation_y}, ${cation_z} ) ang.
+    Anion  placed at (x,y,z) = ( ${anion_x}, ${anion_y}, ${anion_z} ) ang.
+                """
+
+group anions    type  ${anion_type}
+group cations   type  ${cation_type}
+group ions      union anions cations
+
+pair_style  lj/charmmfsw/coul/long/bsct 8.0 12.0 12.0
+pair_coeff  * * 0.0 0.0
+
+kspace_style pppm/bsct 1e-6
+kspace_modify slab 3.0
+
+
+timestep        ${timestep}
+
+print           """
+    Cation at initial distance dz = $(v_dz:%.2e) ang approaches substrate
+    at velocity v = $(v_vel:%.2e) ang / fs over $(v_nsteps) time steps
+    of ${timestep} fs each.
+                """
+
+set             group cathode charge 0
+set             group anode charge 0
+
+
+variable delta_mubar equal "v_joule_to_kcal * v_faraday_constant * v_delta_phi"
+
+print           """
+    Potential difference of delta_phi = $(v_delta_phi:%.2e) V
+    corresponds to electrochemical potential difference of
+    delta_mu = $(v_delta_mubar:%.2e) kcal / mol or $((v_delta_mubar/v_joule_to_kcal):%.2e) J / mol
+                """
+
+# BSCT FIX SYNTAX
+# fix groupID bsct atomType X U V p keyword values
+# X: chemical potential; U: Hubbard energy; V: band structure contributuon; p: exponent
+# Note that U cannot be "0"
+fix             ct capacitor bsct nevery 1 qtot 0.0 log 3 mode 2 history 100 &
+                beta 0.1 prec 0.050 max_iter 1000 &
+                type ${cathode_type} $(-v_delta_mubar/2.0) $(v_hubbard_u) 0.0 1.0 &
+                type ${anode_type} $(v_delta_mubar/2.0)  $(v_hubbard_u) 0.0 1.0
+
+fix_modify      ct energy yes
+
+fix             move_cations  cations move linear 0.0 0.0 -${vel} units box
+fix             move_anions   anions  move linear 0.0 0.0 ${vel} units box
+
+thermo          1
+thermo_style    custom step temp press etotal ke pe f_ct &
+                ebond eangle edihed eimp epair evdwl ecoul elong etail
+thermo_modify   format float %15.14g norm no
+
+dump            1 all custom 1 dump.Q_zero.custom id mol type x y z q f_ct
+dump_modify     1 format line "%d %d %d %f %f %f %15.14e %15.14e"
+
+run             ${nsteps}
+
+write_data      final.lammps
+write_dump      all image final.png type type modify backcolor white
