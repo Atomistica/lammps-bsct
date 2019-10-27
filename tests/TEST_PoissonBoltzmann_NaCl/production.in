@@ -1,0 +1,42 @@
+#read_restart restart_files/equilibrated_*_timesteps_processor_%.restart
+read_restart /work/ws/nemo/fr_jh1130-bsct-0/local_modules/lammps/07Aug19/src/USER-BSCT/tests/TEST_PoissonBoltzmann_NaCl/restart_files/equilibrated_*_timesteps_processor_%.restart
+kspace_style pppm/bsct 1.0e-6
+kspace_modify slab 3.0
+neigh_modify delay 0 every 1 check yes
+
+fix main non_sub nve 
+fix rigidHbonds water rattle 1e-6 100 0 b 1 a 1
+
+# BSCT FIX SYNTAX:
+# fix groupID bsct atomType X U V p keyword values
+# X: chemical potential; U: Hubbard energy; V: band structure contribution; p: exponent; Note that U cannot be "0"
+fix             ct capacitor bsct nevery 50 qtot 0.0 log 3 mode 2 history 10 &
+                beta 0.1 prec .05 max_iter 20 &
+                type 1 500.1 150 0.0 1.0 &
+                type 2 -500.1 150 0.0 1.0 
+
+fix_modify      ct energy yes
+
+
+#fix 5 all ave/time 5 10 100
+#                          Nevery Nrepeat Nfreq
+
+thermo          1
+compute water_temp non_sub temp
+
+thermo_style    custom step c_water_temp press etotal ke pe f_ct &  
+                epair evdwl ecoul elong etail
+
+thermo_modify   format float %15.14g norm no
+
+dump            1 all custom 1000 dump.production id mol type x y z q
+dump_modify     1 format line "%d %d %d %f %f %f %15.14e %15.14e"
+
+timestep        0.33333333
+run 300000
+
+log log.production append
+
+write_data      data.production
+
+write_restart restart_files/produced_*_timesteps_processor_%.restart

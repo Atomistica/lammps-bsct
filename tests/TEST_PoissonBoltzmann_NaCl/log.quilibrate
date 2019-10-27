@@ -1,0 +1,58 @@
+
+write_data      data.equilibrate
+PPPM initialization ...
+  using polynomial approximation for long-range coulomb (../kspace.cpp:323)
+  G vector (1/distance) = 0.270772
+  grid = 60 54 360
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.000369506
+  estimated relative force accuracy = 1.11273e-06
+  using double precision FFTW3
+  3d grid and FFT values/proc = 335886 213840
+
+write_restart restart_files/equilibrated_*_timesteps_processor_%.restart
+PPPM initialization ...
+  using polynomial approximation for long-range coulomb (../kspace.cpp:323)
+  G vector (1/distance) = 0.270772
+  grid = 60 54 360
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.000369506
+  estimated relative force accuracy = 1.11273e-06
+  using double precision FFTW3
+  3d grid and FFT values/proc = 335886 213840
+
+
+####### JunkYard
+
+#fix             go     ions move linear 0.0 0.0 ${vel} units box
+#fix           stay   substrate nve
+#fix           freeze capacitor setforce 0.0 0.0 0.0
+#fix main all nve
+#fix bounce_back_top upper_plate wall/reflect zhi EDGE
+#fix bounce_back_bottom lower_plate wall/reflect zlo EDGE
+
+#write_dump      all image final.png type type modify backcolor white
+#dump 1 all atom 100 dump.custom
+
+#create_atoms 3 single $(xlo+0.2*(xhi-xlo)) $(ylo+0.2*(xhi-xlo)) $((v_hvac)*0.65)
+#create_atoms 4 single $(xhi-0.2*(xhi-xlo)) $(yhi-0.2*(yhi-ylo)) $((v_hvac)*0.35)
+#create_atoms 3 random 1 122245 vac
+#create_atoms 4 random 1 5422321 vac
+
+#pair_style       lj/charmmfsw/coul/charmmfsh/bsct 8.0 12.0 7.0
+#pair_style coul/long/bsct 12.0
+
+#kspace_modify overlap no
+#kspace_modify order 4
+#kspace_modify disp/auto yes
+#kspace_modify compute no
+
+#region vac block $(xlo+0.1*(xhi-xlo)) $(xhi-0.1*(xhi-xlo)) $(ylo+0.1*(xhi-xlo)) $(yhi-0.1*(yhi-ylo)) $(zlo+0.1*(zhi-zlo)) $(zhi-0.1*(zhi-zlo))
+
+#delete_atoms group ions
+
+#fix           freeze capacitor setforce 0.0 0.0 0.0
+#variable hvac index 15
+
+##                type 3 0 1 0.0 1.0 #                type 4 0 1 0.0 1.0
+Total wall time: 0:27:54

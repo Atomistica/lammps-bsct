@@ -1,4 +1,4 @@
-LAMMPS data file via write_data, version 7 Aug 2019, timestep = 0
+LAMMPS data file via write_data, version 7 Aug 2019, timestep = 1
 
 4320 atoms
 5 atom types
@@ -9,7 +9,7 @@ LAMMPS data file via write_data, version 7 Aug 2019, timestep = 0
 
 9.6048671111172335e-01 5.2826769111144820e+01 xlo xhi
 5.5453726121341329e-01 5.0462890770420614e+01 ylo yhi
-1.1763511734738601e+00 2.9016662279021840e+01 zlo zhi
+2.3499183158371646e+00 2.8235212194483264e+01 zlo zhi
 
 Masses
 

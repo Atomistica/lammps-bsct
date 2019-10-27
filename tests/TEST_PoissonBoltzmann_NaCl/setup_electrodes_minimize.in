@@ -10,17 +10,34 @@ read_data lower.electrode extra/atom/types 1 group lower_electrode &
                 extra/bond/per/atom 2 &
                 extra/angle/per/atom 1 &
                 extra/special/per/atom 3
-variable hvac index $(3*(zhi-zlo))
+variable avogadro equal (6.02214076*10^(23))
+variable electrode_shift equal $(3*(zhi-zlo))
 variable electrode_height equal $(zhi)
-variable vac_volume equal $( (xhi-xlo) * (yhi-ylo) * v_hvac )
-
-#rough numbers: 1gram/cm³ / (1mol/18gram) = 6/18*10^(23)/cm³=1/3*0.1/angstrom³=1/30 per cubic angstrom
-variable water_molecules_number equal $( floor(1/30 * v_vac_volume) )
-
+variable vac_height equal $(v_electrode_shift)
+variable vac_volume equal $( (xhi-xlo) * (yhi-ylo) * v_vac_height )
+#enter number between 0 ... 0.2 
+variable weight_concentration_NaCl equal 0.2
+#calculate saline mass density g/cm³
+variable saline_mass_density equal $( 1 + v_weight_concentration_NaCl * .15 / 20)
+#calculate total saline mass, volume in angstrom!
+variable saline_mass equal $(v_vac_volume * 10^(-24) * v_saline_mass_density)
+#rough numbers: 1gram/cm³ / (18g/mol) = 1/18 mol/cm³ = 6/18*10^(23)/cm³ = 1/3*0.1/angstrom³=1/30 atom per cubic angstrom
+variable water_molar_mass equal 18.015
 #isotonic solution: 9g NaCl/liter_H2O -> 1kg H2O == 1kg/0.018kg/mole=55.5555 mole; 9g NaCl / (22.9+35.5)g/mole = 0.15411 mole -->>> 1 NaCl for every 360 waters
-variable Na_Cl_atoms_number equal $(floor(v_water_molecules_number / 360 / 2) )
+variable salt_molar_mass equal 58.44
+#calculate mixed molar mass
+variable mixed_molar_mass equal $( (1-v_weight_concentration_NaCl) * v_water_molar_mass + v_weight_concentration_NaCl * v_salt_molar_mass )
+#calculate total number of molecules
+variable number_NaCl equal $( floor(v_saline_mass * v_weight_concentration_NaCl / v_salt_molar_mass / 2 * v_avogadro) )
+variable number_water equal $( floor( v_saline_mass * (1 - v_weight_concentration_NaCl) / v_water_molar_mass * v_avogadro) )
 
-read_data lower.electrode add append offset 1 0 0 0 0 shift 0 0 ${hvac} group upper_electrode
+
+#variable water_molecules_number equal $( floor(1/30 * v_vac_volume ) * 0.76)
+
+
+#variable Na_Cl_atoms_number equal $(floor(v_water_molecules_number / 360 / 2)*50 )
+
+read_data lower.electrode add append offset 1 0 0 0 0 shift 0 0 ${electrode_shift} group upper_electrode
 #^ adding a second electrode; atom type == 2
 
 bond_style      harmonic
@@ -46,31 +63,45 @@ angle_coeff 1 55.0 104.52 0.0 3.0              #angle_style charmm::line syntax 
 
 molecule water water.xyz
 
-region vac block $(xlo) $(xhi) $(ylo) $(yhi) $(v_electrode_height) $(v_electrode_height + v_hvac)
+region vac block $(xlo) $(xhi) $(ylo) $(yhi) $(v_electrode_height*1.10) $(v_vac_height)
 
 #create_atoms 3 single $(xlo + (xhi-xlo)/3) $(ylo + (yhi-ylo)/3) $(zlo + (zhi-zlo)*0.4)
 #create_atoms 4 single $(xlo + (xhi-xlo)*2/3) $(ylo + (yhi-ylo)*2/3) $(zlo + (zhi-zlo)*0.5)
-create_atoms 3 random 1000 122245 vac
-create_atoms 4 random 1000 5422321 vac
+create_atoms 3 random $(v_number_NaCl) 122245 vac
+create_atoms 4 random $(v_number_NaCl) 5422321 vac
 set type 3 charge 1
 set type 4 charge -1
 #add water:
 #create_atoms 5 single $(xlo + (xhi-xlo)/3) $(ylo + (yhi-ylo)/3) $(zlo + (zhi-zlo)*0.45)
 #create_atoms 6 single $(xlo + (xhi-xlo)/3) $(ylo + (yhi-ylo)/3) $(zlo + (zhi-zlo)*0.46)
 
-create_atoms 0 random $(v_water_molecules_number) 12345 vac mol water 12345 
+create_atoms 0 random $(v_number_water) 12345 vac mol water 12345 
 #create_atoms 5 random 10 12345 vac
 
 change_box all z final $(zlo) $(2*zhi)
 #^add vacuum above top electrode 
 
+group lower_plate type  1
+group upper_plate type  2
+group capacitor   union lower_plate    upper_plate
+group anions      type  4
+group cations     type  3
+group ions        union anions         cations
+group hydrogen type 6
+group oxygen type 5
+group water union hydrogen oxygen
+group non_sub union water ions
+
 pair_modify mix geometric
 
+compute water_temp non_sub temp
+#compute  water_press non_sub pressure c_water_temp
+
 thermo 100
-thermo_style custom step temp press etotal ke pe ebond epair evdwl ecoul elong
+thermo_style custom step c_water_temp press etotal ke pe ebond epair evdwl ecoul elong
 thermo_modify   format float %15.14g norm no
 
-
+fix steady_capacitor capacitor setforce 0. 0. 0.
 minimize 0.0 1.0e-6 10000 10000
 
 write_coeff     coeffs.setup

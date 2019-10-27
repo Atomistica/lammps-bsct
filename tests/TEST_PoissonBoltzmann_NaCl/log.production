@@ -1,0 +1,3052 @@
+
+write_data      data.production
+PPPM initialization ...
+  using polynomial approximation for long-range coulomb (../kspace.cpp:323)
+  G vector (1/distance) = 0.27091
+  grid = 60 54 360
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.000398019
+  estimated relative force accuracy = 1.1986e-06
+  using double precision FFTW3
+  3d grid and FFT values/proc = 335886 213840
+Neighbor list info ...
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 14
+  ghost atom cutoff = 14
+  binsize = 7, bins = 8 8 30
+  602 neighbor lists, perpetual/occasional/extra = 602 0 0
+  (1) pair lj/charmmfsw/coul/long/bsct, perpetual
+      attributes: half, newton on
+      pair build: half/bin/newton
+      stencil: half/bin/3d/newton
+      bin: standard
+  (2) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (3) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (4) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (5) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (6) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (7) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (8) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (9) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (10) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (11) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (12) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (13) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (14) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (15) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (16) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (17) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (18) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (19) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (20) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (21) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (22) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (23) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (24) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (25) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (26) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (27) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (28) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (29) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (30) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (31) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (32) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (33) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (34) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (35) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (36) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (37) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (38) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (39) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (40) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (41) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (42) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (43) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (44) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (45) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (46) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (47) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (48) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (49) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (50) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (51) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (52) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (53) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (54) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (55) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (56) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (57) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (58) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (59) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (60) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (61) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (62) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (63) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (64) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (65) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (66) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (67) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (68) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (69) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (70) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (71) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (72) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (73) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (74) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (75) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (76) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (77) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (78) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (79) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (80) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (81) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (82) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (83) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (84) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (85) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (86) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (87) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (88) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (89) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (90) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (91) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (92) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (93) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (94) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (95) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (96) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (97) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (98) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (99) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (100) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (101) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (102) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (103) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (104) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (105) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (106) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (107) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (108) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (109) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (110) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (111) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (112) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (113) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (114) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (115) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (116) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (117) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (118) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (119) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (120) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (121) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (122) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (123) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (124) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (125) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (126) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (127) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (128) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (129) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (130) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (131) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (132) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (133) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (134) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (135) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (136) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (137) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (138) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (139) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (140) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (141) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (142) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (143) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (144) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (145) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (146) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (147) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (148) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (149) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (150) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (151) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (152) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (153) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (154) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (155) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (156) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (157) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (158) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (159) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (160) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (161) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (162) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (163) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (164) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (165) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (166) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (167) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (168) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (169) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (170) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (171) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (172) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (173) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (174) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (175) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (176) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (177) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (178) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (179) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (180) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (181) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (182) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (183) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (184) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (185) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (186) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (187) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (188) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (189) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (190) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (191) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (192) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (193) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (194) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (195) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (196) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (197) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (198) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (199) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (200) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (201) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (202) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (203) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (204) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (205) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (206) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (207) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (208) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (209) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (210) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (211) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (212) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (213) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (214) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (215) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (216) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (217) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (218) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (219) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (220) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (221) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (222) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (223) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (224) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (225) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (226) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (227) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (228) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (229) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (230) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (231) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (232) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (233) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (234) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (235) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (236) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (237) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (238) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (239) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (240) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (241) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (242) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (243) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (244) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (245) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (246) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (247) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (248) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (249) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (250) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (251) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (252) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (253) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (254) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (255) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (256) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (257) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (258) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (259) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (260) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (261) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (262) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (263) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (264) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (265) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (266) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (267) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (268) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (269) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (270) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (271) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (272) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (273) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (274) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (275) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (276) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (277) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (278) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (279) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (280) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (281) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (282) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (283) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (284) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (285) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (286) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (287) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (288) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (289) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (290) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (291) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (292) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (293) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (294) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (295) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (296) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (297) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (298) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (299) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (300) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (301) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (302) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (303) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (304) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (305) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (306) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (307) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (308) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (309) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (310) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (311) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (312) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (313) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (314) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (315) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (316) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (317) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (318) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (319) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (320) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (321) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (322) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (323) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (324) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (325) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (326) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (327) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (328) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (329) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (330) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (331) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (332) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (333) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (334) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (335) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (336) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (337) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (338) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (339) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (340) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (341) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (342) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (343) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (344) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (345) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (346) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (347) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (348) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (349) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (350) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (351) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (352) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (353) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (354) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (355) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (356) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (357) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (358) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (359) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (360) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (361) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (362) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (363) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (364) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (365) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (366) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (367) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (368) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (369) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (370) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (371) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (372) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (373) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (374) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (375) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (376) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (377) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (378) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (379) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (380) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (381) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (382) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (383) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (384) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (385) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (386) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (387) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (388) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (389) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (390) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (391) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (392) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (393) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (394) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (395) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (396) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (397) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (398) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (399) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (400) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (401) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (402) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (403) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (404) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (405) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (406) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (407) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (408) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (409) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (410) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (411) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (412) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (413) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (414) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (415) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (416) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (417) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (418) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (419) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (420) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (421) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (422) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (423) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (424) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (425) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (426) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (427) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (428) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (429) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (430) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (431) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (432) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (433) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (434) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (435) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (436) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (437) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (438) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (439) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (440) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (441) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (442) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (443) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (444) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (445) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (446) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (447) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (448) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (449) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (450) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (451) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (452) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (453) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (454) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (455) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (456) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (457) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (458) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (459) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (460) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (461) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (462) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (463) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (464) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (465) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (466) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (467) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (468) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (469) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (470) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (471) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (472) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (473) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (474) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (475) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (476) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (477) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (478) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (479) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (480) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (481) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (482) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (483) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (484) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (485) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (486) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (487) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (488) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (489) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (490) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (491) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (492) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (493) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (494) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (495) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (496) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (497) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (498) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (499) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (500) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (501) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (502) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (503) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (504) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (505) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (506) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (507) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (508) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (509) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (510) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (511) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (512) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (513) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (514) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (515) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (516) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (517) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (518) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (519) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (520) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (521) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (522) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (523) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (524) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (525) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (526) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (527) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (528) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (529) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (530) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (531) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (532) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (533) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (534) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (535) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (536) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (537) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (538) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (539) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (540) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (541) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (542) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (543) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (544) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (545) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (546) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (547) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (548) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (549) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (550) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (551) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (552) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (553) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (554) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (555) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (556) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (557) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (558) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (559) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (560) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (561) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (562) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (563) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (564) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (565) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (566) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (567) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (568) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (569) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (570) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (571) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (572) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (573) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (574) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (575) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (576) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (577) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (578) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (579) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (580) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (581) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (582) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (583) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (584) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (585) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (586) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (587) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (588) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (589) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (590) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (591) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (592) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (593) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (594) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (595) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (596) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (597) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (598) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (599) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (600) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (601) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (602) pair lj/charmmfsw/coul/long/bsct, perpetual, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+
+write_restart restart_files/produced_*_timesteps_processor_%.restart
+PPPM initialization ...
+  using polynomial approximation for long-range coulomb (../kspace.cpp:323)
+  G vector (1/distance) = 0.27091
+  grid = 60 54 360
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.000398019
+  estimated relative force accuracy = 1.1986e-06
+  using double precision FFTW3
+  3d grid and FFT values/proc = 335886 213840
+Neighbor list info ...
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 14
+  ghost atom cutoff = 14
+  binsize = 7, bins = 8 8 30
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair lj/charmmfsw/coul/long/bsct, perpetual
+      attributes: half, newton on
+      pair build: half/bin/newton
+      stencil: half/bin/3d/newton
+      bin: standard
+Total wall time: 1:53:14

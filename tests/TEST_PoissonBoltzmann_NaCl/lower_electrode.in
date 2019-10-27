@@ -103,6 +103,7 @@ region          box block $(v_dx/3.0) $(v_actual_width+(v_dx/3.0)) &
 
 #CREATE BOX
 # doc: http://lammps.sandia.gov/doc/create_box.html
+boundary p p s
 create_box      5 box &
                 bond/types 1  &
                 angle/types 1 &
@@ -125,6 +126,9 @@ create_atoms    ${substrate_type} box
 # doc: http://lammps.sandia.gov/doc/create_atoms.html
 
 set type 1 charge 0.0
+
+
+minimize 0.0 1.0e-6 10000 10000
 
 # write data file
 write_data      lower.electrode
